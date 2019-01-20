@@ -16,7 +16,6 @@ export default new Vuex.Store({
   },
   mutations: {
     ADD_TODAYS_PROGRAMS(state, todaysPrograms) {
-      console.log('store: todaysPrograms = ', todaysPrograms)
       state.todaysPrograms = todaysPrograms
     }
   },
@@ -24,5 +23,5 @@ export default new Vuex.Store({
     addTodaysPrograms(context) {
       ajaxAddTodaysPrograms(context)
     }
-  },
+  }
 })

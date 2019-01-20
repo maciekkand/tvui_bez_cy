@@ -4,7 +4,6 @@
 export default {
   computed: {
     items() {
-      console.log('getTodaysPrograms = ', this.$store.getters.getTodaysPrograms)
       return this.$store.getters.getTodaysPrograms
     },
     fields() {
@@ -15,7 +14,6 @@ export default {
     }
   },
   created() {
-    console.log('created(): addTodaysPrograms dupa')
     this.$store.dispatch('addTodaysPrograms')
   },
   methods: {

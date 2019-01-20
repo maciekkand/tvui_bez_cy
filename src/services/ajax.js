@@ -12,11 +12,14 @@ export const ajaxAddTodaysPrograms = context => {
     axios
       .get(constants.TV_LIST)
       .then(res => {
-        console.log('res.data = ', res.data);
+        res.data.map(el => {
+          el.link = `<a href=${el.link} target="_blank">Link</a>`
+        })
+
         context.commit('ADD_TODAYS_PROGRAMS', res.data)
-        sessionStorage.setItem('todaysPrograms', JSON.stringify(res.data))
+        //sessionStorage.setItem('todaysPrograms', JSON.stringify(res.data))
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log('ERORAS:', err))
   }
 }
 

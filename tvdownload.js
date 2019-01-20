@@ -4,7 +4,7 @@ const axios = require('axios')
 const cheerio = require('cheerio')
 
 const fileChannels = './channels.json'
-const fileTimeTable = './dzis2kanaly.json'
+const fileTimeTable = './dzis2kanaly2.json'
 const urlPrefix = 'https://programtv.onet.pl/?dzien='
 
 const listaKanalow = () => {
@@ -42,7 +42,7 @@ const kanal = (day, page) => {
     .then(res => {
       const $ = cheerio.load(res.data)
 
-      for (let channelNo = 1; channelNo < 3; channelNo++) {
+      for (let channelNo = 1; channelNo < 2; channelNo++) {
         const channel = $(`#boxTVHolder${channelNo}`)
           .find('span.tvName')
           .text()
@@ -54,15 +54,17 @@ const kanal = (day, page) => {
         const channels = $(`#boxTVHolder${channelNo} li`)
 
         channels.each((i, el) => {
-          const hour = $(el).find('.hour').text().replace(/\t/g, '')
-            .replace(/\n/g, '')
-          const title = $(el).find('.title a').text().replace(/\t/g, '')
-            .replace(/\n/g, '')
-          const type = $(el).find('.type').text().replace(/\t/g, '')
-            .replace(/\n/g, '')
+          const hour = $(el).find('.hour').text().replace(/\t/g, '').replace(/\n/g, '')
+
+          const link = 'https://programtv.onet.pl' + $(el).find('.title').find('a').attr('href')
+          //console.log('link = ', link)
+
+          const title = $(el).find('.title a').text().replace(/\t/g, '').replace(/\n/g, '')
+          const type = $(el).find('.type').text().replace(/\t/g, '').replace(/\n/g, '')
 
           //const seans = { date, day, page, channelNo, channel, hour, title, type }
-          const seans = { date, channel, hour, title, type }
+          const seans = { date, channel, hour, title, type, link }
+          //const seans = { link }
 
           fs.appendFileSync(fileTimeTable, `${JSON.stringify(seans)},\n`)
         })
