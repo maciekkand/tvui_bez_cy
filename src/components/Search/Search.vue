@@ -64,6 +64,13 @@ export default {
         { text: '23', value: 23 },
         { text: '24', value: 24 },
       ],
+      categories: [
+        { text: 'Film', value: 'film' },
+        { text: 'Sport', value: 'sport' },
+        { text: 'Rozrywka', value: 'rozrywka' },
+        { text: 'Wiadomości', value: 'wiadomosci' },
+        { text: 'Inne', value: 'inne' },
+      ],
       showAlert: false
     }
   },
@@ -92,15 +99,9 @@ export default {
         return this.$refs.modalEndHour.show()
       }
 
-      console.log('this.selectedStartHour = ', this.selectedStartHour)
-      console.log('this.selectedEndHour = ', this.selectedEndHour)
-
-      console.log('this.selectedStartHour > this.selectedEndHour = ', this.selectedStartHour > this.selectedEndHour)
-
       if (this.selectedEndHour < this.selectedStartHour) {
         return this.$refs.modalHoursError.show()
       }
-
 
       const searchData = {
         day: this.selectedDay,
@@ -133,4 +134,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  div {
+    color: white
+  }
+</style>
 

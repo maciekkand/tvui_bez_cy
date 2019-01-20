@@ -1,4 +1,25 @@
 <div>
+
+  </b-row>
+    <b-container>
+
+      <b-row  >
+        <b-col md="7">
+          <b-form-checkbox-group data-test="categories"
+                                 v-model="selectedCategories"
+                                 @change="categoriesSelected"
+                                 class='d-flex justify-content-md-between'
+                                 :options="categories">
+          </b-form-checkbox-group>
+      </b-col>
+      </b-row>
+        <b-col md="1">
+          <span v-if="loading"><img src="../../assets/spinner4.gif"/></span>
+        </b-col>
+
+      </b-row>
+    </b-container>
+
   <b-container>
     <b-row class="my-2">
 
@@ -28,7 +49,7 @@
         </b-form-select>
       </b-col>
 
-      <b-modal ref="modalStartHour" data-test="startHour" hide-footer>
+      <b-modal ref="modalStartHour" data-test="modalStartHour" hide-footer>
         <div class="d-block text-center">
           <h4>Brak 'Od godziny'</h4>
         </div>
@@ -44,46 +65,41 @@
         </b-form-select>
       </b-col>
 
-      <b-modal ref="modalEndHour" data-test="endHour" hide-footer>
+      <b-modal ref="modalEndHour" data-test="modalEndHour" hide-footer>
         <div class="d-block text-center">
           <h4>Brak 'Do godziny'</h4>
         </div>
         <b-btn class="mt-3" variant="success" block @click="hideModalEndHour">Zamknij</b-btn>
       </b-modal>
 
-      <b-modal ref="modalHoursError" data-test="hoursError" hide-footer>
+      <b-modal ref="modalHoursError" data-test="modalHoursError" hide-footer>
         <div class="d-block text-center">
           <h4>'Godzina końcowa powinna być późniejsza niż początkowa</h4>
         </div>
         <b-btn class="mt-3" variant="success" block @click="hideModalHoursError">Zamknij</b-btn>
       </b-modal>
 
+      <b-button id="search"
+                data-test="buttonSearch"
+                @click="search"
+                size="sm">
+                Search
+      </b-button>
 
-      <b-col>
-        <b-button id="search"
-                  data-test="buttonSearch"
-                  @click="search"
-                  size="md">
-          Search
-        </b-button>
-
-        <b-button id="reset"
-                  data-test="buttonReset"
-                  @click="reset"
-                  size="md"
-                  class='mx-3'>
-          Reset
-        </b-button>
-      </b-col>
-
-      <b-col md="1">
-        <span v-if="loading"><img src="../../assets/spinner4.gif"/></span>
-      </b-col>
+      <b-button id="reset"
+                data-test="buttonReset"
+                @click="reset"
+                size="md"
+                class='mx-3'>
+                Reset
+      </b-button>
 
     </b-row>
 
     <div>{{ selectedDay }}</div>
     <div>{{ selectedStartHour }}</div>
     <div>{{ selectedEndHour }}</div>
+    
   </b-container>
+
 </div>
