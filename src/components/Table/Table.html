@@ -1,5 +1,5 @@
 <div v-cloak>
-  <b-container fluid>
+  <b-container>
     <b-row v-cloak>
       <b-table id="stockTable"
                data-test="stockTable"
@@ -9,8 +9,7 @@
                :items="items"
                :fields="fields">
 
-        <template slot="index" slot-scope="data">{{ data.index + 1 }}</template>
-
+        <span slot="title" slot-scope="data" v-html="data.value">{{ data.value }}</span>
         <span slot="link" slot-scope="data" v-html="data.value">{{ data.value }}</span>
 
       </b-table>

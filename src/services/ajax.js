@@ -13,6 +13,7 @@ export const ajaxAddTodaysPrograms = context => {
       .get(constants.TV_LIST)
       .then(res => {
         res.data.map(el => {
+          el.title = `<b-button size="lg" variant="secondary" >${el.title}</b-button>`
           el.link = `<a href=${el.link} target="_blank">Link</a>`
         })
 
