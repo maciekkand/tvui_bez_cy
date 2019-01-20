@@ -14,8 +14,9 @@ export const ajaxAddTodaysPrograms = context => {
     axios
       .get(constants.TV_LIST)
       .then(res => {
-        console.log(res.data.length)
         console.log(res.data)
+        console.log('res.data.length = ', res.data.length);
+        console.log('res.data = ', res.data);
         //context.commit('ADD_ALL_SHOPS', res.data)
         //sessionStorage.setItem('allShops', JSON.stringify(res.data))
       })

@@ -14,7 +14,7 @@ export default {
     }
   },
   created() {
-    console.log('created(): addTodaysPrograms')
+    console.log('created(): addTodaysPrograms dupa')
     this.$store.dispatch('addTodaysPrograms')
   },
   methods: {
@@ -23,7 +23,7 @@ export default {
     }
   }
 }
-</script>
+</script>ś
 
 <style scoped>
   div {

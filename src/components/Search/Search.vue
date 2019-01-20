@@ -80,26 +80,32 @@ export default {
     }
   },
   created() {
+    /*
     if (sessionStorage.getItem('homeData')) {
       const homeData = JSON.parse(sessionStorage.getItem('homeData'))
       this.city = homeData.city
       this.street = homeData.street
       this.streetNumber = homeData.streetNumber
     }
+    */
   },
   methods: {
     search() {
       if (!this.selectedDay) {
+        console.log('brak Day = ')
         return this.$refs.modalDay.show()
       }
       if (!this.selectedStartHour) {
+        console.log('brak StartHour ')
         return this.$refs.modalStartHour.show()
       }
       if (!this.selectedEndHour) {
+        console.log('brak EndHour ')
         return this.$refs.modalEndHour.show()
       }
 
       if (this.selectedEndHour < this.selectedStartHour) {
+        console.log('Błąd godzin ')
         return this.$refs.modalHoursError.show()
       }
 

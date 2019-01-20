@@ -1,9 +1,6 @@
 <div>
-
-  </b-row>
     <b-container>
-
-      <b-row  >
+      <b-row>
         <b-col md="7">
           <b-form-checkbox-group data-test="categories"
                                  v-model="selectedCategories"
@@ -11,95 +8,95 @@
                                  class='d-flex justify-content-md-between'
                                  :options="categories">
           </b-form-checkbox-group>
-      </b-col>
+        </b-col>
       </b-row>
+
+      <b-row>
         <b-col md="1">
           <span v-if="loading"><img src="../../assets/spinner4.gif"/></span>
         </b-col>
-
       </b-row>
+
     </b-container>
 
-  <b-container>
-    <b-row class="my-2">
+    <b-container>
+      <b-row class="my-2">
 
-      <b-col md="3">
-        <b-form-select id="day"
-                       data-test="day"
-                       v-model="selectedDay"
-                       :options="days"
-                       class="mb-3"
-                       size="md" />
-      </b-col>
+        <b-col md="3">
+          <b-form-select id="day"
+                        data-test="day"
+                        v-model="selectedDay"
+                        :options="days"
+                        class="mb-3"
+                        size="md" />
+        </b-col>
 
+        <b-modal ref="modalDay" data-test="modalDay" hide-footer>
+          <div class="d-block text-center">
+            <h3>Brak dnia</h3>
+          </div>
+          <b-btn class="mt-3" variant="success" block @click="hideModalDay">Zamknij</b-btn>
+        </b-modal>
 
-      <b-modal ref="modalDay" data-test="modalDay" hide-footer>
-        <div class="d-block text-center">
-          <h4>Brak dnia</h4>
-        </div>
-        <b-btn class="mt-3" variant="success" block @click="hideModalDay">Zamknij</b-btn>
-      </b-modal>
+        <b-col md="2">
+          <b-form-select id="startHour"
+                        data-test="startHour"
+                        v-model.number="selectedStartHour"
+                        :options="startHours">
+          </b-form-select>
+        </b-col>
 
-
-      <b-col md="2">
-        <b-form-select id="startHour"
-                       data-test="startHour"
-                       v-model.number="selectedStartHour"
-                       :options="startHours">
-        </b-form-select>
-      </b-col>
-
-      <b-modal ref="modalStartHour" data-test="modalStartHour" hide-footer>
-        <div class="d-block text-center">
-          <h4>Brak 'Od godziny'</h4>
-        </div>
-        <b-btn class="mt-3" variant="success" block @click="hideModalStartHour">Zamknij</b-btn>
-      </b-modal>
+        <b-modal ref="modalStartHour" data-test="modalStartHour" hide-footer>
+          <div class="d-block text-center">
+            <h4>Brak 'Od godziny'</h4>
+          </div>
+          <b-btn class="mt-3" variant="success" block @click="hideModalStartHour">Zamknij</b-btn>
+        </b-modal>
 
 
-      <b-col md="2">
-        <b-form-select id="endHour"
-                       data-test="endHour"
-                       v-model.number="selectedEndHour"
-                       :options="endHours">
-        </b-form-select>
-      </b-col>
+        <b-col md="2">
+          <b-form-select id="endHour"
+                        data-test="endHour"
+                        v-model.number="selectedEndHour"
+                        :options="endHours">
+          </b-form-select>
+        </b-col>
 
-      <b-modal ref="modalEndHour" data-test="modalEndHour" hide-footer>
-        <div class="d-block text-center">
-          <h4>Brak 'Do godziny'</h4>
-        </div>
-        <b-btn class="mt-3" variant="success" block @click="hideModalEndHour">Zamknij</b-btn>
-      </b-modal>
+        <b-modal ref="modalEndHour" data-test="modalEndHour" hide-footer>
+          <div class="d-block text-center">
+            <h4>Brak 'Do godziny'</h4>
+          </div>
+          <b-btn class="mt-3" variant="success" block @click="hideModalEndHour">Zamknij</b-btn>
+        </b-modal>
 
-      <b-modal ref="modalHoursError" data-test="modalHoursError" hide-footer>
-        <div class="d-block text-center">
-          <h4>'Godzina końcowa powinna być późniejsza niż początkowa</h4>
-        </div>
-        <b-btn class="mt-3" variant="success" block @click="hideModalHoursError">Zamknij</b-btn>
-      </b-modal>
+        <b-modal ref="modalHoursError" data-test="modalHoursError" hide-footer>
+          <div class="d-block text-center">
+            <h4>'Godzina końcowa powinna być późniejsza niż początkowa'</h4>
+          </div>
+          <b-btn class="mt-3" variant="success" block @click="hideModalHoursError">Zamknij</b-btn>
+        </b-modal>
 
-      <b-button id="search"
-                data-test="buttonSearch"
-                @click="search"
-                size="sm">
-                Search
-      </b-button>
+        <b-button id="search"
+                  data-test="buttonSearch"
+                  @click="search"
+                  size="sm">
+                  Search
+        </b-button>
 
-      <b-button id="reset"
-                data-test="buttonReset"
-                @click="reset"
-                size="md"
-                class='mx-3'>
-                Reset
-      </b-button>
+        <b-button id="reset"
+                  data-test="buttonReset"
+                  @click="reset"
+                  size="md"
+                  class='mx-3'>
+                  Reset
+        </b-button>
 
-    </b-row>
+      </b-row>
 
-    <div>{{ selectedDay }}</div>
-    <div>{{ selectedStartHour }}</div>
-    <div>{{ selectedEndHour }}</div>
-    
-  </b-container>
+      <div>{{ selectedDay }}</div>
+      <div>{{ selectedStartHour }}</div>
+      <div>{{ selectedEndHour }}</div>
+
+    </b-container>
 
 </div>
