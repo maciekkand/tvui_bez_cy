@@ -14,7 +14,8 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('addAllShops')
+    console.log('created(): addTodaysPrograms')
+    this.$store.dispatch('addTodaysPrograms')
   },
   methods: {
     showTable() {

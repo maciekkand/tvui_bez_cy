@@ -3,27 +3,27 @@ import axios from 'axios'
 //import filteredShops from './filteredShops'
 import constants from '../data/constants'
 
-export const ajaxAddAllShops = context => {
+export const ajaxAddTodaysPrograms = context => {
+  console.log('ajaxAddTodaysPrograms')
 
-  if (sessionStorage.getItem('allShops')) {
+  //if (sessionStorage.getItem('allShops')) {
+  if (false) {
     context.commit('ADD_ALL_SHOPS', JSON.parse(sessionStorage.getItem('allShops')))
   }
   else {
     axios
-      .get(constants.SHOPS_LIST)
+      .get(constants.TV_LIST)
       .then(res => {
         console.log(res.data.length)
-        context.commit('ADD_ALL_SHOPS', res.data)
-        sessionStorage.setItem('allShops', JSON.stringify(res.data))
+        console.log(res.data)
+        //context.commit('ADD_ALL_SHOPS', res.data)
+        //sessionStorage.setItem('allShops', JSON.stringify(res.data))
       })
       .catch(err => console.log(err))
   }
 }
 
-export const ajaxFindSelectedShops = (context, { homeData, radius, allShops }) => {
-  const key = constants.GEOCODER_SERVICE_KEY
-  const encodedAddress = encodeURI(homeData.street + ' ' + homeData.streetNumber + ', ' + homeData.city)
-  const url = constants.GEOCODER_SERVICE + encodedAddress + '&key=' + key + '&language=pl&pretty=1'
+export const ajaxAddSelectedPrograms = (context, { homeData, radius, allShops }) => {
 
   if (sessionStorage.getItem('homeGPSAndAddress')) {
     const sessionHomeGPSAndAddress = JSON.parse(sessionStorage.getItem('homeGPSAndAddress'))

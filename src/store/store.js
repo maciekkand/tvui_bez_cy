@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { ajaxAddAllShops, ajaxFindSelectedShops } from '../services/ajax'
-import { initialColumns, totalColumn } from '../data/data'
+import { ajaxAddTodaysPrograms, ajaxAddSelectedPrograms } from '../services/ajax'
 
 Vue.use(Vuex)
 
@@ -16,7 +15,10 @@ export default new Vuex.Store({
 
   },
   actions: {
-
+    addTodaysPrograms(context) {
+      console.log('actions: addTodaysPrograms')
+      ajaxAddTodaysPrograms(context)
+    }
   }
 
 })
