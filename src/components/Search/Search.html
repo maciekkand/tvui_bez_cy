@@ -1,0 +1,57 @@
+<div>
+  <b-container>
+    <b-row class="my-2">
+
+      <b-col md="3">
+        <b-form-select id="day"
+                       data-test="day"
+                       v-model="selectedDay"
+                       :options="days"
+                       class="mb-3"
+                       size="md" />
+      </b-col>
+
+      <b-col md="2">
+        <b-form-select id="startHour"
+                       data-test="startHour"
+                       v-model="selectedStartHour"
+                       :options="startHours">
+        </b-form-select>
+      </b-col>
+
+      <b-col md="2">
+        <b-form-select id="endHour"
+                       data-test="endHour"
+                       v-model="selectedEndHour"
+                       :options="endHours">
+        </b-form-select>
+      </b-col>
+
+      <b-col>
+        <b-button id="search"
+                  data-test="buttonSearch"
+                  @click="search"
+                  size="md">
+          Search
+        </b-button>
+
+        <b-button id="reset"
+                  data-test="buttonReset"
+                  @click="reset"
+                  size="md"
+                  class='mx-3'>
+          Reset
+        </b-button>
+      </b-col>
+
+      <b-col md="1">
+        <span v-if="loading"><img src="../../assets/spinner4.gif"/></span>
+      </b-col>
+
+    </b-row>
+
+    <div>{{ selectedDay }}</div>
+    <div>{{ selectedStartHour }}</div>
+    <div>{{ selectedEndHour }}</div>
+  </b-container>
+</div>

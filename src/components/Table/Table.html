@@ -1,0 +1,22 @@
+<div v-cloak>
+  <b-container fluid>
+    <b-row v-cloak>
+      <b-table id="stockTable"
+               data-test="stockTable"
+               striped
+               hover
+               bordered
+               :items="items"
+               :fields="fields"
+               v-if="showTable()">
+
+        <template slot="index" slot-scope="data">{{ data.index + 1 }}</template>
+
+        <span slot="google" slot-scope="data" v-html="data.value">{{ data.value }}</span>
+        <span slot="jakd" slot-scope="data" v-html="data.value">{{ data.value }}</span>
+        <span slot="gmaps" slot-scope="data" v-html="data.value">{{ data.value }}</span>
+
+      </b-table>
+    </b-row>
+  </b-container>
+</div>

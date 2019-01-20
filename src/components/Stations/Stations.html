@@ -1,0 +1,32 @@
+<div>
+  <b-container class="mb-3">
+    <b-row class="mb-2">
+
+    </b-row>
+    <b-row class="my-2">
+      <span>
+        <router-link to="/home" active-class='active' class='mx-3'><a>Home</a></router-link>
+        <router-link to="/stations" active-class='active' class='mx-3'><a>Stations</a></router-link>
+        <router-link to="/about" active-class='active' class='mx-3'><a>About</a></router-link>
+      </span>
+    </b-row>
+
+    <b-row>
+      <b-form-group v-if="show">
+          <b-form-checkbox-group data-test="stations"
+                                 v-model="selected"
+                                 @change="stationsSelected"
+                                 :options="options">
+          </b-form-checkbox-group>
+
+      </b-form-group>
+      <b-button data-test='buttonResetStock'
+                @click="resetStock"
+                size="sm"
+                class="ml-3"
+                variant="secondary">
+        Reset
+      </b-button>
+    </b-row>
+  </b-container>
+</div>
