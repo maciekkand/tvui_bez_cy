@@ -7,8 +7,7 @@
                hover
                bordered
                :items="items"
-               :fields="fields"
-               v-if="showTable()">
+               :fields="fields">
 
         <template slot="index" slot-scope="data">{{ data.index + 1 }}</template>
 

@@ -4,7 +4,8 @@
 export default {
   computed: {
     items() {
-      return this.$store.getters.getSelectedShops
+      console.log('getTodaysPrograms = ', this.$store.getters.getTodaysPrograms)
+      return this.$store.getters.getTodaysPrograms
     },
     fields() {
       return this.$store.getters.getStock
@@ -23,7 +24,7 @@ export default {
     }
   }
 }
-</script>ś
+</script>
 
 <style scoped>
   div {

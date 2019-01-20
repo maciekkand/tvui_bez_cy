@@ -4,8 +4,6 @@ import axios from 'axios'
 import constants from '../data/constants'
 
 export const ajaxAddTodaysPrograms = context => {
-  console.log('ajaxAddTodaysPrograms')
-
   //if (sessionStorage.getItem('allShops')) {
   if (false) {
     context.commit('ADD_ALL_SHOPS', JSON.parse(sessionStorage.getItem('allShops')))
@@ -14,11 +12,9 @@ export const ajaxAddTodaysPrograms = context => {
     axios
       .get(constants.TV_LIST)
       .then(res => {
-        console.log(res.data)
-        console.log('res.data.length = ', res.data.length);
         console.log('res.data = ', res.data);
-        //context.commit('ADD_ALL_SHOPS', res.data)
-        //sessionStorage.setItem('allShops', JSON.stringify(res.data))
+        context.commit('ADD_TODAYS_PROGRAMS', res.data)
+        sessionStorage.setItem('todaysPrograms', JSON.stringify(res.data))
       })
       .catch(err => console.log(err))
   }
