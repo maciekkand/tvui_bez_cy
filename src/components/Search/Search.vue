@@ -82,32 +82,47 @@ export default {
   },
   methods: {
     search() {
-      if (!this.day) {
+      if (!this.selectedDay) {
         return this.$refs.modalDay.show()
       }
-      if (!this.startHour) {
+      if (!this.selectedStartHour) {
         return this.$refs.modalStartHour.show()
       }
-      if (!this.endHour) {
+      if (!this.selectedEndHour) {
         return this.$refs.modalEndHour.show()
       }
 
-      const searchData = {
-        day: this.day,
-        startHour: this.startHour,
-        endHour: this.endHour
+      console.log('this.selectedStartHour = ', this.selectedStartHour)
+      console.log('this.selectedEndHour = ', this.selectedEndHour)
+
+      console.log('this.selectedStartHour > this.selectedEndHour = ', this.selectedStartHour > this.selectedEndHour)
+
+      if (this.selectedEndHour < this.selectedStartHour) {
+        return this.$refs.modalHoursError.show()
       }
+
+
+      const searchData = {
+        day: this.selectedDay,
+        startHour: this.selectedStartHour,
+        endHour: this.selectedEndHour
+      }
+
+      console.log('searchData = ', searchData)
 
       sessionStorage.setItem('searchData', JSON.stringify(searchData))
     },
-    hideModalCity() {
-      this.$refs.modalCity.hide()
+    hideModalDay() {
+      this.$refs.modalDay.hide()
     },
-    hideModalStreet() {
-      this.$refs.modalStreet.hide()
+    hideModalStartHour() {
+      this.$refs.modalStartHour.hide()
     },
-    hideModalRadius() {
-      this.$refs.modalRadius.hide()
+    hideModalEndHour() {
+      this.$refs.modalEndHour.hide()
+    },
+    hideModalHoursError() {
+      this.$refs.modalHoursError.hide()
     },
     reset() {
       console.log('Reset')
