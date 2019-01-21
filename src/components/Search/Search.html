@@ -53,8 +53,7 @@
           <b-btn class="mt-3" variant="success" block @click="hideModalStartHour">Zamknij</b-btn>
         </b-modal>
 
-
-        <b-col md="2">
+        <b-col md="2" class="mr-5">
           <b-form-select id="endHour"
                         data-test="endHour"
                         v-model.number="selectedEndHour"
@@ -76,26 +75,37 @@
           <b-btn class="mt-3" variant="success" block @click="hideModalHoursError">Zamknij</b-btn>
         </b-modal>
 
-        <b-button id="search"
-                  data-test="buttonSearch"
-                  @click="search"
-                  size="sm">
-                  Search
-        </b-button>
+        <b-col>
+          <b-button id="search"
+                    data-test="buttonSearch"
+                    @click="search"
+                    size="md"
+                    class='mx-1 px-2 pt-2'>
+                    Search
+          </b-button>
+        </b-col>
 
-        <b-button id="reset"
-                  data-test="buttonReset"
-                  @click="reset"
-                  size="md"
-                  class='mx-3'>
-                  Reset
-        </b-button>
+        <b-col>
+          <b-button id="reset"
+                    data-test="buttonReset"
+                    @click="reset"
+                    size="md"
+                    class='mx-2 px-2 pt-2'>
+                    Reset
+          </b-button>
+        </b-col>
+
+        <b-col>
+          <b-button id="save"
+                    data-test="buttonSave"
+                    @click="save"
+                    size="md"
+                    class='mx-2 px-3 pt-2'>
+                    Save
+          </b-button>
+        </b-col>
 
       </b-row>
-
-      <div>{{ selectedDay }}</div>
-      <div>{{ selectedStartHour }}</div>
-      <div>{{ selectedEndHour }}</div>
 
     </b-container>
 
