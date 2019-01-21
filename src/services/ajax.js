@@ -119,7 +119,9 @@ export const daysForSelectBox = () => {
   for (let index = 0; index < 7; index++) {
     const day = new Date().getTime() + index * 1000 * 60 * 60 * 24
     const dayString = new Date(day).toString().slice(0,10)
-    const dayObj = { text: dayString, value: '' }
+    const startOfTodayTimestamp = new Date().setUTCHours(3,0,0,0)
+    const dayObj = { text: dayString, value: startOfTodayTimestamp }
+
     daysForSelectArray.push(dayObj)
   }
   return daysForSelectArray

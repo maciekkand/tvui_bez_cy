@@ -10,19 +10,6 @@ export default {
       selectedStartHour: null,
       selectedEndHour: null,
       days: daysForSelectBox(),
-      /*
-      days: [
-        { text: "Wybierz dzień", value: "null" },
-        { text: "Dziś od teraz", value: "odTeraz" },
-        { text: "Dziś", value: "dzis" },
-        { text: "Jutro", value: "jutro" },
-        { text: "Poniedziałek", value: "poniedzialek" },
-        { text: "Wtorek", value: "wtorek" },
-        { text: "Środa", value: "sroda" },
-        { text: "Czwartek", value: "czwartek" },
-        { text: "Piątek", value: "piatek" }
-      ],
-      */
       startHours: [
         { text: "Od godziny", value: null },
         { text: "5", value: 5 },
