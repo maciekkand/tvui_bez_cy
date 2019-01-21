@@ -24,16 +24,16 @@
 
         <b-col md="3">
           <b-form-select id="day"
-                        data-test="day"
-                        v-model="selectedDay"
-                        :options="days"
-                        class="mb-3"
-                        size="md" />
+                         data-test="day"
+                         v-model="selectedDay"
+                         :options="days"
+                         class="mb-3"
+                         size="md" />
         </b-col>
 
         <b-modal ref="modalDay" data-test="modalDay" hide-footer>
           <div class="d-block text-center">
-            <h3>Brak dnia</h3>
+            <h4>Brak dnia</h4>
           </div>
           <b-btn class="mt-3" variant="success" block @click="hideModalDay">Zamknij</b-btn>
         </b-modal>
@@ -106,7 +106,9 @@
         </b-col>
 
       </b-row>
-
+      <div>{{ selectedDay }}</div>
+      <div>{{ selectedStartHour }}</div>
+      <div>{{ selectedEndHour }}</div>
     </b-container>
 
 </div>

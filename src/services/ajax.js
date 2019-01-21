@@ -17,8 +17,6 @@ export const ajaxAddTodaysPrograms = context => {
           el.link = `<a href=${el.link} target="_blank">Link</a>`
         })
 
-        console.log(res.data)
-
         res.data.map((el, index) => {
           if (index < res.data.length - 2 ) {
             const totalMinutes = (res.data[index+1].timestamp - el.timestamp) / (1000 * 60)
@@ -27,8 +25,6 @@ export const ajaxAddTodaysPrograms = context => {
             el.duration = hours + ':' + minutes
           }
         })
-
-        console.log(res.data)
 
         context.commit('ADD_TODAYS_PROGRAMS', res.data)
         //sessionStorage.setItem('todaysPrograms', JSON.stringify(res.data))
