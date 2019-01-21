@@ -1,12 +1,16 @@
 <template src="./Search.html"></template>
 
 <script>
+import { daysForSelectBox } from '../../services/ajax.js'
+
 export default {
   data() {
     return {
       selectedDay: null,
       selectedStartHour: null,
       selectedEndHour: null,
+      days: daysForSelectBox(),
+      /*
       days: [
         { text: "Wybierz dzień", value: "null" },
         { text: "Dziś od teraz", value: "odTeraz" },
@@ -18,6 +22,7 @@ export default {
         { text: "Czwartek", value: "czwartek" },
         { text: "Piątek", value: "piatek" }
       ],
+      */
       startHours: [
         { text: "Od godziny", value: null },
         { text: "5", value: 5 },
@@ -103,7 +108,6 @@ export default {
         console.log("brak EndHour ");
         return this.$refs.modalEndHour.show();
       }
-
       if (this.selectedEndHour < this.selectedStartHour) {
         console.log("Błąd godzin ");
         return this.$refs.modalHoursError.show();
@@ -117,7 +121,7 @@ export default {
 
       console.log("searchData = ", searchData);
 
-      sessionStorage.setItem("searchData", JSON.stringify(searchData));
+      sessionStorage.setItem("searchData", JSON.stringify(searchData))
     },
     save() {
       console.log("Tu Search: metoda save !");
@@ -141,7 +145,7 @@ export default {
       this.selectedEndHour = null;
     }
   }
-};
+}
 </script>
 
 <style scoped>

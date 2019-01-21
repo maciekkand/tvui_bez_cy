@@ -51,7 +51,7 @@ export default {
       return this.$store.getters.getShowTable;
     }
   }
-};
+}
 </script>
 
 <style scoped>
