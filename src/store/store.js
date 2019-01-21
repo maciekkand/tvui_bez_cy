@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { ajaxAddTodaysPrograms, ajaxFindSelectedPrograms } from '../services/ajax'
+import { ajaxAddTodaysPrograms, ajaxGetSelectedPrograms } from '../services/ajax'
 
 Vue.use(Vuex)
 
@@ -22,6 +22,9 @@ export default new Vuex.Store({
   actions: {
     addTodaysPrograms(context) {
       ajaxAddTodaysPrograms(context)
+    },
+    getSelectedPrograms(context, searchData) {
+      ajaxGetSelectedPrograms(context, searchData)
     }
   }
 })

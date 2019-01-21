@@ -102,11 +102,12 @@ export default {
 
       const searchData = {
         day: this.selectedDay,
-        startHour: this.selectedStartHour,
-        endHour: this.selectedEndHour
-      };
+        startHour: this.selectedStartHour * 1000 * 60 * 60 + this.selectedDay,
+        endHour: this.selectedEndHour * 1000 * 60 * 60 + this.selectedDay
+      }
 
-      console.log("searchData = ", searchData);
+      console.log("searchData = ", searchData)
+      this.$store.dispatch('getSelectedPrograms', searchData)
 
       sessionStorage.setItem("searchData", JSON.stringify(searchData))
     },
