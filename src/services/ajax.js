@@ -12,10 +12,22 @@ export const ajaxAddTodaysPrograms = context => {
     axios
       .get(constants.TV_LIST)
       .then(res => {
-        res.data.map(el => {
+        const arrPrograms = res.data.map(el => {
           el.title = `<b-button size="lg" variant="secondary" >${el.title}</b-button>`
           el.link = `<a href=${el.link} target="_blank">Link</a>`
         })
+
+        console.log(res.data)
+
+        res.data.map((el, index) => {
+           //console.log(res.data[index+1].timestamp)
+          if (index < res.data.length - 2 ) {
+            el.duration = (res.data[index+1].timestamp - el.timestamp) / (1000 * 60)
+
+          }
+        })
+
+        console.log(res.data)
 
         context.commit('ADD_TODAYS_PROGRAMS', res.data)
         //sessionStorage.setItem('todaysPrograms', JSON.stringify(res.data))

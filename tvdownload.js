@@ -8,7 +8,10 @@ const urlPrefix = 'https://programtv.onet.pl/?dzien='
 
 const kanal = (day, page) => {
   const currentDay = Date.now() + day * 1000 * 60 * 60 * 24
-  //const date = new Date(currentDay).toDateString().slice(4, 10)
+  const dayString = new Date(currentDay).toDateString().slice(4, 10)
+
+  console.log('dayString = ', dayString)
+
   const date = new Date(currentDay).toISOString().slice(0, 10)
 
   const timestampTodayMidnight = Date.parse (new Date().toISOString().slice(0, 10))
@@ -46,7 +49,7 @@ const kanal = (day, page) => {
           const type = $(el).find('.type').text().replace(/\t/g, '').replace(/\n/g, '')
 
           //const seans = { date, day, page, channelNo, channel, hour, title, type }
-          const seans = { date, channel, hour, title, type, link, timestamp, dateTimestamp }
+          const seans = { dayString, date, channel, hour, title, type, link, timestamp, dateTimestamp }
           fs.appendFileSync(fileTimeTable, `${JSON.stringify(seans)},\n`)
         })
       }

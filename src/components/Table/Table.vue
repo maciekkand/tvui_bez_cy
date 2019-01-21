@@ -9,7 +9,7 @@ export default {
     fields() {
       return [
         {
-          key: "day",
+          key: "dayString",
           label: "Dzień"
         },
         {
@@ -23,6 +23,10 @@ export default {
         {
           key: "duration",
           label: "Czas"
+        },
+        {
+          key: "title",
+          label: "Tytuł"
         },
         {
           key: "type",
