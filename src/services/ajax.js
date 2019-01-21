@@ -22,7 +22,7 @@ export const ajaxAddTodaysPrograms = context => {
         res.data.map((el, index) => {
           if (index < res.data.length - 2 ) {
             const totalMinutes = (res.data[index+1].timestamp - el.timestamp) / (1000 * 60)
-            const hours = parseInt(minutes / 60)
+            const hours = parseInt(totalMinutes / 60)
             const minutes = totalMinutes % 60
             el.duration = hours + ':' + minutes
           }
