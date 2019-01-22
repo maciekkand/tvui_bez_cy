@@ -17,7 +17,7 @@ export default {
           label: 'Kanał'
         },
         {
-          key: 'hour',
+          key: 'time',
           label: 'Godzina'
         },
         /* {

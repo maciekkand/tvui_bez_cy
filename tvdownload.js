@@ -30,8 +30,6 @@ const kanal = (day, page) => {
         channels.each((i, el) => {
           const id = day.toString().padStart(2, '0') + channelNo.toString().padStart(2, '0') + i.toString().padStart(2, '0')
           const time = $(el).find('.hour').text().replace(/\t/g, '').replace(/\n/g, '').split(':')
-          //const timestampTodayMidnight = Date.parse (new Date().toISOString().slice(0, 10))
-
           const timestampTodayMidnight = new Date().setUTCHours(0, 0, 0, 0) + day * 1000 * 60 * 60 * 24
 
           let hours = time[0]
@@ -39,7 +37,6 @@ const kanal = (day, page) => {
           // tvHour = tvHour < 3 ? tvHour + 24 : tvHour
 
           const milliseconds = (hours * 60 * 60 * 1000) + (minutes * 60 * 1000)
-
           const timestamp = timestampTodayMidnight + milliseconds + parseInt(Math.random() * 1000)
           const dateTimestamp = new Date(timestamp).toISOString().slice(0, 16).replace('T', ' ')
 
@@ -47,16 +44,8 @@ const kanal = (day, page) => {
           const title = $(el).find('.title a').text().replace(/\t/g, '').replace(/\n/g, '')
           const type = $(el).find('.type').text().replace(/\t/g, '').replace(/\n/g, '')
 
-          /*
-          if (id === '010136' ) {
-            const seans = { day, timestampTodayMidnight, timestamp, dateTimestamp, date, hours, minutes, dayString, id, channel, title  }
-            fs.writeFileSync(fileTimeTable, `${JSON.stringify(seans)},`)
-            return;
-          }
-          */
-
           //const seans = { date, day, page, channelNo, channel, hour, title, type }
-          const seans = { id, dayString, date, dateTimestamp, hours, minutes, timestamp, channel, title, type, link,  }
+          const seans = { id, dayString, date, dateTimestamp, time: hours + ':' + minutes, timestamp, channel, title, type, link,  }
           fs.appendFileSync(fileTimeTable, `${JSON.stringify(seans)},\n`)
         })
       }
