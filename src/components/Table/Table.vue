@@ -8,21 +8,25 @@ export default {
     },
     fields() {
       return [
-        /* {
+        {
+          key: 'index',
+          label: '#'
+        },
+        {
           key: 'id',
-          label: 'Id'
-        }, */
+          label: 'id'
+        },
         {
           key: 'dayString',
-          label: 'Dzień'
+          label: 'dayString'
         },
         {
           key: 'channel',
-          label: 'Kanał'
+          label: 'channel'
         },
         {
           key: 'time',
-          label: 'Godzina'
+          label: 'time'
         },
         /* {
           key: "duration",
@@ -30,20 +34,20 @@ export default {
         }, */
         {
           key: 'title',
-          label: 'Tytuł'
+          label: 'title'
         },
         {
           key: 'type',
-          label: 'Opis'
+          label: 'type'
         },
         {
           key: 'category',
-          label: 'Kategoria',
+          label: 'category',
           sortable: true
         },
         {
           key: 'link',
-          label: 'Link',
+          label: 'link',
         },
       ]
     },

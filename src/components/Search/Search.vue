@@ -7,7 +7,7 @@ export default {
   data() {
     return {
       selectedDay: null,
-      selectedStartHour: null,
+      selectedStartHour: new Date().getHours(), // todo: a) usunąć na końcu b) przy innym dniu startHour = 3 rano
       selectedEndHour: null,
       selectedCategories: null,
       days: daysForSelectBox(),
@@ -61,10 +61,11 @@ export default {
       const searchData = {
         day: this.selectedDay,
         startHour: this.selectedStartHour * 1000 * 60 * 60 + this.selectedDay,
-        endHour: this.selectedEndHour * 1000 * 60 * 60 + this.selectedDay
+        endHour: this.selectedEndHour * 1000 * 60 * 60 + this.selectedDay,
+        selectedCategories: this.selectedCategories
       }
 
-      console.log('selectedCategories = ', this.selectedCategories)
+      //console.log('selectedCategories = ', this.selectedCategories)
 
       this.$store.dispatch('getSelectedPrograms', searchData)
       sessionStorage.setItem('searchData', JSON.stringify(searchData))
