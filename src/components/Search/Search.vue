@@ -62,9 +62,7 @@ export default {
         endHour: this.selectedEndHour * 1000 * 60 * 60 + this.selectedDay
       }
 
-      console.log('searchData = ', searchData)
       this.$store.dispatch('getSelectedPrograms', searchData)
-
       sessionStorage.setItem('searchData', JSON.stringify(searchData))
     },
     save() {

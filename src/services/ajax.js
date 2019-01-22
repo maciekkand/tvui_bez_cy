@@ -37,8 +37,10 @@ export const ajaxGetSelectedPrograms = (context, { day, startHour, endHour }) =>
 
 /// const query   = 'q={$and:[{timestamp:{$gt:1548194400000}},{timestamp:{$lt:1548198000000}}]}&f={date:0,dateTimestamp:0,tvHour:0}&s={id:1}'
 
-    const query = `q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}}}]}&f={date:0,dateTimestamp:0,tvHour:0}&s={id:1}`
-    //              'q={$and:[{timestamp:{$gt:1548133200000}},{timestamp:{$lt:1548144000000}}]}
+/// const query = `q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}}}]}&f={date:0,dateTimestamp:0,tvHour:0}&s={id:1}`
+
+
+    const query = `q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}}}]}&f={tvHour:0}&s={id:1}`
 
 
 

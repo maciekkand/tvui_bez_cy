@@ -1,15 +1,20 @@
-const arr = [
-  { name: '001', age: 1 },
-  { name: '100', age: 3 },
-  { name: '010', age: 2 }
-]
-console.log ('arr PRZED =', arr)
+/* const currentDay = Date.now()
+const dayStringFull = new Date(currentDay).toDateString()
+const dayStringShort = new Date(currentDay).toDateString().slice(4, 10)
 
-const arrByAge = arr.sort ((a, b) => a.age - b.age ) // liczby
+const dateFull = new Date(currentDay).toISOString()
+const dateShort = new Date(currentDay).toISOString().slice(0, 10)
 
-console.log ('\narrByAge = ', arrByAge)
+console.log('dayStringFull = ', dayStringFull)
+console.log('dayStringShort = ', dayStringShort)
 
-const arrByName = arr.sort((a, b) => a.name.localeCompare(b.name)) // stringif
+console.log('currentDay = ', currentDay) // 1548181565740
 
-console.log ('\narrByName = ', arrByName)
+console.log('dateShort = ', dateShort)
+console.log('dateFull = ', dateFull)
+ */
+const todayMidniteTimestamp = new Date().setUTCHours(0, 0, 0, 0)
+console.log('todayMidniteTimestamp = ', todayMidniteTimestamp)
 
+const todayMidniteString = new Date(todayMidniteTimestamp)
+console.log('todayMidniteString = ', todayMidniteString)

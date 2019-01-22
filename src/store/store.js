@@ -16,10 +16,7 @@ export default new Vuex.Store({
   },
   mutations: {
     ADD_TODAYS_PROGRAMS(state, todaysPrograms) {
-      console.log('Tu ADD_TODAYS_PROGRAMS')
-      // state.todaysPrograms = []
       state.todaysPrograms = todaysPrograms
-      console.log('state.todaysPrograms.length = ', state.todaysPrograms.length)
     }
   },
   actions: {
@@ -27,7 +24,6 @@ export default new Vuex.Store({
       ajaxAddTodaysPrograms(context)
     },
     getSelectedPrograms(context, searchData) {
-      console.log('searchData = ', searchData)
       ajaxGetSelectedPrograms(context, searchData)
     }
   }
