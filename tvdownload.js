@@ -12,6 +12,7 @@ const kanal = (day, page) => {
 
   const date = new Date(currentDay).toISOString().slice(0, 10)
   const url = `${urlPrefix + day}&strona=${page}`
+  const seansArr = []
 
   axios.get(url)
     .then(res => {
@@ -27,7 +28,7 @@ const kanal = (day, page) => {
         const channels = $(`#boxTVHolder${channelNo} li`)
 
         channels.each((i, el) => {
-          const id = page.toString().padStart(2, '0') + channelNo.toString().padStart(2, '0') + i.toString().padStart(2, '0')
+          const id = day.toString().padStart(2, '0') + channelNo.toString().padStart(2, '0') + i.toString().padStart(2, '0')
           const hour = $(el).find('.hour').text().replace(/\t/g, '').replace(/\n/g, '')
           const timestampTodayMidnight = Date.parse (new Date().toISOString().slice(0, 10))
           const timeArr = hour.split(':')
@@ -36,7 +37,7 @@ const kanal = (day, page) => {
           tvHour = tvHour < 3 ? tvHour + 24 : tvHour
 
           const milliseconds = tvHour * 60 * 60 * 1000 + timeArr[1] * 60 * 1000
-          const timestamp = timestampTodayMidnight + milliseconds
+          const timestamp = timestampTodayMidnight + milliseconds + parseInt(Math.random() * 1000)
           const dateTimestamp = new Date(timestamp).toISOString().slice(0, 16).replace('T', ' ')
           const link = 'https://programtv.onet.pl' + $(el).find('.title').find('a').attr('href')
           const title = $(el).find('.title a').text().replace(/\t/g, '').replace(/\n/g, '')
@@ -44,7 +45,7 @@ const kanal = (day, page) => {
 
           //const seans = { date, day, page, channelNo, channel, hour, title, type }
           const seans = { id, dayString, date, dateTimestamp, tvHour, timestamp, channel, hour, title, type, link,  }
-          fs.appendFileSync(fileTimeTable, `${JSON.stringify(seans)},\n`)
+          fs.appendFileSync(fileTimeTable, `${JSON.stringify(seans)},`)
         })
       }
     })

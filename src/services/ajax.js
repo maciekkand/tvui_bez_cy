@@ -26,14 +26,25 @@ export const ajaxAddTodaysPrograms = context => {
 
 
 export const ajaxGetSelectedPrograms = (context, { day, startHour, endHour }) => {
-  const url =
-    //`https://api.mlab.com/api/1/databases/tvui/collections/tvui1?s={id:1}&q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}}}]}&&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
-    `https://api.mlab.com/api/1/databases/tvui/collections/tvui1?q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}}}]}&s={id:1}&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
+  console.log('startHour = ', startHour)
+  console.log('endHour = ', endHour)
 
-    //`https://api.mlab.com/api/1/databases/tvui/collections/tvui1?q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}}}]}&&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
-    //`https://api.mlab.com/api/1/databases/tvui/collections/tvui1?q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}}}]}&&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
+  const d = new Date()
 
-  console.log('url = ', url)
+  console.log('startHour = ', new Date(startHour + d.getTimezoneOffset() * 60 * 1000))
+  console.log('endHour = ', new Date(endHour + d.getTimezoneOffset() * 60 * 1000))
+
+
+/// const query   = 'q={$and:[{timestamp:{$gt:1548194400000}},{timestamp:{$lt:1548198000000}}]}&f={date:0,dateTimestamp:0,tvHour:0}&s={id:1}'
+
+    const query = `q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}}}]}&f={date:0,dateTimestamp:0,tvHour:0}&s={id:1}`
+    //              'q={$and:[{timestamp:{$gt:1548133200000}},{timestamp:{$lt:1548144000000}}]}
+
+
+
+    const url = constants.TV_LIST_PREFIX + query + constants.TV_LIST_SUFFIX
+
+    console.log('url = ', url)
 
   axios.get(url)
     .then(res => {
@@ -57,20 +68,3 @@ export const ajaxGetSelectedPrograms = (context, { day, startHour, endHour }) =>
 }
 
 
-
-export const daysForSelectBox = () => {
-  const daysForSelectArray = []
-
-  for (let index = 0; index < 7; index++) {
-    const day = new Date().getTime() + index * 1000 * 60 * 60 * 24
-    const dayString = new Date(day).toString().slice(0, 10)
-    const startOfTodayTimestamp = new Date().setUTCHours(0, 0, 0, 0)
-    const dayObj = {
-      text: dayString,
-      value: startOfTodayTimestamp
-    }
-
-    daysForSelectArray.push(dayObj)
-  }
-  return daysForSelectArray
-}

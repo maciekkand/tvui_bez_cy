@@ -1,15 +1,14 @@
 <div v-cloak>
   <b-container>
     <b-row v-cloak>
-      <b-table id="stockTable"
-               data-test="stockTable"
+      <b-table id="table"
+               data-test="table"
                striped
                hover
                bordered
                :items="items"
                :fields="fields">
 
-        <span slot="title" slot-scope="data" v-html="data.value">{{ data.value }}</span>
         <span slot="link" slot-scope="data" v-html="data.value">{{ data.value }}</span>
 
       </b-table>

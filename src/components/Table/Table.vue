@@ -4,55 +4,51 @@
 export default {
   computed: {
     items() {
-      return this.$store.getters.getTodaysPrograms;
+      return this.$store.getters.getTodaysPrograms
     },
     fields() {
       return [
         {
-          key: "id",
-          label: "Id"
+          key: 'dayString',
+          label: 'Dzień'
         },
         {
-          key: "dayString",
-          label: "Dzień"
+          key: 'channel',
+          label: 'Kanał'
         },
         {
-          key: "channel",
-          label: "Kanał"
+          key: 'hour',
+          label: 'Godzina'
         },
-        {
-          key: "hour",
-          label: "Godzina"
-        },
-        {
+        /* {
           key: "duration",
           label: "Czas"
+        }, */
+        {
+          key: 'title',
+          label: 'Tytuł'
         },
         {
-          key: "title",
-          label: "Tytuł"
-        },
-        {
-          key: "type",
-          label: "Opis",
+          key: 'type',
+          label: 'Opis',
           sortable: true
         },
         {
-          key: "link",
-          label: "Link"
-        }
+          key: 'link',
+          label: 'Link',
+        },
       ]
     },
     loading() {
-      return this.$store.getters.getLoading;
+      return this.$store.getters.getLoading
     }
   },
   created() {
-    this.$store.dispatch("addTodaysPrograms");
+    this.$store.dispatch('addTodaysPrograms')
   },
   methods: {
     showTable() {
-      return this.$store.getters.getShowTable;
+      return this.$store.getters.getShowTable
     }
   }
 }
