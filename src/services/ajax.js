@@ -15,7 +15,7 @@ export const ajaxAddTodaysPrograms = context => {
           const hours = parseInt(totalMinutes / 60)
           const minutes = totalMinutes % 60
           el.duration = hours + ':' + minutes
-          el.link = `<a href=${el.link} target="_blank">Link</a>`
+          //el.link = `<a href=${el.link} target="_blank">Link</a>`
         }
       })
 
