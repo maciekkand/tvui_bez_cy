@@ -1,7 +1,7 @@
 <div>
     <b-container>
       <b-row>
-        <b-col md="7">
+        <b-col md="9">
           <b-form-checkbox-group data-test="categories"
                                  v-model="selectedCategories"
                                  @change="categoriesSelected"
@@ -27,7 +27,7 @@
                          data-test="day"
                          v-model="selectedDay"
                          :options="days"
-                         class="mb-3"
+                         class="mb-3 ml-0"
                          size="md" />
         </b-col>
 
@@ -40,9 +40,10 @@
 
         <b-col md="2">
           <b-form-select id="startHour"
-                        data-test="startHour"
-                        v-model.number="selectedStartHour"
-                        :options="startHours">
+                         data-test="startHour"
+                         v-model.number="selectedStartHour"
+                         class="mb-3 ml-0"
+                         :options="startHours">
           </b-form-select>
         </b-col>
 
@@ -53,12 +54,20 @@
           <b-btn class="mt-3" variant="success" block @click="hideModalStartHour">Zamknij</b-btn>
         </b-modal>
 
-        <b-col md="2" class="mr-5">
+        <b-col md="2">
           <b-form-select id="endHour"
                         data-test="endHour"
                         v-model.number="selectedEndHour"
                         :options="endHours">
           </b-form-select>
+        </b-col>
+
+        <b-col md="3">
+          <b-form-input id="textSearch"
+                         data-test="textSearch"
+                         v-model="textSearch"
+                         >
+          </b-form-input>
         </b-col>
 
         <b-modal ref="modalEndHour" data-test="modalEndHour" hide-footer>
@@ -75,35 +84,29 @@
           <b-btn class="mt-3" variant="success" block @click="hideModalHoursError">Zamknij</b-btn>
         </b-modal>
 
-        <b-col>
           <b-button id="search"
                     data-test="buttonSearch"
                     @click="search"
                     size="md"
-                    class='mx-1 px-2 pt-2'>
+                    class="ml-0 mb-3">
                     Search
           </b-button>
-        </b-col>
 
-        <b-col>
           <b-button id="reset"
                     data-test="buttonReset"
                     @click="reset"
-                    size="md"
-                    class='mx-2 px-2 pt-2'>
+                    class="ml-2 mb-3"
+                    size="md">
                     Reset
           </b-button>
-        </b-col>
 
-        <b-col>
           <b-button id="save"
                     data-test="buttonSave"
                     @click="save"
                     size="md"
-                    class='mx-2 px-3 pt-2'>
+                    class="ml-2 mb-3">
                     Save
           </b-button>
-        </b-col>
 
       </b-row>
     </b-container>
