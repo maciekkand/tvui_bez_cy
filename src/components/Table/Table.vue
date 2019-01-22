@@ -34,7 +34,11 @@ export default {
         },
         {
           key: 'type',
-          label: 'Opis',
+          label: 'Opis'
+        },
+        {
+          key: 'category',
+          label: 'Kategoria',
           sortable: true
         },
         {

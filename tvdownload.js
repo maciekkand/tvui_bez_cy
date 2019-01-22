@@ -7,6 +7,49 @@ const fileTimeTable = './tv1.json'
 //const fileTimeTable = './tv11.json'
 const urlPrefix = 'https://programtv.onet.pl/?dzien='
 
+function categoryCheck(type) {
+  const arrayFilm = ['film', 'komedi', 'dramat', 'horror', 'thriller']
+  const arraySerial = ['serial', 'telenowela']
+  const arrayEntertainment = ['rozrywk', 'teleturniej', 'show', 'muzycz']
+  const arrayNews = ['informac', 'publicysty']
+  const arraySport = ['sport']
+
+  const isFilm = arrayFilm.map(el => type.includes(el)).includes(true)
+  const isSerial = arraySerial.map(el => type.includes(el)).includes(true)
+  const isEntertainment = arrayEntertainment.map(el => type.includes(el)).includes(true)
+  const isSport = arraySport.map(el => type.includes(el)).includes(true)
+  const isNews = arrayNews.map(el => type.includes(el)).includes(true)
+
+  if (isFilm) {
+     return 'film'
+  }
+  else if (isSerial) {
+    return 'serial'
+  }
+  else if (isEntertainment) {
+    return 'rozrywka'
+  }
+  else if (isSport) {
+    return 'sport'
+  }
+  else if (isNews) {
+    return 'wiadomosci'
+  }
+  else return 'inne'
+
+  /*
+  console.log('type = ', type)
+  console.log('isFilm = ', isFilm)
+  console.log('isSerial = ', isSerial)
+  console.log('isEntertainment = ', isEntertainment)
+  console.log('isSport = ', isSport)
+  console.log('_______________________________________\n')
+  console.log('category = ', category)
+  console.log('_______________________________________\n')
+   */
+}
+
+
 const kanal = (day, page) => {
   const currentDay = Date.now() + day * 1000 * 60 * 60 * 24
   const dayString = new Date(currentDay).toDateString().slice(4, 10)
@@ -44,8 +87,10 @@ const kanal = (day, page) => {
           const title = $(el).find('.title a').text().replace(/\t/g, '').replace(/\n/g, '')
           const type = $(el).find('.type').text().replace(/\t/g, '').replace(/\n/g, '')
 
+          const category = categoryCheck(type)
+
           //const seans = { date, day, page, channelNo, channel, hour, title, type }
-          const seans = { id, dayString, date, dateTimestamp, time: hours + ':' + minutes, timestamp, channel, title, type, link,  }
+          const seans = { id, dayString, date, dateTimestamp, time: hours + ':' + minutes, timestamp, channel, title, type, category, link,  }
           fs.appendFileSync(fileTimeTable, `${JSON.stringify(seans)},\n`)
         })
       }

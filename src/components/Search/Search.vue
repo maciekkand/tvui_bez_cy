@@ -14,6 +14,7 @@ export default {
       endHours: hoursForSelectBox(true),
       categories: [
         { text: 'Film', value: 'film' },
+        { text: 'Serial', value: 'serial' },
         { text: 'Sport', value: 'sport' },
         { text: 'Rozrywka', value: 'rozrywka' },
         { text: 'Wiadomości', value: 'wiadomosci' },

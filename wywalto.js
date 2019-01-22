@@ -1,20 +1,37 @@
-/* const currentDay = Date.now()
-const dayStringFull = new Date(currentDay).toDateString()
-const dayStringShort = new Date(currentDay).toDateString().slice(4, 10)
+function categoryCheck(type) {
+  let category = ''
+  const arrayFilm = ['film', 'komedi', 'dramat', 'horror', 'thriller']
+  const arraySerial = ['serial', 'telenowela']
+  const arrayEntertainment = ['rozrywk', 'teleturniej', 'show', 'muzycz']
+  const arraySport = ['sport']
 
-const dateFull = new Date(currentDay).toISOString()
-const dateShort = new Date(currentDay).toISOString().slice(0, 10)
+  const isFilm = arrayFilm.map(el => type.includes(el)).includes(true)
+  const isSerial = arraySerial.map(el => type.includes(el)).includes(true)
+  const isEntertainment = arrayEntertainment.map(el => type.includes(el)).includes(true)
+  const isSport = arraySport.map(el => type.includes(el)).includes(true)
 
-console.log('dayStringFull = ', dayStringFull)
-console.log('dayStringShort = ', dayStringShort)
+  if (isFilm) {
+    category = 'film'
+  }
+  else if (isSerial) {
+    category = 'serial'
+  }
+  else if (isEntertainment) {
+    category = 'entertainment'
+  }
+  else if (isSport) {
+    category = 'sport'
+  }
+  else category = 'other'
 
-console.log('currentDay = ', currentDay) // 1548181565740
+  console.log('type = ', type)
+  console.log('isFilm = ', isFilm)
+  console.log('isSerial = ', isSerial)
+  console.log('isEntertainment = ', isEntertainment)
+  console.log('isSport = ', isSport)
+  console.log('_______________________________________\n')
+  console.log('category = ', category)
+  console.log('_______________________________________\n')
+}
 
-console.log('dateShort = ', dateShort)
-console.log('dateFull = ', dateFull)
- */
-const todayMidniteTimestamp = new Date().setUTCHours(0, 0, 0, 0)
-console.log('todayMidniteTimestamp = ', todayMidniteTimestamp)
-
-const todayMidniteString = new Date(todayMidniteTimestamp)
-console.log('todayMidniteString = ', todayMidniteString)
+categoryCheck('telezakupy')

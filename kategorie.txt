@@ -1,0 +1,56 @@
+FILM:
+  dramat obyczajowy
+  film dokumentalny
+  film kryminalny
+  film sensacyjny
+  film SF
+  komedia
+  komedia romantyczna
+  horror
+  thriller
+  cykl dokumentalny
+
+Serial:
+  serial dokumentalny
+  serial fabularno-dokumentalny
+  serial komediowy
+  serial kostiumowy
+  serial kryminalny
+  serial obyczajowy
+  serial paradokumentalny
+  serial sensacyjny
+  telenowela
+  telenowela historyczna
+
+Rozrywka:
+  teleturniej
+  teleturniej muzyczny
+  interaktywny program rozrywkowy
+  program rozrywkowy
+  talk-show
+  reality show
+  program muzyczny
+
+Sport:
+  program sportowy
+  sporty walki
+
+Inne:
+
+  program informacyjny
+  telezakupy
+  magazyn
+  magazyn interwencyjny
+  magazyn kulinarny
+  magazyn medyczny
+  magazyn poradnikowy
+  magazyn reklamowy
+  magazyn reporterów
+  magazyn rolniczy
+  program publicystyczny
+  program religijny
+
+
+
+
+
