@@ -27,7 +27,11 @@ export const ajaxAddTodaysPrograms = context => {
 
 export const ajaxGetSelectedPrograms = (context, { day, startHour, endHour }) => {
   const url =
-    `https://api.mlab.com/api/1/databases/tvui/collections/tvui1?s={id:1}q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}}}]}&&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
+    //`https://api.mlab.com/api/1/databases/tvui/collections/tvui1?s={id:1}&q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}}}]}&&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
+    `https://api.mlab.com/api/1/databases/tvui/collections/tvui1?q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}}}]}&s={id:1}&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
+
+    //`https://api.mlab.com/api/1/databases/tvui/collections/tvui1?q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}}}]}&&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
+    //`https://api.mlab.com/api/1/databases/tvui/collections/tvui1?q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}}}]}&&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
 
   console.log('url = ', url)
 
