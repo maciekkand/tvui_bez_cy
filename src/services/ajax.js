@@ -22,16 +22,13 @@ export const ajaxAddTodaysPrograms = context => {
 }
 
 export const ajaxGetSelectedPrograms = (context, { day, startHour, endHour, selectedCategories }) => {
-  // console.log('startHour = ', startHour)
-  // console.log('endHour = ', endHour)
-  // console.log('selectedCategories = ', selectedCategories)
+  const arrSelectedCategories = JSON.stringify(selectedCategories)
 
-  const arr = JSON.stringify(selectedCategories)
+  const query1 = `q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}},`
+  const query2 = selectedCategories && selectedCategories.length ? `category:{$in:${arrSelectedCategories}}}]}` : ''
+  const query3 = `}]}`
 
-  const query = `q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}},category:{$in:${arr}}}]}`
-  const url = constants.TV_LIST_PREFIX + query + constants.TV_LIST_SUFFIX
-
-  console.log('url = ', url)
+  const url = constants.TV_LIST_PREFIX + query1 + query2 + query3 + constants.TV_LIST_SUFFIX
 
   axios.get(url)
     .then(res => {

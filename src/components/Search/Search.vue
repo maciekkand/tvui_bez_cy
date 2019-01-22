@@ -7,12 +7,12 @@ export default {
   data() {
     return {
       selectedDay: null,
-      selectedStartHour: new Date().getHours(), // todo: a) usunąć na końcu b) przy innym dniu startHour = 3 rano
+      selectedStartHour: null, // new Date().getHours(), // todo: a) usunąć na końcu b) przy innym dniu startHour = 3 rano
       selectedEndHour: null,
       selectedCategories: null,
       days: daysForSelectBox(),
-      startHours: hoursForSelectBox(false),
-      endHours: hoursForSelectBox(true),
+      startHours: hoursForSelectBox(this.selectedDay, false),
+      endHours: hoursForSelectBox(this.selectedDay, true),
       categories: [
         { text: 'Film', value: 'film' },
         { text: 'Serial', value: 'serial' },
@@ -31,16 +31,18 @@ export default {
     }
   },
   created() {
-    /*
-    if (sessionStorage.getItem('homeData')) {
-      const homeData = JSON.parse(sessionStorage.getItem('homeData'))
-      this.city = homeData.city
-      this.street = homeData.street
-      this.streetNumber = homeData.streetNumber
-    }
-    */
+    //this.selectedDay = new Date(day).toString().slice(0, 10)
   },
   methods: {
+    onChangedSelection() {
+      console.log('changedSelection') // sieknąć jeśli się nie przyda
+      //console.log(e.target.value)       // @change z .html też
+
+      setTimeout(() => {
+        //console.log(this.selectedDay)
+        hoursForSelectBox(this.selectedDay, false)
+      }, 100)
+    },
     search() {
       if (!this.selectedDay) {
         console.log('brak Day = ')
@@ -66,7 +68,8 @@ export default {
         selectedCategories: this.selectedCategories
       }
 
-      //console.log('selectedCategories = ', this.selectedCategories)
+      console.log('searchData = ', searchData)
+      console.log('day = ', new Date(searchData.day))
 
       this.$store.dispatch('getSelectedPrograms', searchData)
       sessionStorage.setItem('searchData', JSON.stringify(searchData))
