@@ -21,52 +21,15 @@ export const ajaxAddTodaysPrograms = context => {
     .catch(err => console.log('ERORAS:', err))
 }
 
-export const ajaxGetSelectedPrograms = (context, {
-  day,
-  startHour,
-  endHour,
-  selectedCategories
-}) => {
-  console.log('startHour = ', startHour)
-  console.log('endHour = ', endHour)
+export const ajaxGetSelectedPrograms = (context, { day, startHour, endHour, selectedCategories }) => {
+  // console.log('startHour = ', startHour)
+  // console.log('endHour = ', endHour)
+  // console.log('selectedCategories = ', selectedCategories)
 
-  console.log('selectedCategories = ', selectedCategories)
+  const arr = JSON.stringify(selectedCategories)
 
-  ' {value: { $in: [6,7]}} '
-  ' category: { $in: ["film","serial"]} '
-
-  const selectedCategories2 = ['film', 'serial']
-
-  // .find( { type: 'food', $or: [ { qty: { $gt: 100 } }, { price: { $lt: 9.95 } } ] } )  // AND + OR  '
-
-
-  /// `q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}}}]}&f={tvHour:0}&s={id:1}`
-
-  /// `q={category:{$in:['film','serial']}}`
-
-  /// `q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}},category:{$in:['film','serial']}}]}&f={tvHour:0}&s={id:1}`
-
-  ///`q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}},category:{$in:   ['film','serial']   }}]}&f={tvHour:0}&s={id:1}`
-
-  /// `q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}},category:{$in:['film','serial']}}]}&f={tvHour:0}&s={id:1}`
-
-  const cat1 = "'film'"
-  const cat2 = "'serial'"
-  //const arr = ["film", "serial"]
-  const arr = '["film", "serial"]'
-
-  /// const queras = `q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}},category:{$in:['film','serial']}}]}`
-
-  ///const queras = `q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}},category:{$in:[${cat1},${cat2}]}}]}`
-
-  const queras = `q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}},category:{$in:${arr}}}]}`
-
-
-
-
-
-
-  const url = constants.TV_LIST_PREFIX + queras + constants.TV_LIST_SUFFIX
+  const query = `q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}},category:{$in:${arr}}}]}`
+  const url = constants.TV_LIST_PREFIX + query + constants.TV_LIST_SUFFIX
 
   console.log('url = ', url)
 

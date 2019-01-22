@@ -16,6 +16,7 @@ export default {
       categories: [
         { text: 'Film', value: 'film' },
         { text: 'Serial', value: 'serial' },
+        { text: 'Telenowela', value: 'telenowela' },
         { text: 'Sport', value: 'sport' },
         { text: 'Rozrywka', value: 'rozrywka' },
         { text: 'Wiadomości', value: 'wiadomosci' },

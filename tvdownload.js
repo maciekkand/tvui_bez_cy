@@ -8,29 +8,40 @@ const fileTimeTable = "./tv1.json";
 const urlPrefix = "https://programtv.onet.pl/?dzien=";
 
 function categoryCheck(type) {
+  const arraySerial = ["serial"];
+  const arrayTelenowela = ["telenowela"];
   const arrayFilm = ["film", "komedi", "dramat", "horror", "thriller"];
-  const arraySerial = ["serial", "telenowela"];
   const arrayEntertainment = ["rozrywk", "teleturniej", "show", "muzycz"];
   const arrayNews = ["informac", "publicysty"];
   const arraySport = ["sport"];
 
   const isFilm = arrayFilm.map(el => type.includes(el)).includes(true);
   const isSerial = arraySerial.map(el => type.includes(el)).includes(true);
+  const isTelenowela = arrayTelenowela.map(el => type.includes(el)).includes(true);
   const isEntertainment = arrayEntertainment.map(el => type.includes(el)).includes(true);
   const isSport = arraySport.map(el => type.includes(el)).includes(true);
   const isNews = arrayNews.map(el => type.includes(el)).includes(true);
 
-  if (isFilm) {
-    return "film";
-  } else if (isSerial) {
+
+  if (isSerial) {
     return "serial";
-  } else if (isEntertainment) {
+  }
+  else if (isTelenowela) {
+    return "telenowela"
+  }
+  else if (isFilm) {
+    return "film"
+  }
+  else if (isEntertainment) {
     return "rozrywka";
-  } else if (isSport) {
+  }
+  else if (isSport) {
     return "sport";
-  } else if (isNews) {
+  }
+  else if (isNews) {
     return "wiadomosci";
-  } else return "inne";
+  }
+  else return "inne";
 }
 
 const kanal = (day, page) => {
@@ -82,8 +93,8 @@ const kanal = (day, page) => {
 
           const category = categoryCheck(type)
 
-          //const seans = { id, channel, time: hours + ':' + minutes, timestamp, title, category, type, link, daystring, date, dateTimestamp }
-          const seans = {
+          const seans = { id, channel, time: hours + ':' + minutes, timestamp, title, category, type, link, dayString, date, dateTimestamp }
+          /* const seans = {
             id,
             dayString,
             date,
@@ -95,7 +106,7 @@ const kanal = (day, page) => {
             type,
             category,
             link,
-          }
+          } */
           fs.appendFileSync(fileTimeTable, `${JSON.stringify(seans)},\n`)
         })
       }

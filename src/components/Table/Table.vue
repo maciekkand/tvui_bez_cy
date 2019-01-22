@@ -14,7 +14,8 @@ export default {
         },
         {
           key: 'id',
-          label: 'id'
+          label: 'id',
+          sortable: true
         },
         {
           key: 'dayString',
