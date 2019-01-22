@@ -40,7 +40,7 @@ const kanal = (day, page) => {
           const timestamp = timestampTodayMidnight + milliseconds + parseInt(Math.random() * 1000)
           const dateTimestamp = new Date(timestamp).toISOString().slice(0, 16).replace('T', ' ')
 
-          const link = 'https://programtv.onet.pl' + $(el).find('.title').find('a').attr('href')
+          const link = '<a href=\"https://programtv.onet.pl' + $(el).find('.title').find('a').attr('href') + '\">Link</a>'
           const title = $(el).find('.title a').text().replace(/\t/g, '').replace(/\n/g, '')
           const type = $(el).find('.type').text().replace(/\t/g, '').replace(/\n/g, '')
 

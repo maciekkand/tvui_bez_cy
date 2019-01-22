@@ -19,7 +19,7 @@ export const hoursForSelectBox = endHour => {
   const hoursForSelectArray = []
   const currentHour = new Date().getHours()
 
-  for (let index = currentHour; index < 25; index++) {
+  for (let index = currentHour; index < 24; index++) {
     const hour = {
       text: index + endHour,
       value: index + endHour

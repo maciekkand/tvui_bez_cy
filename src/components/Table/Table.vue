@@ -9,6 +9,10 @@ export default {
     fields() {
       return [
         {
+          key: 'id',
+          label: 'Id'
+        },
+        {
           key: 'dayString',
           label: 'Dzień'
         },
