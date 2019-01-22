@@ -9,6 +9,7 @@ export default {
       selectedDay: null,
       selectedStartHour: null,
       selectedEndHour: null,
+      selectedCategories: null,
       days: daysForSelectBox(),
       startHours: hoursForSelectBox(false),
       endHours: hoursForSelectBox(true),
@@ -62,6 +63,8 @@ export default {
         startHour: this.selectedStartHour * 1000 * 60 * 60 + this.selectedDay,
         endHour: this.selectedEndHour * 1000 * 60 * 60 + this.selectedDay
       }
+
+      console.log('selectedCategories = ', this.selectedCategories)
 
       this.$store.dispatch('getSelectedPrograms', searchData)
       sessionStorage.setItem('searchData', JSON.stringify(searchData))
