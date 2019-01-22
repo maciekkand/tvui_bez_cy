@@ -10,6 +10,7 @@ export default {
       selectedStartHour: null, // new Date().getHours(), // todo: a) usunąć na końcu b) przy innym dniu startHour = 3 rano
       selectedEndHour: null,
       selectedCategories: null,
+      // selectedStations: null,
       days: daysForSelectBox(),
       startHours: hoursForSelectBox(this.selectedDay, false),
       endHours: hoursForSelectBox(this.selectedDay, true),
@@ -28,19 +29,17 @@ export default {
   computed: {
     loading() {
       return this.$store.getters.getLoading
-    }
-  },
-  created() {
-    //this.selectedDay = new Date(day).toString().slice(0, 10)
+    },
+    //selectedStations() {
+    //console.log("34. getters.selectedStations = ", this.$store.getters.selectedStations)
+    //return this.$store.getters.selectedStations;
+    //}
   },
   methods: {
     onChangedSelection() {
-      console.log('changedSelection') // sieknąć jeśli się nie przyda
-      //console.log(e.target.value)       // @change z .html też
-
       setTimeout(() => {
         //console.log(this.selectedDay)
-        hoursForSelectBox(this.selectedDay, false)
+        hoursForSelectBox(this.selectedDay, false) // todo: co z tym ?
       }, 100)
     },
     search() {
@@ -65,11 +64,11 @@ export default {
         day: this.selectedDay,
         startHour: this.selectedStartHour * 1000 * 60 * 60 + this.selectedDay,
         endHour: this.selectedEndHour * 1000 * 60 * 60 + this.selectedDay,
-        selectedCategories: this.selectedCategories
+        selectedCategories: this.selectedCategories,
+        selectedStations: this.$store.getters.getSelectedStations
       }
 
       console.log('searchData = ', searchData)
-      console.log('day = ', new Date(searchData.day))
 
       this.$store.dispatch('getSelectedPrograms', searchData)
       sessionStorage.setItem('searchData', JSON.stringify(searchData))

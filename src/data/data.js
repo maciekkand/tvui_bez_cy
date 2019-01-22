@@ -16,7 +16,6 @@ export const daysForSelectBox = () => {
     daysForSelectArray.push(dayObj)
   }
 
-  console.log('daysForSelectArray = ', daysForSelectArray)
   return daysForSelectArray
 }
 
@@ -24,15 +23,10 @@ export const hoursForSelectBox = (selectedDay, endHour) => {
   const hoursForSelectArray = []
   let currentHour
 
-  // console.log('selectedDay = ', new Date(selectedDay).toDateString())
-  // console.log('today = ', new Date().toDateString())
-
   if (new Date(selectedDay).toDateString() === new Date().toDateString()) {
     currentHour = new Date().getHours()
   }
   else currentHour = 3
-
-  //console.log('currentHour = ', currentHour)
 
   for (let index = currentHour; index < 24; index++) {
     const hour = {
@@ -49,8 +43,6 @@ export const hoursForSelectBox = (selectedDay, endHour) => {
   else {
     hoursForSelectArray.unshift({ text: 'Godzina Od', value: null })
   }
-
-  console.table(hoursForSelectArray)
 
   return hoursForSelectArray
 }

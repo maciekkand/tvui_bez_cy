@@ -12,12 +12,13 @@ export default {
     }
   },
   methods: {
-    resetStations() {
+    resetSelectedStations() {
       this.selected = []
-      this.$store.dispatch('setStations', [])
+      this.$store.dispatch('setSelectedStations', [])
     },
-    setStations() {
+    setSelectedStations() {
       console.log(this.selected)
+      this.$store.dispatch('setSelectedStations', this.selected)
     }
   }
 }
