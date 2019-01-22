@@ -2,40 +2,41 @@
   <b-container class="mb-3">
     <b-row class="mb-2">
 
-    <h3>1. Dać topowe czekboksy toglujące widoczność programów danych stacji TV, tzn:
-      czekboksy: TVP, TVN, Polsat, AXN, inne
 
-    </h3>
-
-    <h3>2. Dać radioboksa wybierającego sposób wyświetlania wszystkich :
-        a) wg stacji (jak wyżej)
-        b) alfabetycznie
-    </h3>
 
     </b-row>
     <b-row class="my-2">
       <span>
         <router-link to="/home" active-class='active' class='mx-3'><a>Home</a></router-link>
-        <router-link to="/stations" active-class='active' class='mx-3'><a>Stations</a></router-link>
         <router-link to="/about" active-class='active' class='mx-3'><a>About</a></router-link>
       </span>
     </b-row>
 
     <b-row>
-      <b-form-group v-if="show">
+      <b-form-group>
           <b-form-checkbox-group data-test="stations"
                                  v-model="selected"
                                  @change="stationsSelected"
+                                 class="mt-0"
                                  :options="options">
           </b-form-checkbox-group>
 
       </b-form-group>
-      <b-button data-test='buttonResetStock'
-                @click="resetStock"
-                size="sm"
+
+      <b-button data-test='buttonOK'
+                @click="setStations"
+                size="md"
                 class="ml-3"
                 variant="secondary">
-        Reset
+                OK
+      </b-button>
+
+      <b-button data-test='buttonReset'
+                @click="resetStations"
+                size="md"
+                class="ml-3"
+                variant="secondary">
+                Reset
       </b-button>
     </b-row>
   </b-container>

@@ -24,15 +24,15 @@ export const hoursForSelectBox = (selectedDay, endHour) => {
   const hoursForSelectArray = []
   let currentHour
 
-  console.log('selectedDay = ', new Date(selectedDay).toDateString())
-  console.log('today = ', new Date().toDateString())
+  // console.log('selectedDay = ', new Date(selectedDay).toDateString())
+  // console.log('today = ', new Date().toDateString())
 
   if (new Date(selectedDay).toDateString() === new Date().toDateString()) {
     currentHour = new Date().getHours()
   }
   else currentHour = 3
 
-  console.log('currentHour = ', currentHour)
+  //console.log('currentHour = ', currentHour)
 
   for (let index = currentHour; index < 24; index++) {
     const hour = {
@@ -54,3 +54,9 @@ export const hoursForSelectBox = (selectedDay, endHour) => {
 
   return hoursForSelectArray
 }
+
+export const stations = [
+  { text: 'TVP1', value: 'tvp1' },
+  { text: 'TVP2', value: 'tvp2' }
+]
+

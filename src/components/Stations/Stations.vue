@@ -12,12 +12,12 @@ export default {
     }
   },
   methods: {
-    resetStock() {
+    resetStations() {
       this.selected = []
-      this.$store.dispatch('getStock', [])
+      this.$store.dispatch('setStations', [])
     },
-
-    stationsSelected() {
+    setStations() {
+      console.log(this.selected)
     }
   }
 }
