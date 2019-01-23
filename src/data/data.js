@@ -48,7 +48,7 @@ export const hoursForSelectBox = (selectedDay, endHour) => {
 }
 
 export const stations = [
-  { text: 'TVP1', value: 'tvp1' },
-  { text: 'TVP2', value: 'tvp2' }
+  { text: 'TVP 1', value: 'TVP 1' },
+  { text: 'TVP 2', value: 'TVP 2' }
 ]
 
