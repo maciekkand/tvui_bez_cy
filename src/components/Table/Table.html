@@ -9,6 +9,12 @@
                :items="items"
                :fields="fields">
 
+        <template slot="checkbox" slot-scope="row">
+            <b-form-checkbox id="checkbox" v-model="data.item.selected">
+              {{ row.value }}
+            </b-form-checkbox>
+        </template>
+
         <template slot="index" slot-scope="data">{{ data.index + 1 }}</template>
         <span slot="link" slot-scope="data" v-html="data.value">{{ data.value }}</span>
 

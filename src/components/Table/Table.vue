@@ -52,6 +52,10 @@ export default {
           key: 'link',
           label: 'link',
         },
+        {
+          key: 'checkbox',
+          label: 'checkbox',
+        },
       ]
     },
     loading() {
