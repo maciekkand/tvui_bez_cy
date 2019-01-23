@@ -59,7 +59,7 @@ const kanal = (day, page) => {
     .then(res => {
       const $ = cheerio.load(res.data)
 
-      for (let channelNo = 1; channelNo < 3; channelNo++) { // 1-4
+      for (let channelNo = 1; channelNo < 21; channelNo++) { // 1-4
         const channel = $(`#boxTVHolder${channelNo}`)
           .find('span.tvName')
           .text()
@@ -93,35 +93,19 @@ const kanal = (day, page) => {
 
           const category = categoryCheck(type)
 
-          const seans = { id, channel, time: hours + ':' + minutes, timestamp, title, category, type, link, dayString, date, dateTimestamp }
-          /* const seans = {
-            id,
-            dayString,
-            date,
-            dateTimestamp,
-            time: hours + ':' + minutes,
-            timestamp,
-            channel,
-            title,
-            type,
-            category,
-            link,
-          } */
+          const seans = { id, channel, dayString, time: hours + ':' + minutes, date, title, category, type, dateTimestamp, timestamp, link }
+
           fs.appendFileSync(fileTimeTable, `${JSON.stringify(seans)},\n`)
         })
       }
     })
     .catch(err => console.log('Erorek:', err))
-    /*/
-    /* #endregion */
 };
 
 const getAllChannels = () => {
-  for (let day = 0; day < 8; day++) {
-    // 0-3
-    for (let page = 1; page < 2; page++) {
-      // 1-2
-      kanal(day, page);
+  for (let day = 0; day < 7; day++) {        // 0-3
+    for (let page = 1; page < 2; page++) {   // 1-2
+      kanal(day, page)
     }
   }
   console.log("Skończyłem i zapisałem do pliku: ", fileTimeTable);
