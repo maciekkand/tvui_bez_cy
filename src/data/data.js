@@ -74,16 +74,12 @@ export const stations = [
     value: 'TVN'
   },
   {
-    text: 'TV',
-    value: 'TV'
-  },
-  {
     text: 'TV 4',
     value: 'TV 4'
   },
   {
-    text: 'TV 7',
-    value: 'TV 7'
+    text: 'TVN 7',
+    value: 'TVN 7'
   },
   {
     text: 'TV Puls',
@@ -476,10 +472,8 @@ export const stations = [
   }, {
     text: 'TVN 24',
     value: 'TVN 24'
-  }, {
-    text: 'TVN 7',
-    value: 'TVN 7'
-  }, {
+  },
+  {
     text: 'TVN Fabuła',
     value: 'TVN Fabuła'
   }, {

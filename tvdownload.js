@@ -3,8 +3,8 @@ const fs = require("fs");
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-const fileTimeTable = "./tv1.json";
-//const fileTimeTable = './tv11.json'
+// const fileTimeTable = "./tv1.json";
+const fileTimeTable = './tv11.json'
 const urlPrefix = "https://programtv.onet.pl/?dzien=";
 
 function categoryCheck(type) {
@@ -22,27 +22,23 @@ function categoryCheck(type) {
   const isSport = arraySport.map(el => type.includes(el)).includes(true);
   const isNews = arrayNews.map(el => type.includes(el)).includes(true);
 
+  /* #region  */
 
   if (isSerial) {
     return "serial";
-  }
-  else if (isTelenowela) {
+  } else if (isTelenowela) {
     return "telenowela"
-  }
-  else if (isFilm) {
+  } else if (isFilm) {
     return "film"
-  }
-  else if (isEntertainment) {
+  } else if (isEntertainment) {
     return "rozrywka";
-  }
-  else if (isSport) {
+  } else if (isSport) {
     return "sport";
-  }
-  else if (isNews) {
+  } else if (isNews) {
     return "wiadomosci";
-  }
-  else return "inne";
+  } else return "inne";
 }
+/* #endregion */
 
 const kanal = (day, page) => {
   const currentDay = Date.now() + day * 1000 * 60 * 60 * 24;
@@ -69,31 +65,39 @@ const kanal = (day, page) => {
         const channels = $(`#boxTVHolder${channelNo} li`)
 
         channels.each((i, el) => {
-          const id = day.toString().padStart(2, '0') + channelNo.toString().padStart(2, '0') +
-            i.toString().padStart(2, '0')
-          const time = $(el).find('.hour').text().replace(/\t/g, '').replace(/\n/g, '').split(
-            ':')
-          const timestampTodayMidnight = new Date().setUTCHours(0, 0, 0, 0) + day * 1000 *
-            60 * 60 * 24
+          const id = day.toString().padStart(2, '0') + channelNo.toString().padStart(2, '0') + i.toString().padStart(2, '0')
+          const time = $(el).find('.hour').text().replace(/\t/g, '').replace(/\n/g, '').split(':')
+          const timestampTodayMidnight = new Date().setUTCHours(0, 0, 0, 0) + day * 1000 * 60 * 60 * 24
 
           let hours = time[0]
           let minutes = time[1]
           // tvHour = tvHour < 3 ? tvHour + 24 : tvHour
 
           const milliseconds = (hours * 60 * 60 * 1000) + (minutes * 60 * 1000)
-          const timestamp = timestampTodayMidnight + milliseconds + parseInt(Math.random() *
-            1000)
-          const dateTimestamp = new Date(timestamp).toISOString().slice(0, 16).replace('T',
-            ' ')
+          const timestamp = timestampTodayMidnight + milliseconds + parseInt(Math.random() * 1000)
+          const dateTimestamp = new Date(timestamp).toISOString().slice(0, 16).replace('T', ' ')
 
-          const link = '<a href=\"https://programtv.onet.pl' + $(el).find('.title').find(
-            'a').attr('href') + '\">Link</a>'
+          const link = '<a href=\"https://programtv.onet.pl' + $(el).find('.title').find('a').attr('href') + '\">Link</a>'
           const title = $(el).find('.title a').text().replace(/\t/g, '').replace(/\n/g, '')
           const type = $(el).find('.type').text().replace(/\t/g, '').replace(/\n/g, '')
 
           const category = categoryCheck(type)
 
-          const seans = { id, channel, dayString, time: hours + ':' + minutes, date, title, category, type, dateTimestamp, timestamp, link }
+          /* const seans = {
+            id,
+            channel,
+            dayString,
+            time: hours + ':' + minutes,
+            date,
+            title,
+            category,
+            type,
+            dateTimestamp,
+            timestamp,
+            link
+          } */
+
+          const seans = { channel }
 
           fs.appendFileSync(fileTimeTable, `${JSON.stringify(seans)},\n`)
         })
@@ -103,8 +107,8 @@ const kanal = (day, page) => {
 };
 
 const getAllChannels = () => {
-  for (let day = 0; day < 7; day++) {        // 0-3
-    for (let page = 1; page < 2; page++) {   // 1-2
+  for (let day = 0; day < 1; day++) { // 0-3
+    for (let page = 1; page < 8; page++) { // 1-2
       kanal(day, page)
     }
   }

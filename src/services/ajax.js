@@ -44,12 +44,9 @@ export const ajaxGetSelectedPrograms = (context, { day, startHour, endHour, sele
   const arrSelectedCategories = JSON.stringify(selectedCategories)
   const arrSelectedStations = JSON.stringify(selectedStations)
 
-  //const queryHours = `q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}}]}`
-
   const queryHours = `s={id:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}}]}`
-
   const queryHoursCategory = `s={id:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}}]}]}`
-
+  const queryHoursStations = `s={id:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"channel":{$in:${arrSelectedStations}}}]}]}`
   const queryHoursCategoryStations = `s={id:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}},{$and:[{"channel":{$in:${arrSelectedStations}}}]}]}]}`
 
   if(startHour && endHour && selectedCategories && selectedStations) {
@@ -57,6 +54,9 @@ export const ajaxGetSelectedPrograms = (context, { day, startHour, endHour, sele
   }
   else if(startHour && endHour && selectedCategories) {
     query = queryHoursCategory
+  }
+  else if(startHour && endHour && selectedStations) {
+    query = queryHoursStations
   }
   else if(startHour && endHour) {
     query = queryHours

@@ -23,16 +23,18 @@ export default {
         },
         {
           key: 'channel',
-          label: 'channel'
+          label: 'channel',
+          sortable: true
         },
         {
           key: 'time',
-          label: 'time'
+          label: 'time',
+          sortable: true
         },
-        {
+        /* {
           key: 'timestamp',
           label: 'timestamp'
-        },
+        }, */
         {
           key: 'title',
           label: 'title'
