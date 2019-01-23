@@ -29,10 +29,10 @@ export default {
           key: 'time',
           label: 'time'
         },
-        /* {
-          key: "duration",
-          label: "Czas"
-        }, */
+        {
+          key: 'timestamp',
+          label: 'timestamp'
+        },
         {
           key: 'title',
           label: 'title'

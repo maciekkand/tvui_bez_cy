@@ -33,18 +33,30 @@ export const ajaxGetSelectedPrograms = (context, { day, startHour, endHour, sele
 
   const query3 = selectedStations && selectedStations.length ? `,stations:{$in:${arrSelectedStations}}}]}}` : ''
 
+  // { "timestamp": { $gte: NumberLong(1548306000000) }, $and: [ { "timestamp": { $lt: NumberLong(1548320400000) } }, { $and: [ { "category": { $in: ['serial'] } } ] } ] }
 
-  'q={$and:[   {timestamp:{$gt:1548298800000}},   {timestamp:{$lt:1548316800000},  category:{$in:[film,serial]} }]}}   ]}'
+  /*
+  1) Dopisz: `q= na początku (z backtikiem !)
+  2) wywal 'NumberLong i okrągłe nawiasy
+  3) wywal wszystkie spacje
+  4) zamień timestampy na ${startHour} i ${endHour}
+  */
+
+ /// const query = `q={"timestamp":{$gte:1548306000000},$and:[{"timestamp":{$lt:1548320400000}},{$and:[{"category":{$in:['serial']}}]}]}`
+
+ /// const query = `q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:['serial']}}]}]}`
+
+ console.log('arrSelectedCategories = ', arrSelectedCategories)
+
+ /// const query = `q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}}]}]}`
+
+ const query = `q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}},{$and:[{"channel":"TVP 2"}]}]}]}`
+
+ //{ "timestamp": { $gte: NumberLong(1548306000000) }, $and: [ { "timestamp": { $lt: NumberLong(1548320400000) } }, { $and: [ { "category": { $in: ['serial'] } }, { $and: [ { "channel": "TVP 2" } ] } ] } ] }
 
 
-
-
-
-
-
-
-
-  const url = constants.TV_LIST_PREFIX + query1 + query2 + query3 + constants.TV_LIST_SUFFIX
+  // const url = constants.TV_LIST_PREFIX + query1 + query2 + query3 + constants.TV_LIST_SUFFIX
+  const url = constants.TV_LIST_PREFIX + query + constants.TV_LIST_SUFFIX
 
   console.log('url = ', url)
 
