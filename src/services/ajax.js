@@ -25,14 +25,16 @@ export const ajaxGetSelectedPrograms = (context, { day, startHour, endHour, sele
   console.log('selectedStations = ', selectedStations) // todo: tu jest ok, ruszaj stąd
 
   const arrSelectedCategories = JSON.stringify(selectedCategories)
+  const arrSelectedStations = JSON.stringify(selectedStations)
 
   const query1 = `q={$and:[{timestamp:{$gt:${startHour}}},{timestamp:{$lt:${endHour}}`
-  const query2 = selectedCategories && selectedCategories.length ? `,category:{$in:${arrSelectedCategories}}}]}}` : ''
-  //const query3 = `}]}`
-  const query3 = ``
+  //const query2 = selectedCategories && selectedCategories.length ? `,category:{$in:${arrSelectedCategories}}}]}}` : ''
+  const query2 = selectedCategories && selectedCategories.length ? `,category:{$in:${arrSelectedCategories}}` : ''
+
+  const query3 = selectedStations && selectedStations.length ? `,stations:{$in:${arrSelectedStations}}}]}}` : ''
 
 
-  'https://api.mlab.com/api/1/databases/tvui/collections/tvui1?q={$and:[{timestamp:{$gt:1548298800000}},{timestamp:{$lt:1548316800000},category:{$in:[%22film%22,%22serial%22]}}]}}]}&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI'
+  'q={$and:[   {timestamp:{$gt:1548298800000}},   {timestamp:{$lt:1548316800000},  category:{$in:[film,serial]} }]}}   ]}'
 
 
 
