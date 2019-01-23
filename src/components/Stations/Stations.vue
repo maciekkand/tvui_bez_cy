@@ -6,15 +6,15 @@ import { stations } from '../../data/data'
 export default {
   data() {
     return {
-      selected: [],
+      selected: null,
       options: stations,
       show: true
     }
   },
   methods: {
     resetSelectedStations() {
-      this.selected = []
-      this.$store.dispatch('setSelectedStations', [])
+      this.selected = null
+      this.$store.dispatch('setSelectedStations', null)
     },
     setSelectedStations() {
       console.log(this.selected)
