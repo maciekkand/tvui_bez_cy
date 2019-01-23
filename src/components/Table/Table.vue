@@ -2,16 +2,21 @@
 
 <script>
 export default {
+  data() {
+    return {
+      selected: []
+    }
+  },
   computed: {
     items() {
       return this.$store.getters.getTodaysPrograms
     },
     fields() {
       return [
-        {
+        /* {
           key: 'index',
           label: '#'
-        },
+        }, */
         {
           key: 'id',
           label: 'id',
@@ -19,7 +24,7 @@ export default {
         },
         {
           key: 'dayString',
-          label: 'dayString'
+          label: 'daystr'
         },
         {
           key: 'channel',
@@ -54,7 +59,7 @@ export default {
         },
         {
           key: 'checkbox',
-          label: 'checkbox',
+          label: ''
         },
       ]
     },
@@ -68,6 +73,17 @@ export default {
   methods: {
     showTable() {
       return this.$store.getters.getShowTable
+    },
+    onRowClicked(item, index, event) {
+      console.log('index = ', index)
+      console.log('item = ', item)
+      console.log('title = ', item.item.title)
+
+      const element = event.srcElement
+      const isFirstElement = !element.previousSibling
+      if (!isFirstElement) {
+        this.$router.push('/mythingy')
+      }
     }
   }
 }
