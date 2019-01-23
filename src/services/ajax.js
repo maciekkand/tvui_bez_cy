@@ -3,8 +3,26 @@ import axios from 'axios'
 import constants from '../data/constants'
 
 export const ajaxAddTodaysPrograms = context => {
+
+  const nowHour = new Date().getTime() - new Date().getMinutes() * 60 * 1000
+  console.log('nowHour = ', new Date(nowHour))
+
+  const nowMidnight = nowHour + (24 - new Date().getHours()) * 60 * 60 * 1000
+  console.log('midnight = ', new Date(nowMidnight))
+
+  const topStations = JSON.stringify(['TVP 1', 'TVP 2', 'TVN', 'POLSAT'])
+
+  let query = 'https://api.mlab.com/api/1/databases/tvui/collections/tvui1?s={id:1}&q='
+
+  query += `{"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"channel":{$in:${topStations}}}]}]}`
+  query += '&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI'
+
+
+  console.log('query = ', query)
+
   axios
-    .get(constants.TV_LIST)
+    //.get(constants.TV_LIST)
+    .get(query)
     .then(res => {
 
       res.data.map((el, index) => {
