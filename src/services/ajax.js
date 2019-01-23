@@ -36,21 +36,22 @@ export const ajaxGetSelectedPrograms = (context, { day, startHour, endHour, sele
   const arrSelectedCategories = JSON.stringify(selectedCategories)
   const arrSelectedStations = JSON.stringify(selectedStations)
 
-  const queryHours = `q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}}]}`
-  const queryHoursCategory = `q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}}]}]}`
-  const queryHoursCategoryStations = `q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}},{$and:[{"channel":{$in:${arrSelectedStations}}}]}]}]}`
+  //const queryHours = `q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}}]}`
+
+  const queryHours = `s={id:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}}]}`
+
+  const queryHoursCategory = `s={id:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}}]}]}`
+
+  const queryHoursCategoryStations = `s={id:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}},{$and:[{"channel":{$in:${arrSelectedStations}}}]}]}]}`
 
   if(startHour && endHour && selectedCategories && selectedStations) {
-    console.log('queryHoursCategoryStations')
     query = queryHoursCategoryStations
   }
   else if(startHour && endHour && selectedCategories) {
-    console.log('queryHoursCategory')
     query = queryHoursCategory
   }
   else if(startHour && endHour) {
     query = queryHours
-    console.log('queryHours')
   }
 
   const url = constants.TV_LIST_PREFIX + query + constants.TV_LIST_SUFFIX

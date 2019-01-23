@@ -19,6 +19,7 @@ export default {
     setSelectedStations() {
       console.log(this.selected)
       this.$store.dispatch('setSelectedStations', this.selected)
+      this.$router.push('/')
     }
   }
 }

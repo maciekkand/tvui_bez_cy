@@ -14,7 +14,6 @@ export default new Vuex.Store({
       return state.todaysPrograms
     },
     getSelectedStations(state) {
-      console.log('17. getSelectedStations = ', state.selectedStations)
       return state.selectedStations
     }
   },
@@ -23,7 +22,6 @@ export default new Vuex.Store({
       state.todaysPrograms = todaysPrograms
     },
     SET_SELECTED_STATIONS(state, stations) {
-      console.log('SET_SELECTED_STATIONS: stations = ', stations)
       state.selectedStations = stations
     }
   },
