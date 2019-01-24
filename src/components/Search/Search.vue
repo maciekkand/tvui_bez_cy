@@ -64,9 +64,14 @@ export default {
       this.$store.dispatch('setLoading', true)
     },
 
-    save() {
+    add() {
       console.log('Tu Search: metoda save !')
       this.$store.commit('ADD_TODAYS_PROGRAMS')
+    },
+
+    save() {
+      console.log('Tu Save: zapisuję do localStorage, ślę maila i wyświetlam modala !')
+      //this.$store.commit('ADD_TODAYS_PROGRAMS')
     },
 
     hideModalDay() {

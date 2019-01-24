@@ -2,7 +2,11 @@
 
 <script>
 export default {
-  //template: 'Navi'
+  computed: {
+    loading() {
+      return this.$store.getters.getLoading
+    }
+  },
 }
 </script>
 

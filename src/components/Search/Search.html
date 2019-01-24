@@ -10,21 +10,28 @@
           </b-form-checkbox-group>
         </b-col>
 
-        <b-col md="1" class="pb-0 mx-0">
-          <span v-if="loading"><img src="../../assets/spinner5.gif"/></span>
-        </b-col>
-
         <b-col>
-          <b-button id="saveAll"
+          <b-button id="show"
+                    data-test="buttonShow"
+                    @click="show"
+                    size="md"
+                    class="pl-2 pr-2">
+                    Show&nbsp
+          </b-button>
+
+          <b-button id="save"
                     data-test="buttonSave"
                     @click="save"
                     size="md"
-                    class="mx-0 px-2">
+                    class="ml-2 pl-2 pr-2">
                     Save
           </b-button>
         </b-col>
 
-
+       <!--  <b-col md="1" class="pb-0 mx-0">
+          <span v-if="loading"><img src="../../assets/spinner5.gif"/></span>
+        </b-col>
+ -->
       </b-row>
 
     </b-container>
@@ -83,9 +90,9 @@
                   Reset
         </b-button>
 
-        <b-button id="save"
-                  data-test="buttonSave"
-                  @click="save"
+        <b-button id="add"
+                  data-test="buttonAdd"
+                  @click="add"
                   size="md"
                   class="ml-2 mb-3">
                   Add
