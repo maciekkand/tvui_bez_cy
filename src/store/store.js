@@ -7,7 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     todaysPrograms: [],
-    selectedStations: null
+    selectedStations: null,
+    loading: false
   },
   getters: {
     getTodaysPrograms(state) {
@@ -15,14 +16,22 @@ export default new Vuex.Store({
     },
     getSelectedStations(state) {
       return state.selectedStations
+    },
+    getLoading(state) {
+      return state.loading
     }
   },
   mutations: {
     ADD_TODAYS_PROGRAMS(state, todaysPrograms) {
       state.todaysPrograms = todaysPrograms
+      state.loading = true
     },
     SET_SELECTED_STATIONS(state, stations) {
       state.selectedStations = stations
+    },
+    SET_LOADING(state, loadingStatus) {
+      console.log('SET_LOADING = ', loadingStatus)
+      state.loading = loadingStatus
     }
   },
   actions: {
@@ -34,6 +43,10 @@ export default new Vuex.Store({
     },
     setSelectedStations(context, stations) {
       context.commit('SET_SELECTED_STATIONS', stations)
+    },
+    setLoading(context, loadingStatus) {
+      console.log('setLoading ... ')
+      context.commit('SET_LOADING', loadingStatus)
     }
   }
 })

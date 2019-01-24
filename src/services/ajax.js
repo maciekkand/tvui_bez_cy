@@ -2,19 +2,22 @@
 import axios from 'axios'
 import constants from '../data/constants'
 
-export const ajaxAddTodaysPrograms = context => {
+
+const initQuery = () => {
   const topStations = JSON.stringify(['TVP 1', 'TVP 2', 'TVN', 'POLSAT'])
   const nowHour = new Date().getTime() + 30 * 60 * 1000
   const nowMidnight = new Date().setUTCHours(24, 0, 0, 0)
-
-  //console.log('nowHour = ', new Date(nowHour))
 
   let query = 'https://api.mlab.com/api/1/databases/tvui/collections/tvui1?s={time:1}&q='
   query += `{"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"channel":{$in:${topStations}}}]}]}`
   query += '&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI'
 
+  return query
+}
+
+export const ajaxAddTodaysPrograms = context => {
   axios
-    .get(query)
+    .get(initQuery())
     .then(res => {
 
       res.data.map((el, index) => {
@@ -29,6 +32,10 @@ export const ajaxAddTodaysPrograms = context => {
       context.commit('ADD_TODAYS_PROGRAMS', res.data)
     })
     .catch(err => console.log('ERORAS:', err))
+    .finally(() => {
+      console.log('context.commit(SET_LOADING, false)')
+      context.commit('SET_LOADING', false)
+    })
 }
 
 /*
@@ -41,7 +48,14 @@ export const ajaxAddTodaysPrograms = context => {
     4) wywal wszystkie spacje
     5) parametry fields i sortowania wpisz z ręki, bo tu są osobno
 */
-export const ajaxGetSelectedPrograms = (context, { day, startHour, endHour, selectedCategories, selectedStations }) => {
+
+export const ajaxGetSelectedPrograms = (context, {
+  day,
+  startHour,
+  endHour,
+  selectedCategories,
+  selectedStations
+}) => {
   let query = ''
   const arrSelectedCategories = JSON.stringify(selectedCategories)
   const arrSelectedStations = JSON.stringify(selectedStations)
@@ -51,18 +65,26 @@ export const ajaxGetSelectedPrograms = (context, { day, startHour, endHour, sele
   const queryHoursStations = `s={time:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"channel":{$in:${arrSelectedStations}}}]}]}`
   const queryHoursCategoryStations = `s={time:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}},{$and:[{"channel":{$in:${arrSelectedStations}}}]}]}]}`
 
-  if(startHour && endHour && selectedCategories && selectedStations) {
+  console.log('startHour = ', startHour)
+  console.log('endHour = ', endHour)
+
+  if (startHour && endHour && selectedCategories && selectedStations) {
     query = queryHoursCategoryStations
   }
-  else if(startHour && endHour && selectedCategories) {
+  else if (startHour && endHour && selectedCategories) {
     query = queryHoursCategory
   }
-  else if(startHour && endHour && selectedStations) {
+  else if (startHour && endHour && selectedStations) {
     query = queryHoursStations
   }
-  else if(startHour && endHour) {
+  else if (startHour && endHour) {
     query = queryHours
   }
+  else if (!startHour && !endHour ) {
+    query = initQuery()
+  }
+
+
 
   const url = constants.TV_LIST_PREFIX + query + constants.TV_LIST_SUFFIX
 
@@ -79,4 +101,8 @@ export const ajaxGetSelectedPrograms = (context, { day, startHour, endHour, sele
       context.commit('ADD_TODAYS_PROGRAMS', res.data)
     })
     .catch(err => console.log('My error: ', err))
+    .finally(() => {
+      console.log('this.$store.dispatch(setLoading, false)')
+      context.commit('SET_LOADING', false)
+    })
 }

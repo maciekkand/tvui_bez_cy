@@ -69,6 +69,7 @@ export default {
     }
   },
   created() {
+    this.$store.dispatch('setLoading', true)
     this.$store.dispatch('addTodaysPrograms')
   },
   methods: {

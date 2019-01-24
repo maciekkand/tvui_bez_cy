@@ -1,20 +1,19 @@
 <div>
     <b-container>
       <b-row>
-        <b-col md="9">
+        <b-col md="11">
           <b-form-checkbox-group data-test="categories"
                                  v-model="selectedCategories"
                                  @change="categoriesSelected"
-                                 class="d-flex justify-content-md-between"
+                                 class="d-flex justify-content-md-between pt-2"
                                  :options="categories">
           </b-form-checkbox-group>
         </b-col>
-      </b-row>
 
-      <b-row>
-        <b-col md="1">
+        <b-col md="1" class="py-0">
           <span v-if="loading"><img src="../../assets/spinner4.gif"/></span>
         </b-col>
+
       </b-row>
 
     </b-container>

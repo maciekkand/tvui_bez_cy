@@ -23,11 +23,11 @@ export default {
         { text: 'Wiadomości', value: 'wiadomosci' },
         { text: 'Inne', value: 'inne' }
       ],
-      showAlert: false
     }
   },
   computed: {
     loading() {
+      console.log('getLoading = ', this.$store.getters.getLoading)
       return this.$store.getters.getLoading
     },
     //selectedStations() {
@@ -43,6 +43,7 @@ export default {
       }, 100)
     },
     search() {
+      /*
       if (!this.selectedDay) {
         console.log('brak Day = ')
         return this.$refs.modalDay.show()
@@ -55,7 +56,8 @@ export default {
         console.log('brak EndHour ')
         return this.$refs.modalEndHour.show()
       }
-      if (this.selectedEndHour < this.selectedStartHour) {
+      */
+      if (this.selectedStartHour && this.selectedEndHour && this.selectedEndHour < this.selectedStartHour) {
         console.log('Błąd godzin ')
         return this.$refs.modalHoursError.show()
       }
@@ -71,6 +73,7 @@ export default {
       console.log('searchData = ', searchData)
 
       this.$store.dispatch('getSelectedPrograms', searchData)
+      this.$store.dispatch('setLoading', true)
       sessionStorage.setItem('searchData', JSON.stringify(searchData))
     },
     save() {
