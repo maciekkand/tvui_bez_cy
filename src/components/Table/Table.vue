@@ -85,40 +85,43 @@ export default {
   methods: {
     onRowClicked(item) {
       console.log('item = ', item)
-      //console.log('id = ', item.item.id)
-      //console.log('title = ', item.item.title)
+      console.log('dayString = ', item.item.dayString)
+      console.log('channel = ', item.item.channel)
 
-      /*  const row = {
+      console.log('typeof item = ', typeof item)
+
+      if (typeof item !== 'object') {
+        console.log('Nie Object')
+
+        for (let i = 0; i < rows.length - 1; i++) {
+          if (rows[i.id] === item.id.id) {
+            rows.splice(i, 1)
+          }
+        }
+        return
+      }
+
+      console.log('111111')
+
+      const row = {
         dayString: item.item.dayString,
         channel: item.item.channel,
+      }
+      /*
         time: item.item.time,
-        tiśtle: item.item.title,
+        title: item.item.title,
         type: item.item.type,
         category: item.item.category,
         link: item.item.link,
         date: item.item.date,
         timestamp: item.item.timestamp,
         dateTimestamp: item.item.dateTimestamp
-      } */
+      */
 
-      //console.log('row = ', row)
-      //console.log('rows.length = ', rows.length)
-      /*
-      if (rows.length === 0) {
-        rows.push(row)
-        console.table(rows)
-        return
-      }
+      console.log('row = ')
+      console.log(row)
 
-      for (let i = 0; i < rows.length - 1; i++){
-         if (rows[i.id] === item.id.id) {
-           rows.splice(i, 1)
-         }
-         else {
-           rows.push(row)
-         }
-      }
- */
+      rows.push(row)
       console.table(rows)
     }
   }
