@@ -5,3 +5,9 @@ export default {
   //template: 'Navi'
 }
 </script>
+
+<style>
+  a {
+    color: greenyellow;
+  }
+</style>

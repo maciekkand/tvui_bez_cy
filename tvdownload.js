@@ -8,6 +8,7 @@ const fileTimeTable = './tv11.json'
 const urlPrefix = "https://programtv.onet.pl/?dzien=";
 
 function categoryCheck(type) {
+  /* #region  */
   const arraySerial = ["serial"];
   const arrayTelenowela = ["telenowela"];
   const arrayFilm = ["film", "komedi", "dramat", "horror", "thriller"];
@@ -22,8 +23,9 @@ function categoryCheck(type) {
   const isSport = arraySport.map(el => type.includes(el)).includes(true);
   const isNews = arrayNews.map(el => type.includes(el)).includes(true);
 
-  /* #region  */
+  /* #endregion */
 
+  /* #region  */
   if (isSerial) {
     return "serial";
   } else if (isTelenowela) {
@@ -38,24 +40,21 @@ function categoryCheck(type) {
     return "wiadomosci";
   } else return "inne";
 }
+
 /* #endregion */
 
-const kanal = (day, page) => {
+const kanal = (day, page, channelFrom, channelTo) => {
   const currentDay = Date.now() + day * 1000 * 60 * 60 * 24;
   const dayString = new Date(currentDay).toDateString().slice(4, 10);
 
   const date = new Date(currentDay).toISOString().slice(0, 10);
   const url = `${urlPrefix + day}&strona=${page}`;
 
-  console.log('day = ', day + '  date = ' + date + '  dayString = ', dayString)
-
-  /* #region  */
-  //*
   axios.get(url)
     .then(res => {
       const $ = cheerio.load(res.data)
 
-      for (let channelNo = 1; channelNo < 21; channelNo++) { // 1-4
+      for (let channelNo = channelFrom; channelNo < channelTo + 1; channelNo++) { // 1-4
         const channel = $(`#boxTVHolder${channelNo}`)
           .find('span.tvName')
           .text()
@@ -80,10 +79,9 @@ const kanal = (day, page) => {
           const link = '<a href=\"https://programtv.onet.pl' + $(el).find('.title').find('a').attr('href') + '\">Link</a>'
           const title = $(el).find('.title a').text().replace(/\t/g, '').replace(/\n/g, '')
           const type = $(el).find('.type').text().replace(/\t/g, '').replace(/\n/g, '')
-
           const category = categoryCheck(type)
 
-          /* const seans = {
+          const seans = {
             id,
             channel,
             dayString,
@@ -95,9 +93,7 @@ const kanal = (day, page) => {
             dateTimestamp,
             timestamp,
             link
-          } */
-
-          const seans = { channel }
+          }
 
           fs.appendFileSync(fileTimeTable, `${JSON.stringify(seans)},\n`)
         })
@@ -106,14 +102,25 @@ const kanal = (day, page) => {
     .catch(err => console.log('Erorek:', err))
 };
 
+/*
+  Najpierw poszły 4 całe dni, ale potem blokowało mnie
+  nawet gdy ścigałem po 1 dniu. Nie pomogła poniższa pętla opóźniająca
+  nawet ustawiona na 3s opóźnienie (i=20).
+  Pomógł restart smarka, bo złapał nowe IP i ściaganie po 1 dniu
+  przy opóźnieniu = 400 ms (i=3)
+*/
+
 const getAllChannels = () => {
-  for (let day = 0; day < 1; day++) { // 0-3
-    for (let page = 1; page < 8; page++) { // 1-2
-      kanal(day, page)
+  for (let day = 7; day < 8; day++) { // 0-7 - źle, 0-5 ?
+    for (let page = 1; page < 8; page++) { // 1-8
+      console.time()
+        for (let i = 3 * 1e8; i > 0; i--)  { }
+      console.timeEnd()
+      kanal(day, page, 1, 20)
     }
   }
-  console.log("Skończyłem i zapisałem do pliku: ", fileTimeTable);
-};
+  console.log("Skończyłem i zapisałem do pliku: ", fileTimeTable)
+}
 
 getAllChannels();
 

@@ -74,16 +74,10 @@ export default {
     showTable() {
       return this.$store.getters.getShowTable
     },
-    onRowClicked(item, index, event) {
-      console.log('index = ', index)
+    onRowClicked(item) {
       console.log('item = ', item)
+      console.log('id = ', item.item.id)
       console.log('title = ', item.item.title)
-
-      const element = event.srcElement
-      const isFirstElement = !element.previousSibling
-      if (!isFirstElement) {
-        this.$router.push('/mythingy')
-      }
     }
   }
 }

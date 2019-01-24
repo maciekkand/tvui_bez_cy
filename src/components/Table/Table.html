@@ -1,14 +1,5 @@
 <div v-cloak>
   <b-container>
-
-    <b-button id="save"
-          data-test="buttonSave"
-          @click="save"
-          size="md"
-          class="ml-2 mb-3">
-          SAVE !!
-    </b-button>
-
     <b-row v-cloak>
       <b-table id="table"
                data-test="table"
@@ -19,12 +10,6 @@
                :fields="fields">
 
         <template slot="checkbox" slot-scope="row">
-          <!-- we use @click.stop here to prevent emitting of a 'row-clicked' event  -->
-          <!-- <b-button size="sm" @click.stop="row.toggleDetails" class="mr-2">
-           {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
-          </b-button> -->
-          <!-- In some circumstances you may need to use @click.native.stop instead -->
-          <!-- As `row.showDetails` is one-way, we call the toggleDetails function on @change -->
           <b-form-checkbox :value="row"
                            @click.native.stop
                            @change="onRowClicked"
