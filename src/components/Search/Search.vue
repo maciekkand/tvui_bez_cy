@@ -10,7 +10,6 @@ export default {
       selectedStartHour: null, // new Date().getHours(), // todo: a) usunąć na końcu b) przy innym dniu startHour = 3 rano
       selectedEndHour: null,
       selectedCategories: null,
-      // selectedStations: null,
       days: daysForSelectBox(),
       startHours: hoursForSelectBox(this.selectedDay, false),
       endHours: hoursForSelectBox(this.selectedDay, true),
@@ -20,6 +19,7 @@ export default {
         { text: 'Telenowela', value: 'telenowela' },
         { text: 'Sport', value: 'sport' },
         { text: 'Rozrywka', value: 'rozrywka' },
+        { text: 'Dla dzieci', value: 'dla dzieci' },
         { text: 'Wiadomości', value: 'wiadomosci' },
         { text: 'Inne', value: 'inne' }
       ],
@@ -27,54 +27,42 @@ export default {
   },
   computed: {
     loading() {
-      console.log('getLoading = ', this.$store.getters.getLoading)
       return this.$store.getters.getLoading
-    },
-    //selectedStations() {
-    //console.log("34. getters.selectedStations = ", this.$store.getters.selectedStations)
-    //return this.$store.getters.selectedStations;
-    //}
+    }
   },
   methods: {
     onChangedSelection() {
       setTimeout(() => {
-        //console.log(this.selectedDay)
         hoursForSelectBox(this.selectedDay, false) // todo: co z tym ?
       }, 100)
     },
     search() {
-      /*
-      if (!this.selectedDay) {
-        console.log('brak Day = ')
-        return this.$refs.modalDay.show()
-      }
-      if (!this.selectedStartHour) {
-        console.log('brak StartHour ')
-        return this.$refs.modalStartHour.show()
-      }
-      if (!this.selectedEndHour) {
-        console.log('brak EndHour ')
-        return this.$refs.modalEndHour.show()
-      }
-      */
       if (this.selectedStartHour && this.selectedEndHour && this.selectedEndHour < this.selectedStartHour) {
         console.log('Błąd godzin ')
-        return this.$refs.modalHoursError.show()
+        // return this.$refs.modalHoursError.show()
       }
 
+      console.log('this.selectedDay = ', this.selectedDay)
+
+      const day = this.selectedDay || new Date().setUTCHours(0, 0, 0, 0)
+
       const searchData = {
-        day: this.selectedDay,
-        startHour: this.selectedStartHour * 1000 * 60 * 60 + this.selectedDay,
-        endHour: this.selectedEndHour * 1000 * 60 * 60 + this.selectedDay,
+        day,
+        startHour: this.selectedStartHour * 1000 * 60 * 60 + day,
+        endHour: this.selectedEndHour * 1000 * 60 * 60 + day,
         selectedCategories: this.selectedCategories,
         selectedStations: this.$store.getters.getSelectedStations
       }
 
       console.log('searchData = ', searchData)
 
+      console.log('day = ', new Date(searchData.day))
+      console.log('startHour = ', new Date(searchData.startHour))
+      console.log('endHour = ', new Date(searchData.endHour))
+
+      // sessionStorage.setItem('searchData', JSON.stringify(searchData))
       this.$store.dispatch('getSelectedPrograms', searchData)
       this.$store.dispatch('setLoading', true)
-      sessionStorage.setItem('searchData', JSON.stringify(searchData))
     },
     save() {
       console.log('Tu Search: metoda save !')

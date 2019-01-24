@@ -73,9 +73,6 @@ export default {
     this.$store.dispatch('addTodaysPrograms')
   },
   methods: {
-    showTable() {
-      return this.$store.getters.getShowTable
-    },
     onRowClicked(item) {
       console.log('item = ', item)
       console.log('id = ', item.item.id)

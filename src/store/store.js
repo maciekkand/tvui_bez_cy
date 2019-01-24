@@ -30,7 +30,6 @@ export default new Vuex.Store({
       state.selectedStations = stations
     },
     SET_LOADING(state, loadingStatus) {
-      console.log('SET_LOADING = ', loadingStatus)
       state.loading = loadingStatus
     }
   },
@@ -45,7 +44,6 @@ export default new Vuex.Store({
       context.commit('SET_SELECTED_STATIONS', stations)
     },
     setLoading(context, loadingStatus) {
-      console.log('setLoading ... ')
       context.commit('SET_LOADING', loadingStatus)
     }
   }
