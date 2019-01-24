@@ -28,13 +28,13 @@ export default new Vuex.Store({
   mutations: {
     ADD_TODAYS_PROGRAMS(state, todaysPrograms) {
       console.log('ADD_TODAYS_PROGRAMS')
-      console.log('todaysPrograms = ', todaysPrograms)
-      console.table(state.selectedPrograms, ['title'])
+      console.log('todaysPrograms = ', JSON.stringify(todaysPrograms))
+      console.table(todaysPrograms, ['title'])
 
       state.todaysPrograms = todaysPrograms || state.selectedPrograms
 
       if (todaysPrograms) {
-        console.table(todaysPrograms, ['title'])
+        //console.table(todaysPrograms, ['title'])
         state.loading = true
       }
 
@@ -47,7 +47,7 @@ export default new Vuex.Store({
       state.loading = loadingStatus
     },
     ADD_SELECTED_PROGRAMS(state, selectedPrograms) {
-      console.table(selectedPrograms, ['title'])
+      // console.table(selectedPrograms, ['title'])
       state.selectedPrograms = selectedPrograms
     }
   },

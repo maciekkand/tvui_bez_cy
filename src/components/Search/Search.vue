@@ -70,8 +70,22 @@ export default {
     },
 
     save() {
+      if (typeof (Storage) === 'undefined') {
+        return alert('Sorry! Nie zapamiętam programów, bo Twoja przeglądarka nie wspiera localStorage')
+      }
       console.log('Tu Save: zapisuję do localStorage, ślę maila i wyświetlam modala !')
-      //this.$store.commit('ADD_TODAYS_PROGRAMS')
+      localStorage.removeItem('selectedPrograms')
+      localStorage.setItem('selectedPrograms', JSON.stringify(this.$store.getters.getSelectedPrograms))
+    },
+
+    show() {
+      console.log('Tu Show: jeśli jest coś w localStorage o kluczu SelectedPrograms, to to wyświetlam')
+
+      if (localStorage.getItem('selectedPrograms')) {
+        //console.table(localStorage.getItem('selectedPrograms'), ['title'])
+        console.log(localStorage.getItem('selectedPrograms'))
+        this.$store.commit('ADD_TODAYS_PROGRAMS', JSON.parse(localStorage.getItem('selectedPrograms')))
+      }
     },
 
     hideModalDay() {
