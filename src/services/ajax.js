@@ -3,11 +3,13 @@ import axios from 'axios'
 import constants from '../data/constants'
 
 export const ajaxAddTodaysPrograms = context => {
-  const nowHour = new Date().getTime() - new Date().getMinutes() * 60 * 1000
-  const nowMidnight = nowHour + (24 - new Date().getHours()) * 60 * 60 * 1000
   const topStations = JSON.stringify(['TVP 1', 'TVP 2', 'TVN', 'POLSAT'])
+  const nowHour = new Date().getTime() + 30 * 60 * 1000
+  const nowMidnight = new Date().setUTCHours(24, 0, 0, 0)
 
-  let query = 'https://api.mlab.com/api/1/databases/tvui/collections/tvui1?s={id:1}&q='
+  //console.log('nowHour = ', new Date(nowHour))
+
+  let query = 'https://api.mlab.com/api/1/databases/tvui/collections/tvui1?s={time:1}&q='
   query += `{"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"channel":{$in:${topStations}}}]}]}`
   query += '&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI'
 
@@ -44,10 +46,10 @@ export const ajaxGetSelectedPrograms = (context, { day, startHour, endHour, sele
   const arrSelectedCategories = JSON.stringify(selectedCategories)
   const arrSelectedStations = JSON.stringify(selectedStations)
 
-  const queryHours = `s={id:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}}]}`
-  const queryHoursCategory = `s={id:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}}]}]}`
-  const queryHoursStations = `s={id:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"channel":{$in:${arrSelectedStations}}}]}]}`
-  const queryHoursCategoryStations = `s={id:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}},{$and:[{"channel":{$in:${arrSelectedStations}}}]}]}]}`
+  const queryHours = `s={time:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}}]}`
+  const queryHoursCategory = `s={time:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}}]}]}`
+  const queryHoursStations = `s={time:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"channel":{$in:${arrSelectedStations}}}]}]}`
+  const queryHoursCategoryStations = `s={time:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}},{$and:[{"channel":{$in:${arrSelectedStations}}}]}]}]}`
 
   if(startHour && endHour && selectedCategories && selectedStations) {
     query = queryHoursCategoryStations

@@ -16,12 +16,13 @@ export default {
         /* {
           key: 'index',
           label: '#'
-        }, */
+        },
         {
           key: 'id',
           label: 'id',
           sortable: true
         },
+        */
         {
           key: 'dayString',
           label: 'daystr'
