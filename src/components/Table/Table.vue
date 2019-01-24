@@ -1,15 +1,9 @@
 <template src="./Table.html"></template>
 
 <script>
-const rows = []
+const selectedPrograms = [] //this.$store.getters.selectedPrograms
 
 export default {
-  data() {
-    return {
-      selected: [],
-      rowsSelected: [],
-    }
-  },
   computed: {
     items() {
       return this.$store.getters.getTodaysPrograms
@@ -85,9 +79,9 @@ export default {
   methods: {
     onRowClicked(item) {
       if (typeof item !== 'object') {
-        for (let i = 0; i < rows.length; i++) {
-          if (rows[i].id === item) {
-            rows.splice(i, 1)
+        for (let i = 0; i < selectedPrograms.length; i++) {
+          if (selectedPrograms[i].id === item) {
+            selectedPrograms.splice(i, 1)
           }
         }
       }
@@ -105,9 +99,9 @@ export default {
           timestamp: item.item.timestamp,
           dateTimestamp: item.item.dateTimestamp,
         }
-        rows.push(row)
+        selectedPrograms.push(row)
       }
-      console.table(rows)
+      this.$store.dispatch('addSelectedPrograms', selectedPrograms)
     }
   }
 }

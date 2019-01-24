@@ -19,7 +19,7 @@ export default {
         { text: 'Telenowela', value: 'telenowela' },
         { text: 'Sport', value: 'sport' },
         { text: 'Rozrywka', value: 'rozrywka' },
-        { text: 'Dla dzieci', value: 'dla dzieci' },
+        { text: 'Dzieci', value: 'dzieci' },
         { text: 'Wiadomości', value: 'wiadomosci' },
         { text: 'Inne', value: 'inne' }
       ],
@@ -63,9 +63,12 @@ export default {
       this.$store.dispatch('getSelectedPrograms', searchData)
       this.$store.dispatch('setLoading', true)
     },
+
     save() {
       console.log('Tu Search: metoda save !')
+      this.$store.commit('ADD_TODAYS_PROGRAMS')
     },
+
     hideModalDay() {
       this.$refs.modalDay.hide()
     },
