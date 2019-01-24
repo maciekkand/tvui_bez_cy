@@ -7,7 +7,7 @@ export default {
   data() {
     return {
       selectedDay: null,
-      selectedStartHour: null, // new Date().getHours(), // todo: a) usunąć na końcu b) przy innym dniu startHour = 3 rano
+      selectedStartHour: null,
       selectedEndHour: null,
       selectedCategories: null,
       days: daysForSelectBox(),
@@ -43,7 +43,6 @@ export default {
       }
 
       console.log('this.selectedDay = ', this.selectedDay)
-
       const day = this.selectedDay || new Date().setUTCHours(0, 0, 0, 0)
 
       const searchData = {

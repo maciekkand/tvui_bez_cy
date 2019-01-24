@@ -1,10 +1,13 @@
 <template src="./Table.html"></template>
 
 <script>
+const rows = []
+
 export default {
   data() {
     return {
-      selected: []
+      selected: [],
+      rowsSelected: []
     }
   },
   computed: {
@@ -40,7 +43,14 @@ export default {
         /* {
           key: 'timestamp',
           label: 'timestamp'
-        }, */
+        },
+        */
+        /*
+        {
+          key: 'duration',
+          label: 'duration'
+        },
+        */
         {
           key: 'title',
           label: 'title'
@@ -75,8 +85,41 @@ export default {
   methods: {
     onRowClicked(item) {
       console.log('item = ', item)
-      console.log('id = ', item.item.id)
-      console.log('title = ', item.item.title)
+      //console.log('id = ', item.item.id)
+      //console.log('title = ', item.item.title)
+
+      /*  const row = {
+        dayString: item.item.dayString,
+        channel: item.item.channel,
+        time: item.item.time,
+        tiśtle: item.item.title,
+        type: item.item.type,
+        category: item.item.category,
+        link: item.item.link,
+        date: item.item.date,
+        timestamp: item.item.timestamp,
+        dateTimestamp: item.item.dateTimestamp
+      } */
+
+      //console.log('row = ', row)
+      //console.log('rows.length = ', rows.length)
+      /*
+      if (rows.length === 0) {
+        rows.push(row)
+        console.table(rows)
+        return
+      }
+
+      for (let i = 0; i < rows.length - 1; i++){
+         if (rows[i.id] === item.id.id) {
+           rows.splice(i, 1)
+         }
+         else {
+           rows.push(row)
+         }
+      }
+ */
+      console.table(rows)
     }
   }
 }
