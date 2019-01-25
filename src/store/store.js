@@ -9,7 +9,7 @@ export default new Vuex.Store({
     todaysPrograms: [],
     selectedPrograms: null,
     selectedStations: null,
-    loading: false
+    loading: false,
   },
   getters: {
     getTodaysPrograms(state) {
@@ -23,7 +23,7 @@ export default new Vuex.Store({
     },
     getSelectedPrograms(state) {
       return state.selectedPrograms
-    }
+    },
   },
   mutations: {
     ADD_TODAYS_PROGRAMS(state, todaysPrograms) {
@@ -49,7 +49,7 @@ export default new Vuex.Store({
     ADD_SELECTED_PROGRAMS(state, selectedPrograms) {
       // console.table(selectedPrograms, ['title'])
       state.selectedPrograms = selectedPrograms
-    }
+    },
   },
   actions: {
     addTodaysPrograms(context) {
@@ -66,6 +66,6 @@ export default new Vuex.Store({
     },
     addSelectedPrograms(context, selectedPrograms) {
       context.commit('ADD_SELECTED_PROGRAMS', selectedPrograms)
-    }
-  }
+    },
+  },
 })

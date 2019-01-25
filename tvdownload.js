@@ -21,7 +21,6 @@ function categoryCheck(type) {
                       "biegi narciarskie", "wyścigi motocyklowe", "snowboard",
                       "saneczkarstwo", "kolarstwo", "hokej", "lekkoatletyka" ];
 
-
   const isFilm = arrayFilm.map(el => type.includes(el)).includes(true);
   const isSerial = arraySerial.map(el => type.includes(el)).includes(true);
   const isEntertainment = arrayEntertainment.map(el => type.includes(el)).includes(true);
@@ -55,6 +54,14 @@ function categoryCheck(type) {
 
 /* #endregion */
 
+const changeCategories = () => {
+  const data = JSON.parse(fs.readFileSync('./tv1.json'))
+  data.map(el => {
+    el.category = categoryCheck(el.type)
+    fs.appendFileSync('./tvNewCategories.json', JSON.stringify(el) + ',\n')
+  })
+}
+
 const kanal = (day, page, channelFrom, channelTo) => {
   const currentDay = Date.now() + day * 1000 * 60 * 60 * 24;
   const dayString = new Date(currentDay).toDateString().slice(4, 10);
@@ -63,7 +70,8 @@ const kanal = (day, page, channelFrom, channelTo) => {
   const url = `${urlPrefix + day}&strona=${page}`;
   var config = { headers: { 'User-Agent': 'Mozilla/5.0' }}
 
-  axios.get(url, config)
+  //axios.get(url, config)
+  axios.get(url)
     .then(res => {
       const $ = cheerio.load(res.data)
 
@@ -112,8 +120,13 @@ const kanal = (day, page, channelFrom, channelTo) => {
         })
       }
     })
-    .catch(err => console.log('Erorek:', err))
-};
+    .catch(err => {
+      fs.appendFileSync(fileSave, err)
+      //console.log('Erorek:', err))
+    })
+}
+
+
 
 /*
   Najpierw poszły 4 całe dni, ale potem blokowało mnie
@@ -124,10 +137,11 @@ const kanal = (day, page, channelFrom, channelTo) => {
 */
 
 const getAllChannels = () => {
-  for (let day = 6; day < 7; day++) {       // 0-7 - źle, 0-5 ?
+  for (let day = 5; day < 6; day++) {       // 0-7 - źle, 0-5 ?
     for (let page = 1; page < 8; page++) { // 1-8
       console.time()
-        for (let i = 30 * 1e8; i > 0; i--)  { }
+        const rand = Math.round((Math.random() * 20) + 20)
+        for (let i = rand * 1e8; i > 0; i--)  { }
       console.timeEnd()
       kanal(day, page, 1, 20)
     }
@@ -135,25 +149,14 @@ const getAllChannels = () => {
   console.log("Skończyłem i zapisałem do pliku: ", fileSave)
 }
 
-// getAllChannels()
 
-const changeCategories = () => {
-  const data = JSON.parse(fs.readFileSync('./tv1.json'))
 
-  data.map(el => {
-    //console.log('el.category PRZED = ', el.category)
-    el.category = categoryCheck(el.type)
-    //console.log('el.category PO = ', el.category)
-    //console.log('____________________________________')
-    //return el
-    fs.appendFileSync('./tvNewCategories.json', JSON.stringify(el) + ',\n')
-  })
 
-  //console.log('result = ', result)
+//changeCategories()
 
-}
+getAllChannels()
 
-changeCategories()
+
 
 /*
 Import i query z sortowaniem po id programu

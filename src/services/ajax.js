@@ -7,12 +7,14 @@ const initQuery = () => {
   const nowHour = new Date().getTime() + 30 * 60 * 1000
   const nowMidnight = new Date().setUTCHours(24, 0, 0, 0)
 
-  console.log('nowHour = ', nowHour)
-  console.log('nowMidnight = ', nowMidnight)
+  console.log('initQuery: nowHour = ', new Date(nowHour))
+  console.log('initQuery: nowMidnight = ', new Date(nowMidnight))
 
   let query = 'https://api.mlab.com/api/1/databases/tvui/collections/tvui1?s={timestamp:1}&q='
   query += `{"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"channel":{$in:${topStations}}}]}]}`
-  query += '&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI'
+  query += '&l=200&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI'
+
+  console.log('query = ', query)
 
   return query
 }
@@ -53,8 +55,25 @@ export const ajaxAddTodaysPrograms = context => {
 */
 /* #endregion */
 
-export const ajaxGetSelectedPrograms = (context, { day, startHour, endHour, selectedCategories, selectedStations }) => {
+export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHour, selectedEndHour, selectedCategories, selectedStations }) => {
+
+  console.log('selectedDay = ', selectedDay)
+  console.log('selectedStartHour = ', selectedStartHour)
+  console.log('selectedEndHour = ', selectedEndHour)
+
+
   let query = ''
+
+  const day = selectedDay || new Date().setUTCHours(0, 0, 0, 0)
+  console.log('day = ', new Date(day))
+
+  //const startHour = this.selectedStartHour || new Date().setUTCHours(3, 0, 0, 0)
+  const startHour = selectedStartHour ? new Date().setUTCHours(startHour, 0, 0, 0) : new Date().setUTCHours(3, 0, 0, 0)
+  console.log('startHour = ', new Date(startHour))
+
+  const endHour = selectedEndHour ? new Date().setUTCHours(endHour, 0, 0, 0) : new Date().setUTCHours(24, 0, 0, 0)
+  console.log('endHour = ', new Date(endHour))
+
   const arrSelectedCategories = JSON.stringify(selectedCategories)
   const arrSelectedStations = JSON.stringify(selectedStations)
 
@@ -63,8 +82,6 @@ export const ajaxGetSelectedPrograms = (context, { day, startHour, endHour, sele
   const queryHoursStations = `s={time:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"channel":{$in:${arrSelectedStations}}}]}]}`
   const queryHoursCategoryStations = `s={time:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}},{$and:[{"channel":{$in:${arrSelectedStations}}}]}]}]}`
 
-  console.log('startHour = ', new Date(startHour))
-  console.log('endHour = ', new Date(endHour))
 
   if (startHour && endHour && selectedCategories && selectedStations) {
     query = queryHoursCategoryStations
@@ -90,13 +107,18 @@ export const ajaxGetSelectedPrograms = (context, { day, startHour, endHour, sele
     .get(url)
     .then(res => {
       res.data.map((el, index) => {
+        /*
         if (index < res.data.length - 2) {
           const totalMinutes = (res.data[index + 1].timestamp - el.timestamp) / (1000 * 60)
           const hours = parseInt(totalMinutes / 60)
           const minutes = totalMinutes % 60
           el.duration = hours + ':' + minutes
         }
+        */
       })
+
+      if(res.data.length > 999) alert('Zawęż przedział czasu, stacji lub kategorii, bo nie wszystkie programy są wyświetlane')
+      console.log('ilość rekordów = ', res.data.length)
       context.commit('ADD_TODAYS_PROGRAMS', res.data)
     })
     .catch(err => console.log('My error: ', err))

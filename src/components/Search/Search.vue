@@ -44,32 +44,33 @@ export default {
       }
 
       //console.log('this.selectedDay = ', this.selectedDay)
-      const day = this.selectedDay || new Date().setUTCHours(0, 0, 0, 0)
+      //const day = this.selectedDay || new Date().setUTCHours(0, 0, 0, 0)
+      //const day = this.selectedDay
       //console.log('day = ', new Date(day))
 
-      console.log('this.selectedStartHour = ', this.selectedStartHour)
+      //console.log('this.selectedStartHour = ', this.selectedStartHour)
+      //console.log('this.selectedEndHour = ', this.selectedEndHour)
       //const startHour = this.selectedStartHour || new Date().setUTCHours(3, 0, 0, 0)
 
-      const startHour = this.selectedStartHour ? new Date().setUTCHours(this.selectedStartHour, 0, 0, 0) : new Date().setUTCHours(3, 0, 0, 0)
-      const endHour = this.selectedEndHour ? new Date().setUTCHours(this.selectedEndHour, 0, 0, 0) : new Date().setUTCHours(24, 0, 0, 0)
+      // const startHour = this.selectedStartHour ? new Date().setUTCHours(this.selectedStartHour, 0, 0, 0) : new Date().setUTCHours(3, 0, 0, 0)
+      // const endHour = this.selectedEndHour ? new Date().setUTCHours(this.selectedEndHour, 0, 0, 0) : new Date().setUTCHours(24, 0, 0, 0)
+      // const endHour = this.selectedEndHour ? new Date().setUTCHours(this.selectedEndHour, 0, 0, 0) : new Date().setUTCHours(24, 0, 0, 0)
 
       //console.log('startHour = ', new Date(startHour))
-      console.log('startHour = ', startHour)
+      //console.log('startHour = ', startHour)
 
       const searchData = {
-        day,
-        //startHour: day + this.selectedStartHour * 1000 * 60 * 60,
-        startHour,
-        //endHour: day + this.selectedEndHour * 1000 * 60 * 60,
-        endHour,
+        selectedDay: this.selectedDay,
+        selectedStartHour: this.selectedStartHour,
+        selectedEndHour: this.selectedEndHour,
         selectedCategories: this.selectedCategories,
         selectedStations: this.$store.getters.getSelectedStations
       }
 
-      //console.log('searchData = ', searchData)
+      console.log('searchData = ', searchData)
 
       //console.log('day = ', new Date(searchData.day))
-      console.log('startHour = ', new Date(searchData.startHour))
+      //console.log('startHour = ', new Date(searchData.startHour))
       //console.log('endHour = ', new Date(searchData.endHour))
 
       // sessionStorage.setItem('searchData', JSON.stringify(searchData))
