@@ -7,6 +7,9 @@ const initQuery = () => {
   const nowHour = new Date().getTime() + 30 * 60 * 1000
   const nowMidnight = new Date().setUTCHours(24, 0, 0, 0)
 
+  console.log('nowHour = ', nowHour)
+  console.log('nowMidnight = ', nowMidnight)
+
   let query = 'https://api.mlab.com/api/1/databases/tvui/collections/tvui1?s={timestamp:1}&q='
   query += `{"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"channel":{$in:${topStations}}}]}]}`
   query += '&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI'
@@ -73,9 +76,11 @@ export const ajaxGetSelectedPrograms = (context, { day, startHour, endHour, sele
     query = queryHoursStations
   }
   else if (startHour && endHour) {
+    console.log('startHour && endHour')
     query = queryHours
   }
   else if (!startHour && !endHour) {
+    console.log('!startHour && !endHour')
     query = initQuery()
   }
 
