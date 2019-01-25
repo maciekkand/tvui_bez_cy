@@ -7,7 +7,6 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     todaysPrograms: [],
-    selectedPrograms: null,
     selectedStations: null,
     loading: false
   },
@@ -20,35 +19,19 @@ export default new Vuex.Store({
     },
     getLoading(state) {
       return state.loading
-    },
-    getSelectedPrograms(state) {
-      return state.selectedPrograms
     }
   },
   mutations: {
     ADD_TODAYS_PROGRAMS(state, todaysPrograms) {
-      // console.log('ADD_TODAYS_PROGRAMS')
-      // console.log('todaysPrograms = ', JSON.stringify(todaysPrograms))
-      // console.table(todaysPrograms, ['title'])
-
-      state.todaysPrograms = todaysPrograms || state.selectedPrograms
-
-      if (todaysPrograms) {
-        //console.table(todaysPrograms, ['title'])
-        state.loading = true
-      }
-
-      // state.selectedPrograms = []
+      state.todaysPrograms = todaysPrograms
+      state.loading = true
     },
     SET_SELECTED_STATIONS(state, stations) {
       state.selectedStations = stations
     },
     SET_LOADING(state, loadingStatus) {
+      console.log('SET_LOADING = ', loadingStatus)
       state.loading = loadingStatus
-    },
-    ADD_SELECTED_PROGRAMS(state, selectedPrograms) {
-      // console.table(selectedPrograms, ['title'])
-      state.selectedPrograms = selectedPrograms
     }
   },
   actions: {
@@ -62,10 +45,8 @@ export default new Vuex.Store({
       context.commit('SET_SELECTED_STATIONS', stations)
     },
     setLoading(context, loadingStatus) {
+      console.log('setLoading ... ')
       context.commit('SET_LOADING', loadingStatus)
-    },
-    addSelectedPrograms(context, selectedPrograms) {
-      context.commit('ADD_SELECTED_PROGRAMS', selectedPrograms)
     }
   }
 })

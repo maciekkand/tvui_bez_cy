@@ -13,7 +13,6 @@ function categoryCheck(type) {
   const arrayTelenowela = ["telenowela"];
   const arrayFilm = ["film", "komedi", "dramat", "horror", "thriller"];
   const arrayEntertainment = ["rozrywk", "teleturniej", "show", "muzycz"];
-  const arrayKids = ["animowan", "familijn"];
   const arrayNews = ["informac", "publicysty"];
   const arraySport = ["sport"];
 
@@ -21,7 +20,6 @@ function categoryCheck(type) {
   const isSerial = arraySerial.map(el => type.includes(el)).includes(true);
   const isTelenowela = arrayTelenowela.map(el => type.includes(el)).includes(true);
   const isEntertainment = arrayEntertainment.map(el => type.includes(el)).includes(true);
-  const isKids = arrayKids.map(el => type.includes(el)).includes(true);
   const isSport = arraySport.map(el => type.includes(el)).includes(true);
   const isNews = arrayNews.map(el => type.includes(el)).includes(true);
 
@@ -30,26 +28,17 @@ function categoryCheck(type) {
   /* #region  */
   if (isSerial) {
     return "serial";
-  }
-  else if (isTelenowela) {
+  } else if (isTelenowela) {
     return "telenowela"
-  }
-  else if (isFilm) {
+  } else if (isFilm) {
     return "film"
-  }
-  else if (isEntertainment) {
+  } else if (isEntertainment) {
     return "rozrywka";
-  }
-  else if (isKids) {
-    return "dla dzieci";
-  }
-  else if (isSport) {
+  } else if (isSport) {
     return "sport";
-  }
-  else if (isNews) {
+  } else if (isNews) {
     return "wiadomosci";
-  }
-  else return "inne";
+  } else return "inne";
 }
 
 /* #endregion */

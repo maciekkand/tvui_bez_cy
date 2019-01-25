@@ -2,105 +2,83 @@
 
 <script>
 import { daysForSelectBox, hoursForSelectBox } from '../../data/data'
-import email from '../../services/email'
 
 export default {
   data() {
     return {
       selectedDay: null,
-      selectedStartHour: null,
+      selectedStartHour: null, // new Date().getHours(), // todo: a) usunąć na końcu b) przy innym dniu startHour = 3 rano
       selectedEndHour: null,
       selectedCategories: null,
+      // selectedStations: null,
       days: daysForSelectBox(),
       startHours: hoursForSelectBox(this.selectedDay, false),
       endHours: hoursForSelectBox(this.selectedDay, true),
       categories: [
         { text: 'Film', value: 'film' },
         { text: 'Serial', value: 'serial' },
-        /*  { text: 'Telenowela', value: 'telenowela' }, */
+        { text: 'Telenowela', value: 'telenowela' },
         { text: 'Sport', value: 'sport' },
         { text: 'Rozrywka', value: 'rozrywka' },
-        { text: 'Dzieci', value: 'dzieci' },
-        { text: 'News', value: 'wiadomosci' },
+        { text: 'Wiadomości', value: 'wiadomosci' },
         { text: 'Inne', value: 'inne' }
       ],
     }
   },
   computed: {
     loading() {
+      console.log('getLoading = ', this.$store.getters.getLoading)
       return this.$store.getters.getLoading
-    }
+    },
+    //selectedStations() {
+    //console.log("34. getters.selectedStations = ", this.$store.getters.selectedStations)
+    //return this.$store.getters.selectedStations;
+    //}
   },
   methods: {
     onChangedSelection() {
       setTimeout(() => {
+        //console.log(this.selectedDay)
         hoursForSelectBox(this.selectedDay, false) // todo: co z tym ?
       }, 100)
     },
     search() {
+      /*
+      if (!this.selectedDay) {
+        console.log('brak Day = ')
+        return this.$refs.modalDay.show()
+      }
+      if (!this.selectedStartHour) {
+        console.log('brak StartHour ')
+        return this.$refs.modalStartHour.show()
+      }
+      if (!this.selectedEndHour) {
+        console.log('brak EndHour ')
+        return this.$refs.modalEndHour.show()
+      }
+      */
       if (this.selectedStartHour && this.selectedEndHour && this.selectedEndHour < this.selectedStartHour) {
         console.log('Błąd godzin ')
-        // return this.$refs.modalHoursError.show()
+        return this.$refs.modalHoursError.show()
       }
 
-      console.log('this.selectedDay = ', this.selectedDay)
-      const day = this.selectedDay || new Date().setUTCHours(0, 0, 0, 0)
-
       const searchData = {
-        day,
-        startHour: this.selectedStartHour * 1000 * 60 * 60 + day,
-        endHour: this.selectedEndHour * 1000 * 60 * 60 + day,
+        day: this.selectedDay,
+        startHour: this.selectedStartHour * 1000 * 60 * 60 + this.selectedDay,
+        endHour: this.selectedEndHour * 1000 * 60 * 60 + this.selectedDay,
         selectedCategories: this.selectedCategories,
         selectedStations: this.$store.getters.getSelectedStations
       }
 
-      //console.log('searchData = ', searchData)
+      console.log('searchData = ', searchData)
 
-      //console.log('day = ', new Date(searchData.day))
-      //console.log('startHour = ', new Date(searchData.startHour))
-      //console.log('endHour = ', new Date(searchData.endHour))
-
-      // sessionStorage.setItem('searchData', JSON.stringify(searchData))
       this.$store.dispatch('getSelectedPrograms', searchData)
       this.$store.dispatch('setLoading', true)
+      sessionStorage.setItem('searchData', JSON.stringify(searchData))
     },
-
-    add() {
-      console.log('Tu Search: metoda add !')
-      this.$store.commit('ADD_TODAYS_PROGRAMS')
-    },
-
     save() {
-      console.log('Tu Save: zapisuję do localStorage, ślę maila i wyświetlam modala !')
-
-      if (typeof (Storage) === 'undefined') {
-        return alert('Sorry! Nie zapamiętam programów, bo Twoja przeglądarka nie wspiera localStorage')
-      }
-
-      //localStorage.removeItem('selectedPrograms')
-
-      const oldSelectedPrograms = JSON.parse(localStorage.getItem('selectedPrograms')) || []
-      const currentSelectedPrograms = this.$store.getters.getSelectedPrograms
-
-      console.log('oldSelectedPrograms = ', oldSelectedPrograms)
-      console.log('currentSelectedPrograms = ', currentSelectedPrograms)
-
-      const allSelectedPrograms = oldSelectedPrograms.concat(currentSelectedPrograms)
-      console.log('allSelectedPrograms = ', allSelectedPrograms)
-
-      localStorage.setItem('selectedPrograms', JSON.stringify(allSelectedPrograms))
-
-      email('dupa bez tego htmla')
+      console.log('Tu Search: metoda save !')
     },
-
-    show() {
-      console.log('Tu Show: jeśli jest coś w localStorage o kluczu SelectedPrograms, to to wyświetlam')
-
-      if (localStorage.getItem('selectedPrograms')) {
-        this.$store.commit('ADD_TODAYS_PROGRAMS', JSON.parse(localStorage.getItem('selectedPrograms')))
-      }
-    },
-
     hideModalDay() {
       this.$refs.modalDay.hide()
     },
