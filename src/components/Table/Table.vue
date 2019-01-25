@@ -21,7 +21,7 @@ export default {
         },
         {
           key: 'dayString',
-          label: 'daystr',
+          label: 'daystri',
         },
         {
           key: 'channel',

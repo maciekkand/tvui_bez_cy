@@ -13,8 +13,8 @@ export const daysForSelectBox = () => {
 
     const dayObj = {
       text: dayString,
-      value: startOfDayTimestamp,
-      valueStr: new Date(startOfDayTimestamp)
+      value: index
+      //valueStr: new Date(startOfDayTimestamp)
     }
     daysForSelectArray.push(dayObj)
   }

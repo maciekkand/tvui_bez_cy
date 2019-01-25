@@ -56,22 +56,28 @@ export const ajaxAddTodaysPrograms = context => {
 /* #endregion */
 
 export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHour, selectedEndHour, selectedCategories, selectedStations }) => {
-  console.log('selectedDay = ', selectedDay)
+  let query = ''
+
+  console.log('###### selectedStartHour = ', selectedStartHour)
+
+  const dayStartTimestamp = new Date().setUTCHours(0, 0, 0, 0) + selectedDay * 24 * 60 * 60 * 1000
+  console.log('dayStartTimestamp = ', new Date(dayStartTimestamp))
 
   console.log('selectedStartHour = ', selectedStartHour)
   console.log('selectedEndHour = ', selectedEndHour)
 
-  let query = ''
+  if (!selectedDay && !selectedStartHour) selectedStartHour = new Date().getHours() + (new Date().getMinutes() - 30) / 60
+  else if (!selectedStartHour) selectedStartHour = 1
 
-  const day = selectedDay || new Date().setUTCHours(0, 0, 0, 0)
-  console.log('day = ', new Date(day))
+  if (!selectedEndHour) selectedEndHour = 24
 
-  //const startHour = this.selectedStartHour || new Date().setUTCHours(3, 0, 0, 0)
-  const startHour = selectedStartHour ? new Date().setUTCHours(selectedStartHour, 0, 0, 0) : new Date().setUTCHours(new Date().getHours(), 0, 0, 0)
-  const endHour = selectedEndHour ? new Date().setUTCHours(selectedEndHour, 0, 0, 0) : new Date().setUTCHours(24, 0, 0, 0)
+  const startHour = dayStartTimestamp + selectedStartHour * 60 * 60 * 1000
+  const endHour = dayStartTimestamp + selectedEndHour * 60 * 60 * 1000
 
   console.log('startHour = ', new Date(startHour))
   console.log('endHour = ', new Date(endHour))
+
+
 
   const arrSelectedCategories = JSON.stringify(selectedCategories)
   const arrSelectedStations = JSON.stringify(selectedStations)

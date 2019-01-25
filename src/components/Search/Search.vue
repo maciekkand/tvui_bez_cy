@@ -95,11 +95,11 @@ export default {
       const oldSelectedPrograms = JSON.parse(localStorage.getItem('selectedPrograms')) || []
       const currentSelectedPrograms = this.$store.getters.getSelectedPrograms
 
-      console.log('oldSelectedPrograms = ', oldSelectedPrograms)
-      console.log('currentSelectedPrograms = ', currentSelectedPrograms)
+      //console.log('oldSelectedPrograms = ', oldSelectedPrograms)
+      //console.log('currentSelectedPrograms = ', currentSelectedPrograms)
 
       const allSelectedPrograms = oldSelectedPrograms.concat(currentSelectedPrograms)
-      console.log('allSelectedPrograms = ', allSelectedPrograms)
+      //console.log('allSelectedPrograms = ', allSelectedPrograms)
 
       localStorage.setItem('savedPrograms', JSON.stringify(allSelectedPrograms))
     },
