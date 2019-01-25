@@ -2,6 +2,7 @@
 
 <script>
 import { daysForSelectBox, hoursForSelectBox } from '../../data/data'
+import email from '../../services/email'
 
 export default {
   data() {
@@ -16,11 +17,11 @@ export default {
       categories: [
         { text: 'Film', value: 'film' },
         { text: 'Serial', value: 'serial' },
-        { text: 'Telenowela', value: 'telenowela' },
+        /*  { text: 'Telenowela', value: 'telenowela' }, */
         { text: 'Sport', value: 'sport' },
         { text: 'Rozrywka', value: 'rozrywka' },
         { text: 'Dzieci', value: 'dzieci' },
-        { text: 'Wiadomości', value: 'wiadomosci' },
+        { text: 'News', value: 'wiadomosci' },
         { text: 'Inne', value: 'inne' }
       ],
     }
@@ -53,11 +54,11 @@ export default {
         selectedStations: this.$store.getters.getSelectedStations
       }
 
-      console.log('searchData = ', searchData)
+      //console.log('searchData = ', searchData)
 
-      console.log('day = ', new Date(searchData.day))
-      console.log('startHour = ', new Date(searchData.startHour))
-      console.log('endHour = ', new Date(searchData.endHour))
+      //console.log('day = ', new Date(searchData.day))
+      //console.log('startHour = ', new Date(searchData.startHour))
+      //console.log('endHour = ', new Date(searchData.endHour))
 
       // sessionStorage.setItem('searchData', JSON.stringify(searchData))
       this.$store.dispatch('getSelectedPrograms', searchData)
@@ -65,25 +66,37 @@ export default {
     },
 
     add() {
-      console.log('Tu Search: metoda save !')
+      console.log('Tu Search: metoda add !')
       this.$store.commit('ADD_TODAYS_PROGRAMS')
     },
 
     save() {
+      console.log('Tu Save: zapisuję do localStorage, ślę maila i wyświetlam modala !')
+
       if (typeof (Storage) === 'undefined') {
         return alert('Sorry! Nie zapamiętam programów, bo Twoja przeglądarka nie wspiera localStorage')
       }
-      console.log('Tu Save: zapisuję do localStorage, ślę maila i wyświetlam modala !')
-      localStorage.removeItem('selectedPrograms')
-      localStorage.setItem('selectedPrograms', JSON.stringify(this.$store.getters.getSelectedPrograms))
+
+      //localStorage.removeItem('selectedPrograms')
+
+      const oldSelectedPrograms = JSON.parse(localStorage.getItem('selectedPrograms')) || []
+      const currentSelectedPrograms = this.$store.getters.getSelectedPrograms
+
+      console.log('oldSelectedPrograms = ', oldSelectedPrograms)
+      console.log('currentSelectedPrograms = ', currentSelectedPrograms)
+
+      const allSelectedPrograms = oldSelectedPrograms.concat(currentSelectedPrograms)
+      console.log('allSelectedPrograms = ', allSelectedPrograms)
+
+      localStorage.setItem('selectedPrograms', JSON.stringify(allSelectedPrograms))
+
+      email('dupa bez tego htmla')
     },
 
     show() {
       console.log('Tu Show: jeśli jest coś w localStorage o kluczu SelectedPrograms, to to wyświetlam')
 
       if (localStorage.getItem('selectedPrograms')) {
-        //console.table(localStorage.getItem('selectedPrograms'), ['title'])
-        console.log(localStorage.getItem('selectedPrograms'))
         this.$store.commit('ADD_TODAYS_PROGRAMS', JSON.parse(localStorage.getItem('selectedPrograms')))
       }
     },

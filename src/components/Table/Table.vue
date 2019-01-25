@@ -87,11 +87,11 @@ export default {
       }
       else {
         const row = {
+          title: item.item.title,
           id: item.item.id,
           dayString: item.item.dayString,
           time: item.item.time,
           channel: item.item.channel,
-          title: item.item.title,
           type: item.item.type,
           category: item.item.category,
           link: item.item.link,
