@@ -1,5 +1,4 @@
 /* eslint-disable */
-const fs = require("fs");/* eslint-disable */
 const fs = require("fs");
 const axios = require("axios");
 const cheerio = require("cheerio");
@@ -9,17 +8,22 @@ const urlPrefix = "https://programtv.onet.pl/?dzien=";
 
 function categoryCheck(type) {
   /* #region  */
-  const arraySerial = ["serial"];
-  const arrayTelenowela = ["telenowela"];
-  const arrayFilm = ["film", "komedi", "dramat", "horror", "thriller"];
-  const arrayEntertainment = ["rozrywk", "teleturniej", "show", "muzycz"];
-  const arrayKids = ["animowan", "familijn"];
+  const arraySerial = ["serial", "telenowela"];
+  const arrayFilm = ["film", "komedi", "dramat", "horror", "thriller", "western"];
+  const arrayEntertainment = ["rozrywk", "teleturniej", "show", "muzycz", "kabaret"];
+  const arrayKids = ["animowan", "familijn", "dzieci"];
   const arrayNews = ["informac", "publicysty"];
-  const arraySport = ["sport"];
+
+  const arraySport = ["sport", "piłka nożn", "piłka ręczn", "piłkars", "siatkówk",
+                      "badminton", "narciars", "łyżwiars", "golf", "żeglarstwo",
+                      "tenis", "boks", "wyścigi samochod", "koszykówka", "bilard",
+                      "bobsleje", "biathlon", "biatlon", "kombinacja norweska",
+                      "biegi narciarskie", "wyścigi motocyklowe", "snowboard",
+                      "saneczkarstwo", "kolarstwo", "hokej", "lekkoatletyka" ];
+
 
   const isFilm = arrayFilm.map(el => type.includes(el)).includes(true);
   const isSerial = arraySerial.map(el => type.includes(el)).includes(true);
-  const isTelenowela = arrayTelenowela.map(el => type.includes(el)).includes(true);
   const isEntertainment = arrayEntertainment.map(el => type.includes(el)).includes(true);
   const isKids = arrayKids.map(el => type.includes(el)).includes(true);
   const isSport = arraySport.map(el => type.includes(el)).includes(true);
@@ -28,19 +32,7 @@ function categoryCheck(type) {
   /* #endregion */
 
   /* #region  */
-  if (isSerial) {
-    return "serial";
-  }
-  else if (isTelenowela) {
-    return "telenowela"
-  }
-  else if (isFilm) {
-    return "film"
-  }
-  else if (isEntertainment) {
-    return "rozrywka";
-  }
-  else if (isKids) {
+  if (isKids) {
     return "dla dzieci";
   }
   else if (isSport) {
@@ -48,6 +40,15 @@ function categoryCheck(type) {
   }
   else if (isNews) {
     return "wiadomosci";
+  }
+  else if (isSerial) {
+    return "serial";
+  }
+  else if (isFilm) {
+    return "film"
+  }
+  else if (isEntertainment) {
+    return "rozrywka";
   }
   else return "inne";
 }
@@ -134,8 +135,25 @@ const getAllChannels = () => {
   console.log("Skończyłem i zapisałem do pliku: ", fileSave)
 }
 
-getAllChannels()
+// getAllChannels()
 
+const changeCategories = () => {
+  const data = JSON.parse(fs.readFileSync('./tv1.json'))
+
+  data.map(el => {
+    //console.log('el.category PRZED = ', el.category)
+    el.category = categoryCheck(el.type)
+    //console.log('el.category PO = ', el.category)
+    //console.log('____________________________________')
+    //return el
+    fs.appendFileSync('./tvNewCategories.json', JSON.stringify(el) + ',\n')
+  })
+
+  //console.log('result = ', result)
+
+}
+
+changeCategories()
 
 /*
 Import i query z sortowaniem po id programu

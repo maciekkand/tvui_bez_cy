@@ -7,7 +7,7 @@ const initQuery = () => {
   const nowHour = new Date().getTime() + 30 * 60 * 1000
   const nowMidnight = new Date().setUTCHours(24, 0, 0, 0)
 
-  let query = 'https://api.mlab.com/api/1/databases/tvui/collections/tvui1?s={time:1}&q='
+  let query = 'https://api.mlab.com/api/1/databases/tvui/collections/tvui1?s={timestamp:1}&q='
   query += `{"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"channel":{$in:${topStations}}}]}]}`
   query += '&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI'
 
@@ -18,7 +18,7 @@ export const ajaxAddTodaysPrograms = context => {
   axios
     .get(initQuery())
     .then(res => {
-
+      /*
       res.data.map((el, index) => {
         if (index < res.data.length - 2) {
           const totalMinutes = (res.data[index + 1].timestamp - el.timestamp) / (1000 * 60)
@@ -27,6 +27,7 @@ export const ajaxAddTodaysPrograms = context => {
           el.duration = hours + ':' + minutes
         }
       })
+      */
 
       context.commit('ADD_TODAYS_PROGRAMS', res.data)
     })
@@ -36,6 +37,7 @@ export const ajaxAddTodaysPrograms = context => {
     })
 }
 
+/* #region  */
 /*
   Stwórz query w Studio 3T Query Builderze.
   Linijkę z okna Query skopiuj tu i:
@@ -46,14 +48,9 @@ export const ajaxAddTodaysPrograms = context => {
     4) wywal wszystkie spacje
     5) parametry fields i sortowania wpisz z ręki, bo tu są osobno
 */
+/* #endregion */
 
-export const ajaxGetSelectedPrograms = (context, {
-  day,
-  startHour,
-  endHour,
-  selectedCategories,
-  selectedStations
-}) => {
+export const ajaxGetSelectedPrograms = (context, { day, startHour, endHour, selectedCategories, selectedStations }) => {
   let query = ''
   const arrSelectedCategories = JSON.stringify(selectedCategories)
   const arrSelectedStations = JSON.stringify(selectedStations)
@@ -63,8 +60,8 @@ export const ajaxGetSelectedPrograms = (context, {
   const queryHoursStations = `s={time:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"channel":{$in:${arrSelectedStations}}}]}]}`
   const queryHoursCategoryStations = `s={time:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}},{$and:[{"channel":{$in:${arrSelectedStations}}}]}]}]}`
 
-  //console.log('startHour = ', startHour)
-  //console.log('endHour = ', endHour)
+  console.log('startHour = ', new Date(startHour))
+  console.log('endHour = ', new Date(endHour))
 
   if (startHour && endHour && selectedCategories && selectedStations) {
     query = queryHoursCategoryStations
@@ -78,13 +75,14 @@ export const ajaxGetSelectedPrograms = (context, {
   else if (startHour && endHour) {
     query = queryHours
   }
-  else if (!startHour && !endHour ) {
+  else if (!startHour && !endHour) {
     query = initQuery()
   }
 
   const url = constants.TV_LIST_PREFIX + query + constants.TV_LIST_SUFFIX
 
-  axios.get(url)
+  axios
+    .get(url)
     .then(res => {
       res.data.map((el, index) => {
         if (index < res.data.length - 2) {

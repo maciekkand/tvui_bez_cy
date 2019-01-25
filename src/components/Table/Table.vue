@@ -10,11 +10,10 @@ export default {
     },
     fields() {
       return [
-        /* {
+        {
           key: 'index',
           label: '#'
         },
-    */
         {
           key: 'id',
           label: 'id',

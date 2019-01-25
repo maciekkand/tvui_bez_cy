@@ -17,11 +17,11 @@ export default {
       categories: [
         { text: 'Film', value: 'film' },
         { text: 'Serial', value: 'serial' },
-        /*  { text: 'Telenowela', value: 'telenowela' }, */
+        // { text: 'Tele', value: 'telenowela' },
         { text: 'Sport', value: 'sport' },
         { text: 'Rozrywka', value: 'rozrywka' },
-        { text: 'Dzieci', value: 'dzieci' },
-        { text: 'News', value: 'wiadomosci' },
+        { text: 'Dzieci', value: 'dla dzieci' },
+        { text: 'Wiadomości', value: 'wiadomosci' },
         { text: 'Inne', value: 'inne' }
       ],
     }
@@ -43,13 +43,25 @@ export default {
         // return this.$refs.modalHoursError.show()
       }
 
-      console.log('this.selectedDay = ', this.selectedDay)
+      //console.log('this.selectedDay = ', this.selectedDay)
       const day = this.selectedDay || new Date().setUTCHours(0, 0, 0, 0)
+      //console.log('day = ', new Date(day))
+
+      console.log('this.selectedStartHour = ', this.selectedStartHour)
+      //const startHour = this.selectedStartHour || new Date().setUTCHours(3, 0, 0, 0)
+
+      const startHour = this.selectedStartHour ? new Date().setUTCHours(this.selectedStartHour, 0, 0, 0) : new Date().setUTCHours(3, 0, 0, 0)
+      const endHour = this.selectedEndHour ? new Date().setUTCHours(this.selectedEndHour, 0, 0, 0) : new Date().setUTCHours(24, 0, 0, 0)
+
+      //console.log('startHour = ', new Date(startHour))
+      console.log('startHour = ', startHour)
 
       const searchData = {
         day,
-        startHour: this.selectedStartHour * 1000 * 60 * 60 + day,
-        endHour: this.selectedEndHour * 1000 * 60 * 60 + day,
+        //startHour: day + this.selectedStartHour * 1000 * 60 * 60,
+        startHour,
+        //endHour: day + this.selectedEndHour * 1000 * 60 * 60,
+        endHour,
         selectedCategories: this.selectedCategories,
         selectedStations: this.$store.getters.getSelectedStations
       }
@@ -57,7 +69,7 @@ export default {
       //console.log('searchData = ', searchData)
 
       //console.log('day = ', new Date(searchData.day))
-      //console.log('startHour = ', new Date(searchData.startHour))
+      console.log('startHour = ', new Date(searchData.startHour))
       //console.log('endHour = ', new Date(searchData.endHour))
 
       // sessionStorage.setItem('searchData', JSON.stringify(searchData))
@@ -88,17 +100,30 @@ export default {
       const allSelectedPrograms = oldSelectedPrograms.concat(currentSelectedPrograms)
       console.log('allSelectedPrograms = ', allSelectedPrograms)
 
-      localStorage.setItem('selectedPrograms', JSON.stringify(allSelectedPrograms))
-
-      email('dupa bez tego htmla')
+      localStorage.setItem('savedPrograms', JSON.stringify(allSelectedPrograms))
     },
-
     show() {
-      console.log('Tu Show: jeśli jest coś w localStorage o kluczu SelectedPrograms, to to wyświetlam')
+      const savedPrograms = localStorage.getItem('savedPrograms')
+      console.log('savedPrograms = ', savedPrograms)
 
-      if (localStorage.getItem('selectedPrograms')) {
-        this.$store.commit('ADD_TODAYS_PROGRAMS', JSON.parse(localStorage.getItem('selectedPrograms')))
+      if (savedPrograms) {
+        console.log('savedPrograms = ', savedPrograms)
+        //selectedPrograms
+        this.$store.commit('ADD_SAVED_PROGRAMS', JSON.parse(localStorage.getItem('savedPrograms')))
       }
+    },
+    email() {
+      const arrSelectedPrograms = []
+      const selectedPrograms = JSON.parse(localStorage.getItem('selectedPrograms'))
+
+      selectedPrograms.map(el => {
+        arrSelectedPrograms.push (
+          `${el.dayString} ${el.time} - ${el.channel} - ${el.title}\r\n`
+        )
+      })
+
+      const emailText = arrSelectedPrograms.join()
+      // email(emailText)  // fixme: odkomentuj to będzie słał maile
     },
     reset() {
       console.log('Reset')
@@ -115,4 +140,3 @@ div {
   color: white;
 }
 </style>
-
