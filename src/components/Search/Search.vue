@@ -100,19 +100,6 @@ export default {
         this.$store.commit('ADD_TODAYS_PROGRAMS', JSON.parse(localStorage.getItem('selectedPrograms')))
       }
     },
-
-    hideModalDay() {
-      this.$refs.modalDay.hide()
-    },
-    hideModalStartHour() {
-      this.$refs.modalStartHour.hide()
-    },
-    hideModalEndHour() {
-      this.$refs.modalEndHour.hide()
-    },
-    hideModalHoursError() {
-      this.$refs.modalHoursError.hide()
-    },
     reset() {
       console.log('Reset')
       this.selectedDay = null

@@ -1,11 +1,10 @@
 /* eslint-disable */
 export default (text) => {
-  const templateParams = {
-    name: 'James',
-    notes: text,
+  const params = {
+    notes: text
   }
 
-  emailjs.send('gmail', 'tv', templateParams)
+  emailjs.send('gmail', 'tv', params)
     .then(res => {
       console.log('SUCCESS!', res.status, res.text)
     })

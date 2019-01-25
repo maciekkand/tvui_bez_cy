@@ -1,10 +1,10 @@
 /* eslint-disable */
+const fs = require("fs");/* eslint-disable */
 const fs = require("fs");
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-// const fileTimeTable = "./tv1.json";
-const fileTimeTable = './tv11.json'
+const fileSave = './tv11.json'
 const urlPrefix = "https://programtv.onet.pl/?dzien=";
 
 function categoryCheck(type) {
@@ -60,8 +60,9 @@ const kanal = (day, page, channelFrom, channelTo) => {
 
   const date = new Date(currentDay).toISOString().slice(0, 10);
   const url = `${urlPrefix + day}&strona=${page}`;
+  var config = { headers: { 'User-Agent': 'Mozilla/5.0' }}
 
-  axios.get(url)
+  axios.get(url, config)
     .then(res => {
       const $ = cheerio.load(res.data)
 
@@ -75,7 +76,7 @@ const kanal = (day, page, channelFrom, channelTo) => {
         const channels = $(`#boxTVHolder${channelNo} li`)
 
         channels.each((i, el) => {
-          const id = day.toString().padStart(2, '0') + channelNo.toString().padStart(2, '0') + i.toString().padStart(2, '0')
+          const id = day.toString().padStart(2, '0') + (((page - 1) * 20) + channelNo).toString().padStart(3, '0') + i.toString().padStart(2, '0')
           const time = $(el).find('.hour').text().replace(/\t/g, '').replace(/\n/g, '').split(':')
           const timestampTodayMidnight = new Date().setUTCHours(0, 0, 0, 0) + day * 1000 * 60 * 60 * 24
 
@@ -106,7 +107,7 @@ const kanal = (day, page, channelFrom, channelTo) => {
             link
           }
 
-          fs.appendFileSync(fileTimeTable, `${JSON.stringify(seans)},\n`)
+          fs.appendFileSync(fileSave, `${JSON.stringify(seans)},\n`)
         })
       }
     })
@@ -122,20 +123,19 @@ const kanal = (day, page, channelFrom, channelTo) => {
 */
 
 const getAllChannels = () => {
-  for (let day = 7; day < 8; day++) { // 0-7 - źle, 0-5 ?
+  for (let day = 6; day < 7; day++) {       // 0-7 - źle, 0-5 ?
     for (let page = 1; page < 8; page++) { // 1-8
       console.time()
-        for (let i = 3 * 1e8; i > 0; i--)  { }
+        for (let i = 30 * 1e8; i > 0; i--)  { }
       console.timeEnd()
       kanal(day, page, 1, 20)
     }
   }
-  console.log("Skończyłem i zapisałem do pliku: ", fileTimeTable)
+  console.log("Skończyłem i zapisałem do pliku: ", fileSave)
 }
 
-getAllChannels();
+getAllChannels()
 
-// kanal(0, 1)  // day, page
 
 /*
 Import i query z sortowaniem po id programu
