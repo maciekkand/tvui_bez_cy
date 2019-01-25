@@ -3,7 +3,7 @@ import axios from 'axios'
 import constants from '../data/constants'
 
 const initQuery = () => {
-  const topStations = JSON.stringify(['TVP 1', 'TVP 2', 'TVN', 'POLSAT'])
+  const topStations = JSON.stringify(['TVP 1', 'TVP 2', 'TVN'])
   const nowHour = new Date().getTime() + 30 * 60 * 1000
   const nowMidnight = new Date().setUTCHours(24, 0, 0, 0)
 
@@ -56,11 +56,10 @@ export const ajaxAddTodaysPrograms = context => {
 /* #endregion */
 
 export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHour, selectedEndHour, selectedCategories, selectedStations }) => {
-
   console.log('selectedDay = ', selectedDay)
+
   console.log('selectedStartHour = ', selectedStartHour)
   console.log('selectedEndHour = ', selectedEndHour)
-
 
   let query = ''
 
@@ -68,19 +67,19 @@ export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHou
   console.log('day = ', new Date(day))
 
   //const startHour = this.selectedStartHour || new Date().setUTCHours(3, 0, 0, 0)
-  const startHour = selectedStartHour ? new Date().setUTCHours(startHour, 0, 0, 0) : new Date().setUTCHours(3, 0, 0, 0)
-  console.log('startHour = ', new Date(startHour))
+  const startHour = selectedStartHour ? new Date().setUTCHours(selectedStartHour, 0, 0, 0) : new Date().setUTCHours(new Date().getHours(), 0, 0, 0)
+  const endHour = selectedEndHour ? new Date().setUTCHours(selectedEndHour, 0, 0, 0) : new Date().setUTCHours(24, 0, 0, 0)
 
-  const endHour = selectedEndHour ? new Date().setUTCHours(endHour, 0, 0, 0) : new Date().setUTCHours(24, 0, 0, 0)
+  console.log('startHour = ', new Date(startHour))
   console.log('endHour = ', new Date(endHour))
 
   const arrSelectedCategories = JSON.stringify(selectedCategories)
   const arrSelectedStations = JSON.stringify(selectedStations)
 
-  const queryHours = `s={time:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}}]}`
-  const queryHoursCategory = `s={time:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}}]}]}`
-  const queryHoursStations = `s={time:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"channel":{$in:${arrSelectedStations}}}]}]}`
-  const queryHoursCategoryStations = `s={time:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}},{$and:[{"channel":{$in:${arrSelectedStations}}}]}]}]}`
+  const queryHours = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}}]}`
+  const queryHoursCategory = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}}]}]}`
+  const queryHoursStations = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"channel":{$in:${arrSelectedStations}}}]}]}`
+  const queryHoursCategoryStations = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}},{$and:[{"channel":{$in:${arrSelectedStations}}}]}]}]}`
 
 
   if (startHour && endHour && selectedCategories && selectedStations) {
@@ -103,6 +102,8 @@ export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHou
 
   const url = constants.TV_LIST_PREFIX + query + constants.TV_LIST_SUFFIX
 
+  console.log('url = ', url)
+
   axios
     .get(url)
     .then(res => {
@@ -117,7 +118,7 @@ export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHou
         */
       })
 
-      if(res.data.length > 999) alert('Zawęż przedział czasu, stacji lub kategorii, bo nie wszystkie programy są wyświetlane')
+      if(res.data.length > 999) alert('Zawęż przedział czasu, ilość kanałów lub kategorii, bo teraz część późniejszych programów nie jest wyświetlana')
       console.log('ilość rekordów = ', res.data.length)
       context.commit('ADD_TODAYS_PROGRAMS', res.data)
     })
