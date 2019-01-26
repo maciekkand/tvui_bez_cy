@@ -27,14 +27,6 @@ export default {
       ],
     }
   },
-  beforeRouteEnter(to, from, next) {
-    console.log('Inside Search component')
-    console.log('from.path', from.path)
-    console.log('to.path', to.path)
-    console.log('__________________________')
-
-    next()
-  },
   computed: {
     loading() {
       return this.$store.getters.getLoading
@@ -50,12 +42,14 @@ export default {
       if (this.textSearch) return this.$store.dispatch('findText', this.textSearch)
       if (this.selectedStartHour && this.selectedEndHour && this.selectedEndHour < this.selectedStartHour) alert('Bład godzin')
 
+
       const searchData = {
         selectedDay: this.selectedDay,
         selectedStartHour: this.selectedStartHour,
         selectedEndHour: this.selectedEndHour,
         selectedCategories: this.selectedCategories,
-        selectedStations: this.$store.getters.getSelectedStations
+        //selectedStations: this.$store.getters.getSelectedStations
+        selectedStations: localStorage.getItem('stations')
       }
 
       // console.log('searchData = ', searchData)
@@ -67,7 +61,6 @@ export default {
       console.log('Tu Search: metoda add !')
       this.$store.commit('ADD_TODAYS_PROGRAMS')
     },
-
     save() {
       console.log('Tu Save: zapisuję do localStorage, ślę maila i wyświetlam modala !')
 

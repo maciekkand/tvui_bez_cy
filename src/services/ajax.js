@@ -52,36 +52,25 @@ Stwórz query w Studio 3T Query Builderze.
 /* spell-checker: enable */
 
 export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHour, selectedEndHour, selectedCategories, selectedStations }) => {
+  console.log('selectedStations = ', selectedStations)
   let query = ''
 
   const dayStartTimestamp = new Date().setUTCHours(0, 0, 0, 0) + selectedDay * 24 * 60 * 60 * 1000
-  // console.log('dayStartTimestamp = ', new Date(dayStartTimestamp))
-
-  // console.log('selectedStartHour = ', selectedStartHour)
-  // console.log('selectedEndHour = ', selectedEndHour)
 
   if (!selectedDay && !selectedStartHour) selectedStartHour = new Date().getHours() + (new Date().getMinutes() - 30) / 60
   else if (!selectedStartHour) selectedStartHour = 1
 
-  // console.log('selectedStartHour = ', selectedStartHour)
-
   if (!selectedEndHour) selectedEndHour = 24
-
-  // console.log('selectedEndHour = ', selectedEndHour)
 
   const startHour = dayStartTimestamp + selectedStartHour * 60 * 60 * 1000
   const endHour = dayStartTimestamp + selectedEndHour * 60 * 60 * 1000
 
-  // console.log('startHour = ', new Date(startHour))
-  // console.log('endHour = ', new Date(endHour))
-
   const arrSelectedCategories = JSON.stringify(selectedCategories)
-  const arrSelectedStations = JSON.stringify(selectedStations)
 
   const queryHours = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}}]}`
   const queryHoursCategory = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}}]}]}`
-  const queryHoursStations = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"channel":{$in:${arrSelectedStations}}}]}]}`
-  const queryHoursCategoryStations = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}},{$and:[{"channel":{$in:${arrSelectedStations}}}]}]}]}`
+  const queryHoursStations = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"channel":{$in:${selectedStations}}}]}]}`
+  const queryHoursCategoryStations = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}},{$and:[{"channel":{$in:${selectedStations}}}]}]}]}`
 
   if (startHour && endHour && selectedCategories && selectedStations) {
     console.log('****** startHour && endHour && selectedCategories && selectedStations')

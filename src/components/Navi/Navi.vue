@@ -26,6 +26,7 @@ export default {
         .replace(']', '')
         .replace(/"/g, '')
         .replace(/,/g, ',  ')
+        
       console.log('stations.length = ', stations.length)
 
       if (stations.length > 50) {
