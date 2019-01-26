@@ -11,6 +11,7 @@ export default {
       selectedStartHour: null,
       selectedEndHour: null,
       selectedCategories: null,
+      textSearch: null,
       days: daysForSelectBox(),
       startHours: hoursForSelectBox(this.selectedDay, false),
       endHours: hoursForSelectBox(this.selectedDay, true),
@@ -114,6 +115,7 @@ export default {
       this.selectedDay = null
       this.selectedStartHour = null
       this.selectedEndHour = null
+      this.textSearch = null
     }
   }
 }
