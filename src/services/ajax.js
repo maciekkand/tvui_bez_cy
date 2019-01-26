@@ -127,8 +127,30 @@ export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHou
       })
 
       if(res.data.length > 999) alert('Zawęż przedział czasu, ilość kanałów lub kategorii, bo teraz część późniejszych programów nie jest wyświetlana')
-      console.log('ilość rekordów = ', res.data.length)
+      // console.log('ilość rekordów = ', res.data.length)
       context.commit('ADD_TODAYS_PROGRAMS', res.data)
+    })
+    .catch(err => console.log('My error: ', err))
+    .finally(() => {
+      context.commit('SET_LOADING', false)
+    })
+}
+
+
+export const ajaxFindText = (context, text) => {
+  console.log('text = ', text)
+  //const query = 's={timestamp:1}&q={"title":{"$regex":".*Supervet.*"}}'
+
+  const query = `s={timestamp:1}&q={"title":{"$regex":".*${text}.*"}}`
+
+  const url = constants.TV_LIST_PREFIX + query + constants.TV_LIST_SUFFIX
+  console.log('url = ', url)
+
+  axios
+    .get(url)
+    .then(res => {
+      console.log('res.data = ', res.data)
+      context.commit('AJAX_FIND_TEXT', res.data)
     })
     .catch(err => console.log('My error: ', err))
     .finally(() => {

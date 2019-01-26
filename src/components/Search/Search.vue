@@ -34,30 +34,19 @@ export default {
   methods: {
     onChangedSelection() {
       setTimeout(() => {
-        hoursForSelectBox(this.selectedDay, false) // todo: co z tym ?
+        hoursForSelectBox(this.selectedDay, false) // todo: co z tym ? Przy pustym polu Dzień Godzina od = bieżąca, a Godzina Do = Godzina Od + 1
       }, 100)
     },
     search() {
-      if (this.selectedStartHour && this.selectedEndHour && this.selectedEndHour < this.selectedStartHour) {
-        console.log('Błąd godzin ')
-        // return this.$refs.modalHoursError.show()
+      if (textSearch) {
+        console.log('textSearch = ', this.textSearch)
+        return this.$store.dispatch('findText', this.textSearch)
       }
 
-      //console.log('this.selectedDay = ', this.selectedDay)
-      //const day = this.selectedDay || new Date().setUTCHours(0, 0, 0, 0)
-      //const day = this.selectedDay
-      //console.log('day = ', new Date(day))
-
-      //console.log('this.selectedStartHour = ', this.selectedStartHour)
-      //console.log('this.selectedEndHour = ', this.selectedEndHour)
-      //const startHour = this.selectedStartHour || new Date().setUTCHours(3, 0, 0, 0)
-
-      // const startHour = this.selectedStartHour ? new Date().setUTCHours(this.selectedStartHour, 0, 0, 0) : new Date().setUTCHours(3, 0, 0, 0)
-      // const endHour = this.selectedEndHour ? new Date().setUTCHours(this.selectedEndHour, 0, 0, 0) : new Date().setUTCHours(24, 0, 0, 0)
-      // const endHour = this.selectedEndHour ? new Date().setUTCHours(this.selectedEndHour, 0, 0, 0) : new Date().setUTCHours(24, 0, 0, 0)
-
-      //console.log('startHour = ', new Date(startHour))
-      //console.log('startHour = ', startHour)
+      if (this.selectedStartHour && this.selectedEndHour && this.selectedEndHour < this.selectedStartHour) {
+        alert('Bład godzin')
+        console.log('Błąd godzin ')
+      }
 
       const searchData = {
         selectedDay: this.selectedDay,
@@ -68,12 +57,6 @@ export default {
       }
 
       console.log('searchData = ', searchData)
-
-      //console.log('day = ', new Date(searchData.day))
-      //console.log('startHour = ', new Date(searchData.startHour))
-      //console.log('endHour = ', new Date(searchData.endHour))
-
-      // sessionStorage.setItem('searchData', JSON.stringify(searchData))
       this.$store.dispatch('getSelectedPrograms', searchData)
       this.$store.dispatch('setLoading', true)
     },

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { ajaxAddTodaysPrograms, ajaxGetSelectedPrograms } from '../services/ajax'
+import { ajaxAddTodaysPrograms, ajaxGetSelectedPrograms, ajaxFindText } from '../services/ajax'
 
 Vue.use(Vuex)
 
@@ -50,6 +50,10 @@ export default new Vuex.Store({
       // console.table(selectedPrograms, ['title'])
       state.selectedPrograms = selectedPrograms
     },
+    AJAX_FIND_TEXT(state, foundPrograms) {
+      console.log('foundPrograms = ', foundPrograms)
+      state.todaysPrograms = foundPrograms
+    }
   },
   actions: {
     addTodaysPrograms(context) {
@@ -66,6 +70,9 @@ export default new Vuex.Store({
     },
     addSelectedPrograms(context, selectedPrograms) {
       context.commit('ADD_SELECTED_PROGRAMS', selectedPrograms)
+    },
+    findText(context, text) {
+      ajaxFindText(context, text)
     },
   },
 })
