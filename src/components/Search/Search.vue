@@ -27,6 +27,14 @@ export default {
       ],
     }
   },
+  beforeRouteEnter(to, from, next) {
+    console.log('Inside Search component')
+    console.log('from.path', from.path)
+    console.log('to.path', to.path)
+    console.log('__________________________')
+
+    next()
+  },
   computed: {
     loading() {
       return this.$store.getters.getLoading

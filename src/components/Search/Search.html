@@ -83,7 +83,8 @@
         </b-form-input>
       </b-col>
 
-      <b-button id="search"
+      <b-button id="buttonSearch"
+                ref="buttonSearch"
                 data-test="buttonSearch"
                 @click="search"
                 size="md"
@@ -91,7 +92,7 @@
                 Search
       </b-button>
 
-      <b-button id="reset"
+      <b-button id="buttonReset"
                 data-test="buttonReset"
                 @click="reset"
                 class="ml-2 mb-3"
@@ -99,7 +100,7 @@
                 Reset
       </b-button>
 
-      <b-button id="add"
+      <b-button id="buttonAdd"
                 data-test="buttonAdd"
                 @click="add"
                 size="md"

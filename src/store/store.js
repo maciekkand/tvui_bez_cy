@@ -34,6 +34,7 @@ export default new Vuex.Store({
       state.todaysPrograms = todaysPrograms || state.selectedPrograms
 
       if (todaysPrograms) {
+        console.log('todaysPrograms = ', todaysPrograms)
         //console.table(todaysPrograms, ['title'])
         state.loading = true
       }

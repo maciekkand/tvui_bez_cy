@@ -2,9 +2,8 @@
 
 <script>
 import {
-  canal, discoveryNational,
-  filmboxHboKino, polsat, polskie,
-  tvpTvn, inne
+  canal, discoveryNational, filmboxHboKino,
+  polsat, polskie, tvpTvn, inne
 } from '../../data/data'
 
 export default {
@@ -29,6 +28,7 @@ export default {
       localStorage.setItem('stations', JSON.stringify(this.selected))
 
       this.$store.dispatch('setSelectedStations', this.selected)
+      // this.$refs.buttonSearch.$el.click()
       this.$router.push('/')
     },
     resetSelectedStations() {
