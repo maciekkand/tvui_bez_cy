@@ -2,7 +2,7 @@
 
 <script>
 import {
-  canal, cbs, discoveryNational,
+  canal, discoveryNational,
   filmboxHboKino, polsat, polskie,
   tvpTvn, inne
 } from '../../data/data'
@@ -13,11 +13,8 @@ export default {
     return {
       // trzeba po kliku w OK wypychać wybrane stacje do vuexa
       // Zmienić wszędzie Stations na channels
-
-      selected: this.$store.getters.get, // todo tu skończylem
-
+      selected: this.$store.getters.getSelectedStations,
       canal,
-      cbs,
       discoveryNational,
       filmboxHboKino,
       polsat,
