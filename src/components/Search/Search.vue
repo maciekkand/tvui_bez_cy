@@ -51,6 +51,7 @@ export default {
     resetFavorites() {
       console.log('Tu resetFavorites !')
       localStorage.removeItem('savedPrograms')
+      this.$store.commit('ADD_SAVED_PROGRAMS', [])
     },
     email() {
       const arrSelectedPrograms = []
