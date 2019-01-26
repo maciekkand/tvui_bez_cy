@@ -2,7 +2,7 @@
 import axios from 'axios'
 import constants from '../data/constants'
 
-const initQuery = (context) => {
+const initQuery = context => {
   let stations = context.getters.getSelectedStations || constants.START_STATIONS
   stations = JSON.stringify(stations)
 
@@ -12,9 +12,13 @@ const initQuery = (context) => {
   //console.log('initQuery: nowHour = ', new Date(nowHour))
   //console.log('initQuery: nowMidnight = ', new Date(nowMidnight))
 
+  /* spell-checker: disable */
+
   let query = 'https://api.mlab.com/api/1/databases/tvui/collections/tvui1?s={timestamp:1}&q='
   query += `{"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"channel":{$in:${stations}}}]}]}`
   query += '&l=200&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI'
+
+  /* spell-checker: enable */
 
   //console.log('query = ', query)
   return query
@@ -24,37 +28,28 @@ export const ajaxAddTodaysPrograms = context => {
   axios
     .get(initQuery(context))
     .then(res => {
-      /*
-      res.data.map((el, index) => {
-        if (index < res.data.length - 2) {
-          const totalMinutes = (res.data[index + 1].timestamp - el.timestamp) / (1000 * 60)
-          const hours = parseInt(totalMinutes / 60)
-          const minutes = totalMinutes % 60
-          el.duration = hours + ':' + minutes
-        }
-      })
-      */
-
       context.commit('ADD_TODAYS_PROGRAMS', res.data)
     })
-    .catch(err => console.log('ERORAS:', err))
+    .catch(err => console.log('myError:', err))
     .finally(() => {
       context.commit('SET_LOADING', false)
     })
 }
 
+/* spell-checker: disable */
 /* #region  */
 /*
-  Stwórz query w Studio 3T Query Builderze.
+Stwórz query w Studio 3T Query Builderze.
   Linijkę z okna Query skopiuj tu i:
 
-    1) Dopisz: `q= na początku (z backtikiem !)
-    2) wywal 'NumberLong i okrągłe nawiasy
-    3) zamień timestampy na ${startHour} i ${endHour}
-    4) wywal wszystkie spacje
-    5) parametry fields i sortowania wpisz z ręki, bo tu są osobno
-*/
+  1) Dopisz: `q= na początku (z backtikiem !)
+  2) wywal 'NumberLong i okrągłe nawiasy
+  3) zamień timestampy na ${startHour} i ${endHour}
+  4) wywal wszystkie spacje
+  5) parametry fields i sortowania wpisz z ręki, bo tu są osobno
+  */
 /* #endregion */
+/* spell-checker: enable */
 
 export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHour, selectedEndHour, selectedCategories, selectedStations }) => {
   let query = ''
@@ -88,24 +83,19 @@ export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHou
   const queryHoursStations = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"channel":{$in:${arrSelectedStations}}}]}]}`
   const queryHoursCategoryStations = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}},{$and:[{"channel":{$in:${arrSelectedStations}}}]}]}]}`
 
-
   if (startHour && endHour && selectedCategories && selectedStations) {
     console.log('****** startHour && endHour && selectedCategories && selectedStations')
     query = queryHoursCategoryStations
-  }
-  else if (startHour && endHour && selectedCategories) {
+  } else if (startHour && endHour && selectedCategories) {
     console.log('****** startHour && endHour && selectedCategories')
     query = queryHoursCategory
-  }
-  else if (startHour && endHour && selectedStations) {
+  } else if (startHour && endHour && selectedStations) {
     console.log('****** startHour && endHour && selectedStations')
     query = queryHoursStations
-  }
-  else if (startHour && endHour) {
+  } else if (startHour && endHour) {
     console.log('****** startHour && endHour')
     query = queryHours
-  }
-  else if (!startHour && !endHour) {
+  } else if (!startHour && !endHour) {
     console.log('****** !startHour && !endHour')
     query = initQuery()
   }
@@ -117,19 +107,9 @@ export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHou
   axios
     .get(url)
     .then(res => {
-      res.data.map((el, index) => {
-        /*
-        if (index < res.data.length - 2) {
-          const totalMinutes = (res.data[index + 1].timestamp - el.timestamp) / (1000 * 60)
-          const hours = parseInt(totalMinutes / 60)
-          const minutes = totalMinutes % 60
-          el.duration = hours + ':' + minutes
-        }
-        */
-      })
-
-      if(res.data.length > 999) alert('Zawęż przedział czasu, ilość kanałów lub kategorii, bo teraz część późniejszych programów nie jest wyświetlana')
-      // console.log('ilość rekordów = ', res.data.length)
+      /* spell-checker: disable */
+      if (res.data.length > 999) alert('Zawęż przedział czasu, ilość kanałów lub kategorii, bo teraz część późniejszych programów nie jest wyświetlana')
+      /* spell-checker: enable */
       context.commit('ADD_TODAYS_PROGRAMS', res.data)
     })
     .catch(err => console.log('My error: ', err))
@@ -137,7 +117,6 @@ export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHou
       context.commit('SET_LOADING', false)
     })
 }
-
 
 export const ajaxFindText = (context, text) => {
   const query = `s={timestamp:1}&q={"title":{"$regex":".*${text}.*",$options:"i"}}`

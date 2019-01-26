@@ -28,9 +28,9 @@ export default {
       this.$router.push('/')
     },
     resetSelectedStations() {
-      localStorage.removeItem('stations')
-      this.selected = null
+      this.selected = []
       this.$store.dispatch('setSelectedStations', null)
+      localStorage.removeItem('stations')
       console.log(localStorage.getItem('stations'))
     }
   }

@@ -1,3 +1,4 @@
+/* cSpell:disable */
 export const daysForSelectBox = () => {
   const daysForSelectArray = []
 
@@ -214,7 +215,7 @@ export const polsat = [
 export const polskie = [
   {
     text: '13 Ulica',
-    value: '13Ulica'
+    value: '13 Ulica'
   },
   {
     text: 'Ale kino+',
@@ -267,10 +268,6 @@ export const polskie = [
   {
     text: 'Stopklatka TV',
     value: 'Stopklatka TV'
-  },
-  {
-    text: 'TNT Fabuła',
-    value: 'TNT Fabuła'
   },
   {
     text: 'TV 4',
@@ -880,139 +877,180 @@ export const stations = [
   }, {
     text: 'ID',
     value: 'ID'
-  }, {
+  },
+  {
     text: 'Kino Polska Muzyka',
     value: 'Kino Polska Muzyka'
-  }, {
+  },
+  {
     text: 'Kino Polska',
     value: 'Kino Polska'
-  }, {
+  },
+  {
     text: 'Kino TV',
     value: 'Kino TV'
-  }, {
+  },
+  {
     text: 'Kuchnia+',
     value: 'Kuchnia+'
-  }, {
+  },
+  {
     text: 'Lifetime',
     value: 'Lifetime'
-  }, {
+  },
+  {
     text: 'LOVE',
     value: 'LOVE'
-  }, {
+  },
+  {
     text: 'MiniMini+',
     value: 'MiniMini+'
-  }, {
+  },
+  {
     text: 'Motowizja',
     value: 'Motowizja'
-  }, {
+  },
+  {
     text: 'MTV Music',
     value: 'MTV Music'
-  }, {
+  },
+  {
     text: 'MTV Polska',
     value: 'MTV Polska'
-  }, {
+  },
+  {
     text: 'Nat Geo People HD',
     value: 'Nat Geo People HD'
-  }, {
+  },
+  {
     text: 'National Geographic Wild',
     value: 'National Geographic Wild'
-  }, {
+  },
+  {
     text: 'National Geographic',
     value: 'National Geographic'
-  }, {
+  },
+  {
     text: 'Nickelodeon',
     value: 'Nickelodeon'
-  }, {
+  },
+  {
     text: 'Novela tv',
     value: 'Novela tv'
-  }, {
+  },
+  {
     text: 'nSport+',
     value: 'nSport+'
-  }, {
+  },
+  {
     text: 'Paramount Channel HD',
     value: 'Paramount Channel HD'
-  }, {
+  },
+  {
     text: 'Planete+',
     value: 'Planete+'
-  }, {
+  },
+  {
     text: 'Polo TV',
     value: 'Polo TV'
-  }, {
+  },
+  {
     text: 'POLSAT 2',
     value: 'POLSAT 2'
-  }, {
+  },
+  {
     text: 'POLSAT Café',
     value: 'POLSAT Café'
-  }, {
+  },
+  {
     text: 'POLSAT Film',
     value: 'POLSAT Film'
-  }, {
+  },
+  {
     text: 'POLSAT JimJam',
     value: 'POLSAT JimJam'
-  }, {
+  },
+  {
     text: 'POLSAT News 2',
     value: 'POLSAT News 2'
-  }, {
+  },
+  {
     text: 'POLSAT News',
     value: 'POLSAT News'
-  }, {
+  },
+  {
     text: 'POLSAT Play',
     value: 'POLSAT Play'
-  }, {
+  },
+  {
     text: 'POLSAT Romans',
     value: 'POLSAT Romans'
-  }, {
+  },
+  {
     text: 'POLSAT Sport Extra',
     value: 'POLSAT Sport Extra'
-  }, {
+  },
+  {
     text: 'POLSAT Sport News',
     value: 'POLSAT Sport News'
-  }, {
+  },
+  {
     text: 'POLSAT Sport',
     value: 'POLSAT Sport'
-  }, {
+  },
+  {
     text: 'POLSAT Viasat Explore HD',
     value: 'POLSAT Viasat Explore HD'
-  }, {
+  },
+  {
     text: 'POLSAT Viasat History HD',
     value: 'POLSAT Viasat History HD'
-  }, {
+  },
+  {
     text: 'POLSAT Viasat Nature HD',
     value: 'POLSAT Viasat Nature HD'
   },
   {
     text: 'PULS 2',
     value: 'PULS 2'
-  }, {
+  },
+  {
     text: 'Romance TV',
     value: 'Romance TV'
-  }, {
+  },
+  {
     text: 'SCI FI',
     value: 'SCI FI'
-  }, {
+  },
+  {
     text: 'Sportklub',
     value: 'Sportklub'
   },
   {
     text: 'Sundance TV',
     value: 'Sundance TV'
-  }, {
+  },
+  {
     text: 'Superstacja',
     value: 'Superstacja'
-  }, {
+  },
+  {
     text: 'Tele 5',
     value: 'Tele 5'
-  }, {
+  },
+  {
     text: 'teleTOON+',
     value: 'teleTOON+'
-  }, {
+  },
+  {
     text: 'TLC',
     value: 'TLC'
   },
   {
     text: 'Travel Channel',
     value: 'Travel Channel'
-  }, {
+  },
+  {
     text: 'TTV HD',
     value: 'TTV HD'
   },
@@ -1023,33 +1061,40 @@ export const stations = [
   {
     text: 'TV Republika',
     value: 'TV Republika'
-  }, {
+  },
+  {
     text: 'TV Trwam',
     value: 'TV Trwam'
-  }, {
+  },
+  {
     text: 'TVN 24 Biznes i Świat',
     value: 'TVN 24 Biznes i Świat'
-  }, {
+  },
+  {
     text: 'TVN 24',
     value: 'TVN 24'
   },
   {
     text: 'TVN Fabuła',
     value: 'TVN Fabuła'
-  }, {
+  },
+  {
     text: 'TVN Style',
     value: 'TVN Style'
-  }, {
+  },
+  {
     text: 'TVN Turbo',
     value: 'TVN Turbo'
   },
   {
     text: 'TVP 3',
     value: 'TVP 3'
-  }, {
+  },
+  {
     text: 'TVP ABC',
     value: 'TVP ABC'
-  }, {
+  },
+  {
     text: 'TVP HD',
     value: 'TVP HD'
   },
@@ -1060,13 +1105,16 @@ export const stations = [
   {
     text: 'TVP Sport',
     value: 'TVP Sport'
-  }, {
+  },
+  {
     text: 'TVS',
     value: 'TVS'
-  }, {
+  },
+  {
     text: 'Water Planet',
     value: 'Water Planet'
-  }, {
+  },
+  {
     text: 'ZOOM TV',
     value: 'ZOOM TV'
   }
