@@ -1,7 +1,7 @@
 <template src="./Table.html"></template>
 
 <script>
-const selectedPrograms = [] //this.$store.getters.selectedPrograms
+const selectedPrograms = new Set() //this.$store.getters.selectedPrograms
 
 export default {
   computed: {
@@ -77,14 +77,17 @@ export default {
   },
   methods: {
     onRowClicked(item) {
-      console.log('item = ', item)
+      //console.table(item.item, ["id", "title"])
+      // console.table(item.item)
+
       if (typeof item !== 'object') {
-        for (let i = 0; i < selectedPrograms.length; i++) {
-          if (selectedPrograms[i].id === item) {
-            selectedPrograms.splice(i, 1)
+        selectedPrograms.forEach(el => {
+          if (el.id === item) {
+            selectedPrograms.delete(el)
           }
-        }
+        })
       }
+
       else {
         const row = {
           title: item.item.title,
@@ -99,11 +102,14 @@ export default {
           timestamp: item.item.timestamp,
           dateTimestamp: item.item.dateTimestamp,
         }
-        selectedPrograms.push(row)
+        selectedPrograms.add(row)
       }
 
-      console.table(selectedPrograms, ['title'])
-      this.$store.dispatch('addSelectedPrograms', selectedPrograms)
+      const arrSelectedPrograms = Array.from(selectedPrograms)
+
+      // console.table(selectedPrograms, ['title'])
+      console.table(arrSelectedPrograms, ['title'])
+      this.$store.dispatch('addSelectedPrograms', arrSelectedPrograms)
     }
   }
 }

@@ -1,6 +1,25 @@
 {
   "version": "0.1",
   "language": "en",
-  "words": ["stroustrup", "linebreak", "plusplus"],
+  "words": [
+    "stroustrup",
+    "linebreak",
+    "plusplus",
+    "typeof",
+    "Tele",
+    "telenowela",
+    "Wiadomości",
+    "wiadomości",
+    "wiadomosci",
+    "Rozrywka",
+    "vuex",
+    "Vuex",
+    "dzieci",
+    "inne",
+    "przy"
+
+
+
+  ],
   "flagWords": ["hte"]
 }

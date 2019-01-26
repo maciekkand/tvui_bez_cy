@@ -5,6 +5,7 @@ import { daysForSelectBox, hoursForSelectBox } from '../../data/data'
 import email from '../../services/email'
 
 export default {
+
   data() {
     return {
       selectedDay: null,
@@ -35,7 +36,7 @@ export default {
   methods: {
     onChangedSelection() {
       setTimeout(() => {
-        hoursForSelectBox(this.selectedDay, false) // todo: co z tym ? Przy pustym polu Dzień Godzina od = bieżąca, a Godzina Do = Godzina Od + 1
+        hoursForSelectBox(this.selectedDay, false) /* cSpell:disable todo: co z tym ? Przy pustym polu Dzień Godzina od = bieżąca, a Godzina Do = Godzina Od + 1 */ /* cspell:enable */
       }, 100)
     },
     show() {

@@ -8,12 +8,11 @@ const initQuery = context => {
 
   const nowHour = new Date().getTime() + 5 * 60 * 1000
   const nowMidnight = new Date().setUTCHours(24, 0, 0, 0)
-
   const queryHoursStations = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"channel":{$in:${selectedStations}}}]}]}`
   // const queryHoursCategoryStations = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${selectedCategories}}},{$and:[{"channel":{$in:${selectedStations}}}]}]}]}`
 
   const url = constants.TV_LIST_PREFIX + queryHoursStations + constants.TV_LIST_SUFFIX
-  console.log('url = ', url)
+  //console.log('url = ', url)
 
   return url
 }
@@ -46,9 +45,7 @@ Stwórz query w Studio 3T Query Builderze.
 /* spell-checker: enable */
 
 export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHour, selectedEndHour, selectedCategories, selectedStations }) => {
-  console.log('selectedStations = ', selectedStations)
   let query = ''
-
   const dayStartTimestamp = new Date().setUTCHours(0, 0, 0, 0) + selectedDay * 24 * 60 * 60 * 1000
 
   if (!selectedDay && !selectedStartHour) selectedStartHour = new Date().getHours() + (new Date().getMinutes() - 30) / 60
@@ -67,25 +64,28 @@ export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHou
   const queryHoursCategoryStations = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}},{$and:[{"channel":{$in:${selectedStations}}}]}]}]}`
 
   if (startHour && endHour && selectedCategories && selectedStations) {
-    console.log('****** startHour && endHour && selectedCategories && selectedStations')
+    //console.log('****** startHour && endHour && selectedCategories && selectedStations')
     query = queryHoursCategoryStations
-  } else if (startHour && endHour && selectedCategories) {
-    console.log('****** startHour && endHour && selectedCategories')
+  }
+  else if (startHour && endHour && selectedCategories) {
+    // console.log('****** startHour && endHour && selectedCategories')
     query = queryHoursCategory
-  } else if (startHour && endHour && selectedStations) {
-    console.log('****** startHour && endHour && selectedStations')
+  }
+  else if (startHour && endHour && selectedStations) {
+    // console.log('****** startHour && endHour && selectedStations')
     query = queryHoursStations
-  } else if (startHour && endHour) {
-    console.log('****** startHour && endHour')
+  }
+  else if (startHour && endHour) {
+    //console.log('****** startHour && endHour')
     query = queryHours
-  } else if (!startHour && !endHour) {
-    console.log('****** !startHour && !endHour')
+  }
+  else if (!startHour && !endHour) {
+    //console.log('****** !startHour && !endHour')
     query = initQuery()
   }
 
   const url = constants.TV_LIST_PREFIX + query + constants.TV_LIST_SUFFIX
-
-  console.log('url = ', url)
+  //console.log('url = ', url)
 
   axios
     .get(url)
