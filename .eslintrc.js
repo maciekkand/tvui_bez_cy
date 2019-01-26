@@ -22,7 +22,7 @@ module.exports = {
     'import/prefer-default-export': 'warn',
     indent: ['error', 2],
     'linebreak-style': ['error', 'unix'],
-    'max-len': [1, 120, 1, { ignoreUrls: true }, { ignoreTrailingComments: true }, { ignoreTemplateLiterals: true }],
+    'max-len': [1, 120, 1, { ignoreUrls: true, ignoreTrailingComments: true, ignoreTemplateLiterals: true }],
     'no-multiple-empty-lines': [1, { max: 1 }],
     'no-param-reassign': 'off',
     'no-plusplus': 0,

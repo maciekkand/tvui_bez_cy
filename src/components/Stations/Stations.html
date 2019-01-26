@@ -2,41 +2,135 @@
   <b-container class="mb-3">
     <b-row class="mb-2">
 
-
-
     </b-row>
     <b-row class="my-2">
       <span>
-        <router-link to="/home" active-class='active' class='mx-3'><a>Home</a></router-link>
-        <router-link to="/about" active-class='active' class='mx-3'><a>About</a></router-link>
+        <router-link to="/home"
+                     active-class='active'
+                     class='mx-3'><a>Home</a>
+        </router-link>
+
+        <router-link to="/about"
+                     active-class='active'
+                     class='mx-3'><a>About</a>
+        </router-link>
       </span>
     </b-row>
 
     <b-row>
-      <b-form-group>
+      <b-col md="2"><h4>TVP, TVN</h4></b-col>
+
+      <b-col>
+        <b-form-checkbox-group data-test="stations"
+                               v-model="selected"
+                               @change="stationsSelected"
+                               class="mt-0"
+                               :options="tvpTvn">
+        </b-form-checkbox-group>
+      </b-col>
+    </b-row>
+
+    <br>
+
+    <b-row>
+      <b-col md="2"><h4>Polsat</h4></b-col>
+
+      <b-col>
+        <b-form-checkbox-group data-test="stations"
+                               v-model="selected"
+                               @change="stationsSelected"
+                               class="mt-0"
+                               :options="polsat">
+        </b-form-checkbox-group>
+      </b-col>
+    </b-row>
+
+    <br>
+
+    <b-row>
+        <b-col md="2"><h4>Polskie</h4></b-col>
+
+        <b-col>
           <b-form-checkbox-group data-test="stations"
                                  v-model="selected"
                                  @change="stationsSelected"
                                  class="mt-0"
-                                 :options="options">
+                                 :options="polskie">
           </b-form-checkbox-group>
+        </b-col>
+      </b-row>
 
-      </b-form-group>
+    <br>
+
+    <b-row>
+      <b-col md="2"><h4>Canal+</h4></b-col>
+
+      <b-col>
+        <b-form-checkbox-group data-test="stations"
+                               v-model="selected"
+                               @change="stationsSelected"
+                               class="mt-0"
+                               :options="canal">
+        </b-form-checkbox-group>
+      </b-col>
+    </b-row>
+
+    <br>
+
+    <b-row>
+      <b-col md="2"><h4>Discovery, National</h4></b-col>
+
+      <b-col>
+        <b-form-checkbox-group data-test="stations"
+                               v-model="selected"
+                               @change="stationsSelected"
+                               class="mt-0"
+                               :options="discoveryNational">
+        </b-form-checkbox-group>
+      </b-col>
+    </b-row>
+
+    <b-row>
+      <b-col md="2"><h4>Filmbox, HBO, Kino</h4></b-col>
+
+      <b-col>
+        <b-form-checkbox-group data-test="stations"
+                               v-model="selected"
+                               @change="stationsSelected"
+                               class="mt-0"
+                               :options="filmboxHboKino">
+        </b-form-checkbox-group>
+      </b-col>
+    </b-row>
+
+    <b-row>
+      <b-col md="2"><h4>Inne</h4></b-col>
+
+      <b-col>
+        <b-form-checkbox-group data-test="stations"
+                               v-model="selected"
+                               @change="stationsSelected"
+                               class="mt-0 mb-3"
+                               :options="inne">
+        </b-form-checkbox-group>
+      </b-col>
+    </b-row>
+
 
       <b-button data-test='buttonOK'
                 @click="setSelectedStations"
                 size="md"
-                class="ml-3"
+                class="ml-0 px-5"
                 variant="secondary">
-                OK
+        OK
       </b-button>
 
       <b-button data-test='buttonReset'
                 @click="resetSelectedStations"
                 size="md"
-                class="ml-3"
+                class="ml-5 px-5"
                 variant="secondary">
-                Reset
+        Reset
       </b-button>
     </b-row>
   </b-container>

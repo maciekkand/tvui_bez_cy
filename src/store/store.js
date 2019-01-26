@@ -10,6 +10,7 @@ export default new Vuex.Store({
     selectedPrograms: null,
     selectedStations: null,
     loading: false,
+    stations: null,
   },
   getters: {
     getTodaysPrograms(state) {
@@ -24,6 +25,11 @@ export default new Vuex.Store({
     getSelectedPrograms(state) {
       return state.selectedPrograms
     },
+    getChannels() {
+      // return state.stations
+      return ['BBC Lifestyle', 'CANAL+ Discovery']
+    }
+
   },
   mutations: {
     ADD_TODAYS_PROGRAMS(state, todaysPrograms) {

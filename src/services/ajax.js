@@ -4,11 +4,11 @@ import constants from '../data/constants'
 
 const initQuery = () => {
   const topStations = JSON.stringify(['TVP 1', 'TVP 2', 'TVN'])
-  const nowHour = new Date().getTime() + 30 * 60 * 1000
+  const nowHour = new Date().getTime() + 5 * 60 * 1000
   const nowMidnight = new Date().setUTCHours(24, 0, 0, 0)
 
-  //console.log('initQuery: nowHour = ', new Date(nowHour))
-  //console.log('initQuery: nowMidnight = ', new Date(nowMidnight))
+  console.log('initQuery: nowHour = ', new Date(nowHour))
+  console.log('initQuery: nowMidnight = ', new Date(nowMidnight))
 
   let query = 'https://api.mlab.com/api/1/databases/tvui/collections/tvui1?s={timestamp:1}&q='
   query += `{"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"channel":{$in:${topStations}}}]}]}`

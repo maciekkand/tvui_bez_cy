@@ -39,15 +39,8 @@ export default {
       }, 100)
     },
     search() {
-      if (textSearch) {
-        console.log('textSearch = ', this.textSearch)
-        return this.$store.dispatch('findText', this.textSearch)
-      }
-
-      if (this.selectedStartHour && this.selectedEndHour && this.selectedEndHour < this.selectedStartHour) {
-        alert('Bład godzin')
-        console.log('Błąd godzin ')
-      }
+      if (this.textSearch) return this.$store.dispatch('findText', this.textSearch)
+      if (this.selectedStartHour && this.selectedEndHour && this.selectedEndHour < this.selectedStartHour) alert('Bład godzin')
 
       const searchData = {
         selectedDay: this.selectedDay,
@@ -57,7 +50,7 @@ export default {
         selectedStations: this.$store.getters.getSelectedStations
       }
 
-      console.log('searchData = ', searchData)
+      // console.log('searchData = ', searchData)
       this.$store.dispatch('getSelectedPrograms', searchData)
       this.$store.dispatch('setLoading', true)
     },
