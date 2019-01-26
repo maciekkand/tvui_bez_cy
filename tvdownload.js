@@ -3,7 +3,7 @@ const fs = require("fs");
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-const fileSave = './tv11.json'
+const fileSave = './tv1.json'
 const urlPrefix = "https://programtv.onet.pl/?dzien=";
 
 function categoryCheck(type) {
@@ -63,39 +63,47 @@ const changeCategories = () => {
 }
 
 const kanal = (day, page, channelFrom, channelTo) => {
-  const currentDay = Date.now() + day * 1000 * 60 * 60 * 24;
-  const dayString = new Date(currentDay).toDateString().slice(4, 10);
-
-  const date = new Date(currentDay).toISOString().slice(0, 10);
   const url = `${urlPrefix + day}&strona=${page}`;
-  var config = { headers: { 'User-Agent': 'Mozilla/5.0' }}
+  const config = { headers: { 'User-Agent': 'Mozilla/5.0' }}
 
-  //axios.get(url, config)
-  axios.get(url)
-    .then(res => {
-      const $ = cheerio.load(res.data)
+  axios.get(url, config)
+  //axios.get(url)
+  .then(res => {
+    const $ = cheerio.load(res.data)
 
-      for (let channelNo = channelFrom; channelNo < channelTo + 1; channelNo++) { // 1-4
-        const channel = $(`#boxTVHolder${channelNo}`)
-          .find('span.tvName')
-          .text()
-          .replace(/\t/g, '')
-          .replace(/\n/g, '')
+    for (let channelNo = channelFrom; channelNo < channelTo + 1; channelNo++) { // 1-4
+      const channel = $(`#boxTVHolder${channelNo}`)
+      .find('span.tvName')
+      .text()
+      .replace(/\t/g, '')
+      .replace(/\n/g, '')
 
-        const channels = $(`#boxTVHolder${channelNo} li`)
+      const channels = $(`#boxTVHolder${channelNo} li`)
 
-        channels.each((i, el) => {
-          const id = day.toString().padStart(2, '0') + (((page - 1) * 20) + channelNo).toString().padStart(3, '0') + i.toString().padStart(2, '0')
-          const time = $(el).find('.hour').text().replace(/\t/g, '').replace(/\n/g, '').split(':')
-          const timestampTodayMidnight = new Date().setUTCHours(0, 0, 0, 0) + day * 1000 * 60 * 60 * 24
+      channels.each((i, el) => {
+        const id = day.toString().padStart(2, '0') + (((page - 1) * 20) + channelNo).toString().padStart(3, '0') + i.toString().padStart(2, '0')
+        const time = $(el).find('.hour').text().replace(/\t/g, '').replace(/\n/g, '').split(':')
+        const timestampTodayMidnight = new Date().setUTCHours(0, 0, 0, 0) + day * 1000 * 60 * 60 * 24
 
-          let hours = time[0]
-          let minutes = time[1]
-          // tvHour = tvHour < 3 ? tvHour + 24 : tvHour
+        let hours = parseInt(time[0])
+        let minutes = parseInt(time[1])
+        // tvHour = tvHour < 3 ? tvHour + 24 : tvHour
 
-          const milliseconds = (hours * 60 * 60 * 1000) + (minutes * 60 * 1000)
-          const timestamp = timestampTodayMidnight + milliseconds + parseInt(Math.random() * 1000)
-          const dateTimestamp = new Date(timestamp).toISOString().slice(0, 16).replace('T', ' ')
+        const milliseconds = (hours * 60 * 60 * 1000) + (minutes * 60 * 1000)
+        const timestamp = timestampTodayMidnight + milliseconds + parseInt(Math.random() * 1000)
+        const dateTimestamp = new Date(timestamp).toISOString().slice(0, 16).replace('T', ' ')
+
+        let date = new Date(timestamp).toISOString().slice(0, 10)
+        let dayString = new Date(timestamp).toDateString().slice(4, 10);
+
+        if (hours == 23) {
+          dayString = new Date(timestamp - 60 * 60 * 1000).toDateString().slice(4, 10);
+        }
+
+        if (hours >= 0 && hours < 3) {
+            dayString = new Date(timestamp + 24 * 60 * 60 * 1000).toDateString().slice(4, 10);
+            date = new Date(timestamp + 24 * 60 * 60 * 1000).toISOString().slice(0, 10)
+          }
 
           const link = '<a href=\"https://programtv.onet.pl' + $(el).find('.title').find('a').attr('href') + '\">Link</a>'
           const title = $(el).find('.title a').text().replace(/\t/g, '').replace(/\n/g, '')
@@ -106,8 +114,8 @@ const kanal = (day, page, channelFrom, channelTo) => {
             id,
             channel,
             dayString,
-            time: hours + ':' + minutes,
             date,
+            time: hours + ':' + minutes.toString().padStart(2, '0'),
             title,
             category,
             type,
@@ -137,13 +145,14 @@ const kanal = (day, page, channelFrom, channelTo) => {
 */
 
 const getAllChannels = () => {
-  for (let day = 5; day < 6; day++) {       // 0-7 - źle, 0-5 ?
+  for (let day = 6; day < 7; day++) {       // 0-7 - źle, 0-5 ?
     for (let page = 1; page < 8; page++) { // 1-8
       console.time()
-        const rand = Math.round((Math.random() * 20) + 20)
+        const rand = Math.round((Math.random() * 30) + 30)
+        console.log('page = ' + page + '  rand = ' + rand)
         for (let i = rand * 1e8; i > 0; i--)  { }
       console.timeEnd()
-      kanal(day, page, 1, 20)
+      kanal(day, page, 1, 20)  // 1, 20
     }
   }
   console.log("Skończyłem i zapisałem do pliku: ", fileSave)

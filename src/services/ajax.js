@@ -58,8 +58,6 @@ export const ajaxAddTodaysPrograms = context => {
 export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHour, selectedEndHour, selectedCategories, selectedStations }) => {
   let query = ''
 
-  console.log('###### selectedStartHour = ', selectedStartHour)
-
   const dayStartTimestamp = new Date().setUTCHours(0, 0, 0, 0) + selectedDay * 24 * 60 * 60 * 1000
   console.log('dayStartTimestamp = ', new Date(dayStartTimestamp))
 
@@ -69,7 +67,11 @@ export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHou
   if (!selectedDay && !selectedStartHour) selectedStartHour = new Date().getHours() + (new Date().getMinutes() - 30) / 60
   else if (!selectedStartHour) selectedStartHour = 1
 
+  console.log('selectedStartHour = ', selectedStartHour)
+
   if (!selectedEndHour) selectedEndHour = 24
+
+  console.log('selectedEndHour = ', selectedEndHour)
 
   const startHour = dayStartTimestamp + selectedStartHour * 60 * 60 * 1000
   const endHour = dayStartTimestamp + selectedEndHour * 60 * 60 * 1000
