@@ -138,18 +138,12 @@ export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHou
 
 
 export const ajaxFindText = (context, text) => {
-  console.log('text = ', text)
-  //const query = 's={timestamp:1}&q={"title":{"$regex":".*Supervet.*"}}'
-
-  const query = `s={timestamp:1}&q={"title":{"$regex":".*${text}.*"}}`
-
+  const query = `s={timestamp:1}&q={"title":{"$regex":".*${text}.*",$options:"i"}}`
   const url = constants.TV_LIST_PREFIX + query + constants.TV_LIST_SUFFIX
-  console.log('url = ', url)
 
   axios
     .get(url)
     .then(res => {
-      console.log('res.data = ', res.data)
       context.commit('AJAX_FIND_TEXT', res.data)
     })
     .catch(err => console.log('My error: ', err))

@@ -72,6 +72,7 @@ export default new Vuex.Store({
       context.commit('ADD_SELECTED_PROGRAMS', selectedPrograms)
     },
     findText(context, text) {
+      context.commit('SET_LOADING', true)
       ajaxFindText(context, text)
     },
   },
