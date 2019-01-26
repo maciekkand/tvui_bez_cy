@@ -3,25 +3,19 @@ import axios from 'axios'
 import constants from '../data/constants'
 
 const initQuery = context => {
-  let stations = context.getters.getSelectedStations || constants.START_STATIONS
-  stations = JSON.stringify(stations)
+  let selectedStations = localStorage.getItem('stations') || JSON.stringify(constants.START_STATIONS)
+  let selectedCategories = localStorage.getItem('categories')
 
   const nowHour = new Date().getTime() + 5 * 60 * 1000
   const nowMidnight = new Date().setUTCHours(24, 0, 0, 0)
 
-  //console.log('initQuery: nowHour = ', new Date(nowHour))
-  //console.log('initQuery: nowMidnight = ', new Date(nowMidnight))
+  const queryHoursStations = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"channel":{$in:${selectedStations}}}]}]}`
+  // const queryHoursCategoryStations = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${selectedCategories}}},{$and:[{"channel":{$in:${selectedStations}}}]}]}]}`
 
-  /* spell-checker: disable */
+  const url = constants.TV_LIST_PREFIX + queryHoursStations + constants.TV_LIST_SUFFIX
+  console.log('url = ', url)
 
-  let query = 'https://api.mlab.com/api/1/databases/tvui/collections/tvui1?s={timestamp:1}&q='
-  query += `{"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"channel":{$in:${stations}}}]}]}`
-  query += '&l=200&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI'
-
-  /* spell-checker: enable */
-
-  //console.log('query = ', query)
-  return query
+  return url
 }
 
 export const ajaxAddTodaysPrograms = context => {

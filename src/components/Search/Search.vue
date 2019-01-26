@@ -42,7 +42,6 @@ export default {
       if (this.textSearch) return this.$store.dispatch('findText', this.textSearch)
       if (this.selectedStartHour && this.selectedEndHour && this.selectedEndHour < this.selectedStartHour) alert('Bład godzin')
 
-
       const searchData = {
         selectedDay: this.selectedDay,
         selectedStartHour: this.selectedStartHour,
