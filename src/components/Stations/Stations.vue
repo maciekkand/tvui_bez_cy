@@ -20,6 +20,14 @@ export default {
       inne
     }
   },
+  created() {
+    if (localStorage.getItem('stations')) {
+      this.$store.dispatch('setSelectedStations', localStorage.getItem('stations'))
+      console.log('getters.getSelectedStations', this.$store.getters.getSelectedStations)
+
+      this.selected = JSON.parse(localStorage.getItem('stations'))
+    }
+  },
   methods: {
     setSelectedStations() {
       console.log(this.selected)
