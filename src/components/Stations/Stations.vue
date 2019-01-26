@@ -10,8 +10,6 @@ export default {
 
   data() {
     return {
-      // trzeba po kliku w OK wypychać wybrane stacje do vuexa
-      // Zmienić wszędzie Stations na channels
       selected: this.$store.getters.getSelectedStations,
       canal,
       discoveryNational,
@@ -26,15 +24,13 @@ export default {
     setSelectedStations() {
       console.log(this.selected)
       localStorage.setItem('stations', JSON.stringify(this.selected))
-
       this.$store.dispatch('setSelectedStations', this.selected)
-      // this.$refs.buttonSearch.$el.click()
       this.$router.push('/')
     },
     resetSelectedStations() {
-      // localStorage.removeItem('stations')
-      //this.selected = null
-      //this.$store.dispatch('setSelectedStations', null)
+      localStorage.removeItem('stations')
+      this.selected = null
+      this.$store.dispatch('setSelectedStations', null)
       console.log(localStorage.getItem('stations'))
     }
   }
