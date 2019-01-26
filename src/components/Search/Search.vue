@@ -86,7 +86,7 @@ export default {
       this.selectedStartHour = null
       this.selectedEndHour = null
       this.textSearch = null
-      this.selectedCategories = null
+      this.selectedCategories = []
     },
     save() {
       console.log('Tu Save: zapisuję do localStorage, ślę maila i wyświetlam modala !')
