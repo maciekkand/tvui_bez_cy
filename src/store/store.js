@@ -23,7 +23,7 @@ export default new Vuex.Store({
     },
     getSelectedPrograms(state) {
       return state.selectedPrograms
-    }
+    },
   },
   mutations: {
     ADD_TODAYS_PROGRAMS(state, todaysPrograms) {
@@ -55,6 +55,10 @@ export default new Vuex.Store({
     AJAX_FIND_TEXT(state, foundPrograms) {
       console.log('foundPrograms = ', foundPrograms)
       state.todaysPrograms = foundPrograms
+    },
+    ADD_SAVED_PROGRAMS(state, savedPrograms) {
+      console.log('savedPrograms = ', savedPrograms)
+      state.todaysPrograms = savedPrograms
     }
   },
   actions: {

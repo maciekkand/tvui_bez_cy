@@ -23,20 +23,45 @@ export default {
         { text: 'Wiadomości', value: 'wiadomosci' },
         { text: 'Rozrywka', value: 'rozrywka' },
         { text: 'Dzieci', value: 'dla dzieci' },
-        { text: 'Inne', value: 'inne' }
+        { text: 'Inne', value: 'inne' },
       ],
     }
   },
   computed: {
     loading() {
       return this.$store.getters.getLoading
-    }
+    },
   },
   methods: {
     onChangedSelection() {
       setTimeout(() => {
         hoursForSelectBox(this.selectedDay, false) // todo: co z tym ? Przy pustym polu Dzień Godzina od = bieżąca, a Godzina Do = Godzina Od + 1
       }, 100)
+    },
+    show() {
+      const savedPrograms = localStorage.getItem('savedPrograms')
+      console.log('savedPrograms = ', savedPrograms)
+
+      if (savedPrograms) {
+        console.log('savedPrograms = ', savedPrograms)
+        //selectedPrograms
+        this.$store.commit('ADD_SAVED_PROGRAMS', JSON.parse(localStorage.getItem('savedPrograms')))
+      }
+    },
+    resetFavorites() {
+      console.log('Tu resetFavorites !')
+      localStorage.removeItem('savedPrograms')
+    },
+    email() {
+      const arrSelectedPrograms = []
+      const selectedPrograms = JSON.parse(localStorage.getItem('selectedPrograms'))
+
+      selectedPrograms.map(el => {
+        arrSelectedPrograms.push(`${el.dayString} ${el.time} - ${el.channel} - ${el.title}\r\n`)
+      })
+
+      const emailText = arrSelectedPrograms.join()
+      // email(emailText)  // fixme: odkomentuj to będzie słał maile
     },
     search() {
       if (this.textSearch) return this.$store.dispatch('findText', this.textSearch)
@@ -48,22 +73,25 @@ export default {
         selectedEndHour: this.selectedEndHour,
         selectedCategories: this.selectedCategories,
         //selectedStations: this.$store.getters.getSelectedStations
-        selectedStations: localStorage.getItem('stations')
+        selectedStations: localStorage.getItem('stations'),
       }
 
       // console.log('searchData = ', searchData)
       this.$store.dispatch('getSelectedPrograms', searchData)
       this.$store.dispatch('setLoading', true)
     },
-
-    add() {
-      console.log('Tu Search: metoda add !')
-      this.$store.commit('ADD_TODAYS_PROGRAMS')
+    resetAll() {
+      console.log('Reset')
+      this.selectedDay = null
+      this.selectedStartHour = null
+      this.selectedEndHour = null
+      this.textSearch = null
+      this.selectedCategories = null
     },
     save() {
       console.log('Tu Save: zapisuję do localStorage, ślę maila i wyświetlam modala !')
 
-      if (typeof (Storage) === 'undefined') {
+      if (typeof Storage === 'undefined') {
         return alert('Sorry! Nie zapamiętam programów, bo Twoja przeglądarka nie wspiera localStorage')
       }
 
@@ -79,38 +107,9 @@ export default {
       //console.log('allSelectedPrograms = ', allSelectedPrograms)
 
       localStorage.setItem('savedPrograms', JSON.stringify(allSelectedPrograms))
+      this.$store.commit('ADD_TODAYS_PROGRAMS')
     },
-    show() {
-      const savedPrograms = localStorage.getItem('savedPrograms')
-      console.log('savedPrograms = ', savedPrograms)
-
-      if (savedPrograms) {
-        console.log('savedPrograms = ', savedPrograms)
-        //selectedPrograms
-        this.$store.commit('ADD_SAVED_PROGRAMS', JSON.parse(localStorage.getItem('savedPrograms')))
-      }
-    },
-    email() {
-      const arrSelectedPrograms = []
-      const selectedPrograms = JSON.parse(localStorage.getItem('selectedPrograms'))
-
-      selectedPrograms.map(el => {
-        arrSelectedPrograms.push (
-          `${el.dayString} ${el.time} - ${el.channel} - ${el.title}\r\n`
-        )
-      })
-
-      const emailText = arrSelectedPrograms.join()
-      // email(emailText)  // fixme: odkomentuj to będzie słał maile
-    },
-    reset() {
-      console.log('Reset')
-      this.selectedDay = null
-      this.selectedStartHour = null
-      this.selectedEndHour = null
-      this.textSearch = null
-    }
-  }
+  },
 }
 </script>
 
