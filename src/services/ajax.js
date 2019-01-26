@@ -7,15 +7,14 @@ const initQuery = () => {
   const nowHour = new Date().getTime() + 30 * 60 * 1000
   const nowMidnight = new Date().setUTCHours(24, 0, 0, 0)
 
-  console.log('initQuery: nowHour = ', new Date(nowHour))
-  console.log('initQuery: nowMidnight = ', new Date(nowMidnight))
+  //console.log('initQuery: nowHour = ', new Date(nowHour))
+  //console.log('initQuery: nowMidnight = ', new Date(nowMidnight))
 
   let query = 'https://api.mlab.com/api/1/databases/tvui/collections/tvui1?s={timestamp:1}&q='
   query += `{"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"channel":{$in:${topStations}}}]}]}`
   query += '&l=200&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI'
 
-  console.log('query = ', query)
-
+  //console.log('query = ', query)
   return query
 }
 
@@ -59,27 +58,25 @@ export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHou
   let query = ''
 
   const dayStartTimestamp = new Date().setUTCHours(0, 0, 0, 0) + selectedDay * 24 * 60 * 60 * 1000
-  console.log('dayStartTimestamp = ', new Date(dayStartTimestamp))
+  // console.log('dayStartTimestamp = ', new Date(dayStartTimestamp))
 
-  console.log('selectedStartHour = ', selectedStartHour)
-  console.log('selectedEndHour = ', selectedEndHour)
+  // console.log('selectedStartHour = ', selectedStartHour)
+  // console.log('selectedEndHour = ', selectedEndHour)
 
   if (!selectedDay && !selectedStartHour) selectedStartHour = new Date().getHours() + (new Date().getMinutes() - 30) / 60
   else if (!selectedStartHour) selectedStartHour = 1
 
-  console.log('selectedStartHour = ', selectedStartHour)
+  // console.log('selectedStartHour = ', selectedStartHour)
 
   if (!selectedEndHour) selectedEndHour = 24
 
-  console.log('selectedEndHour = ', selectedEndHour)
+  // console.log('selectedEndHour = ', selectedEndHour)
 
   const startHour = dayStartTimestamp + selectedStartHour * 60 * 60 * 1000
   const endHour = dayStartTimestamp + selectedEndHour * 60 * 60 * 1000
 
-  console.log('startHour = ', new Date(startHour))
-  console.log('endHour = ', new Date(endHour))
-
-
+  // console.log('startHour = ', new Date(startHour))
+  // console.log('endHour = ', new Date(endHour))
 
   const arrSelectedCategories = JSON.stringify(selectedCategories)
   const arrSelectedStations = JSON.stringify(selectedStations)
@@ -91,20 +88,23 @@ export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHou
 
 
   if (startHour && endHour && selectedCategories && selectedStations) {
+    console.log('****** startHour && endHour && selectedCategories && selectedStations')
     query = queryHoursCategoryStations
   }
   else if (startHour && endHour && selectedCategories) {
+    console.log('****** startHour && endHour && selectedCategories')
     query = queryHoursCategory
   }
   else if (startHour && endHour && selectedStations) {
+    console.log('****** startHour && endHour && selectedStations')
     query = queryHoursStations
   }
   else if (startHour && endHour) {
-    console.log('startHour && endHour')
+    console.log('****** startHour && endHour')
     query = queryHours
   }
   else if (!startHour && !endHour) {
-    console.log('!startHour && !endHour')
+    console.log('****** !startHour && !endHour')
     query = initQuery()
   }
 

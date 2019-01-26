@@ -2,7 +2,7 @@
 <div>
   <b-container>
     <b-row>
-      <b-col>
+      <b-col md="9">
         <b-form-checkbox-group data-test="categories"
                                v-model="selectedCategories"
                                @change="categoriesSelected"
@@ -11,39 +11,29 @@
         </b-form-checkbox-group>
       </b-col>
 
-      <b-col>
-
-
-        <b-button id="save"
-                  data-test="buttonSave"
-                  @click="save"
-                  size="md"
-                  class="ml-0 pl-3 pr-3">
-                  Save&nbsp
-        </b-button>
-
-        <b-button id="email"
-                  data-test="buttonEmail"
-                  @click="email"
-                  size="md"
-                  class="ml-1 pl-3 pr-3">
-                  Mail
-        </b-button>
-
+      <b-col md="3">
         <b-button id="show"
                   data-test="buttonShow"
                   @click="show"
                   size="md"
-                  class="ml-1 pl-3 pr-3">
-                  Show
+                  class="ml-0 pl-2 pr-2">
+                  Show&nbsp
         </b-button>
 
         <b-button id="show"
                 data-test="buttonShow"
                 @click="show"
                 size="md"
-                class="ml-1 pl-3 pr-3">
-                Reset
+                class="ml-2 px-2">
+                Reset&nbsp
+        </b-button>
+
+        <b-button id="email"
+                data-test="buttonEmail"
+                @click="email"
+                size="md"
+                class="ml-2 px-2">
+                Mail&nbsp
         </b-button>
       </b-col>
 
@@ -114,7 +104,7 @@
                 @click="add"
                 size="md"
                 class="ml-2 mb-3">
-                Add
+                Save
       </b-button>
 
     </b-row>

@@ -77,6 +77,7 @@ export default {
   },
   methods: {
     onRowClicked(item) {
+      console.log('item = ', item)
       if (typeof item !== 'object') {
         for (let i = 0; i < selectedPrograms.length; i++) {
           if (selectedPrograms[i].id === item) {
@@ -100,6 +101,8 @@ export default {
         }
         selectedPrograms.push(row)
       }
+
+      console.table(selectedPrograms, ['title'])
       this.$store.dispatch('addSelectedPrograms', selectedPrograms)
     }
   }

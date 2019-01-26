@@ -19,7 +19,7 @@ export default {
         { text: 'Serial', value: 'serial' },
         // { text: 'Tele', value: 'telenowela' },
         { text: 'Sport', value: 'sport' },
-        { text: 'Info', value: 'wiadomosci' },
+        { text: 'Wiadomości', value: 'wiadomosci' },
         { text: 'Rozrywka', value: 'rozrywka' },
         { text: 'Dzieci', value: 'dla dzieci' },
         { text: 'Inne', value: 'inne' }
