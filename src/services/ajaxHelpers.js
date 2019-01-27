@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { LITERALS } from './constants'
 
 export const url = () => {

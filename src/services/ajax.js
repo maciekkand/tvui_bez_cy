@@ -14,13 +14,7 @@ export const ajaxAddTodaysPrograms = context => {
     })
 }
 
-export const ajaxGetSelectedPrograms = (context, {
-  selectedDay,
-  selectedStartHour,
-  selectedEndHour,
-  selectedCategories,
-  selectedStations
-}) => {
+export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHour, selectedEndHour, selectedCategories, selectedStations }) => {
   axios
     .get(url)
     .then(res => {
