@@ -2,6 +2,7 @@
 
 <script>
 import { daysForSelectBox, hoursForSelectBox } from '../../data/data'
+import constants from '../../data/constants'
 import email from '../../services/email'
 
 export default {
@@ -15,16 +16,8 @@ export default {
       days: daysForSelectBox(),
       startHours: hoursForSelectBox(this.selectedDay, false),
       endHours: hoursForSelectBox(this.selectedDay, true),
-      categories: [
-        { text: 'Film', value: 'film' },
-        { text: 'Serial', value: 'serial' },
-        // {text: 'Tele', value: 'telenowela' },
-        { text: 'Sport', value: 'sport' },
-        { text: 'Wiadomości', value: 'wiadomosci' },
-        { text: 'Rozrywka', value: 'rozrywka' },
-        { text: 'Dzieci', value: 'dla dzieci' },
-        { text: 'Inne', value: 'inne' },
-      ],
+      categories: constants.CATEGORIES
+
     }
   },
   computed: {
@@ -32,11 +25,15 @@ export default {
       return this.$store.getters.getLoading
     },
   },
+  created() {
+    this.selectedCategories = JSON.parse(localStorage.getItem('categories'))
+    //this.categories = ["serial", "sport"]
+  },
   methods: {
-    onChangedSelection() {
-      setTimeout(() => {
-        hoursForSelectBox(this.selectedDay, false) /* cSpell:disable todo: co z tym ? Przy pustym polu Dzień Godzina od = bieżąca, a Godzina Do = Godzina Od + 1 */ /* cspell:enable */
-      }, 100)
+    categorySelected(categories) {
+      console.log('categories = ', categories)
+      //console.log('item = ', item)
+      localStorage.setItem('categories', JSON.stringify(categories))
     },
     show() {
       const savedPrograms = localStorage.getItem('savedPrograms')
@@ -45,7 +42,7 @@ export default {
       if (!savedPrograms) return alert('Brak zapamiętanych programów')
       /* cSpell:enable */
 
-      console.log('savedPrograms = ', savedPrograms)
+      // console.log('savedPrograms = ', savedPrograms)
       this.$store.commit('ADD_SAVED_PROGRAMS', JSON.parse(localStorage.getItem('savedPrograms')))
     },
     resetFavorites() {
@@ -95,6 +92,8 @@ export default {
       this.selectedEndHour = null
       this.textSearch = null
       this.selectedCategories = []
+
+      localStorage.removeItem('categories')
     },
     save() {
       console.log('Tu Save: zapisuję do localStorage')

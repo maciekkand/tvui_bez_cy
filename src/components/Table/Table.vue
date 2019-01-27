@@ -12,7 +12,7 @@ export default {
       return [
         {
           key: 'index',
-          label: '#'
+          label: '#',
         },
         {
           key: 'id',
@@ -77,8 +77,7 @@ export default {
   },
   methods: {
     onRowClicked(item) {
-      //console.table(item.item, ["id", "title"])
-      // console.table(item.item)
+      console.log('item = ', item.item)
 
       if (typeof item !== 'object') {
         selectedPrograms.forEach(el => {
@@ -87,7 +86,6 @@ export default {
           }
         })
       }
-
       else {
         const row = {
           title: item.item.title,
@@ -110,8 +108,8 @@ export default {
       // console.table(selectedPrograms, ['title'])
       console.table(arrSelectedPrograms, ['title'])
       this.$store.dispatch('addSelectedPrograms', arrSelectedPrograms)
-    }
-  }
+    },
+  },
 }
 </script>
 

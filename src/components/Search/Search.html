@@ -5,7 +5,7 @@
       <b-col md="9">
         <b-form-checkbox-group data-test="categories"
                                v-model="selectedCategories"
-                               @change="categoriesSelected"
+                               @change="categorySelected"
                                class="d-flex justify-content-md-between pt-2 mr-0"
                                :options="categories">
         </b-form-checkbox-group>
@@ -52,7 +52,6 @@
         <b-form-select id="day"
                        data-test="day"
                        v-model="selectedDay"
-                       @change="onChangedSelection"
                        :options="days"
                        class="mb-3 ml-0"
                        size="md" />

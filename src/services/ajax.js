@@ -5,12 +5,13 @@ import constants from '../data/constants'
 const initQuery = context => {
   let selectedStations = localStorage.getItem('stations') || JSON.stringify(constants.START_STATIONS)
   //let selectedStations = localStorage.getItem('stations') || constants.START_STATIONS
-  console.log('selectedStations = ', selectedStations)
+  //console.log('selectedStations = ', selectedStations)
+  const stations = encodeURIComponent(selectedStations)
   let selectedCategories = localStorage.getItem('categories')
 
   const nowHour = new Date().getTime() + 5 * 60 * 1000
   const nowMidnight = new Date().setUTCHours(24, 0, 0, 0)
-  const queryHoursStations = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"channel":{$in:${selectedStations}}}]}]}`
+  const queryHoursStations = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"channel":{$in:${stations}}}]}]}`
   // const queryHoursCategoryStations = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${selectedCategories}}},{$and:[{"channel":{$in:${selectedStations}}}]}]}]}`
 
   const url = constants.TV_LIST_PREFIX + queryHoursStations + constants.TV_LIST_SUFFIX
@@ -49,6 +50,9 @@ Stwórz query w Studio 3T Query Builderze.
 export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHour, selectedEndHour, selectedCategories, selectedStations }) => {
   console.log('selectedStations = ', selectedStations)
   let query = ''
+
+  const stations = encodeURIComponent(selectedStations)
+
   const dayStartTimestamp = new Date().setUTCHours(0, 0, 0, 0) + selectedDay * 24 * 60 * 60 * 1000
 
   if (!selectedDay && !selectedStartHour) selectedStartHour = new Date().getHours() + (new Date().getMinutes() - 30) / 60
@@ -63,8 +67,8 @@ export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHou
 
   const queryHours = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}}]}`
   const queryHoursCategory = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}}]}]}`
-  const queryHoursStations = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"channel":{$in:${selectedStations}}}]}]}`
-  const queryHoursCategoryStations = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}},{$and:[{"channel":{$in:${selectedStations}}}]}]}]}`
+  const queryHoursStations = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"channel":{$in:${stations}}}]}]}`
+  const queryHoursCategoryStations = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}},{$and:[{"channel":{$in:${stations}}}]}]}]}`
 
   if (startHour && endHour && selectedCategories && selectedStations) {
     //console.log('****** startHour && endHour && selectedCategories && selectedStations')
@@ -88,7 +92,7 @@ export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHou
   }
 
   const url = constants.TV_LIST_PREFIX + query + constants.TV_LIST_SUFFIX
-  //console.log('url = ', url)
+  console.log('url = ', url)
 
   axios
     .get(url)
