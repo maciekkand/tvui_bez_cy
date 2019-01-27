@@ -1,11 +1,11 @@
 import { LITERALS } from './constants'
 
-export const query = context => {
+export const url = () => {
   let query = ''
-  let selectedStations = localStorage.getItem('stations') || LITERALS.START_STATIONS
+  const selectedStations = localStorage.getItem('stations') || LITERALS.START_STATIONS
   //let selectedCategories = localStorage.getItem('categories') || LITERALS.CATEGORY_NAMES
 
-  let selectedCategories = localStorage.getItem('categories')
+  const selectedCategories = localStorage.getItem('categories')
   // let selectedCategories = null
 
   //console.log(' localStorage.getItem(categories) = ', localStorage.getItem('categories'))
@@ -24,19 +24,22 @@ export const query = context => {
   if (selectedCategories && selectedStations) {
     console.log('****** selectedCategories && selectedStations')
     query = queryHoursCategoryStations
-  } else if (selectedCategories) {
+  }
+  else if (selectedCategories) {
     console.log('****** selectedCategories')
     query = queryHoursCategories
-  } else if (selectedStations) {
+  }
+  else if (selectedStations) {
     console.log('****** selectedStations')
     query = queryHoursStations
-  } else {
+  }
+  else {
     console.log('****** queryHours')
     query = queryHours
   }
 
-  const url = LITERALS.TV_LIST_PREFIX + query + LITERALS.TV_LIST_SUFFIX
+  const urlString = LITERALS.TV_LIST_PREFIX + query + LITERALS.TV_LIST_SUFFIX
   console.log('url = ', url)
 
-  return url
+  return urlString
 }

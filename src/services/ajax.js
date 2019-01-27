@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { url } from './ajaxHelpers'
+import { LITERALS } from './constants'
 
 export const ajaxAddTodaysPrograms = context => {
   axios
@@ -13,7 +14,13 @@ export const ajaxAddTodaysPrograms = context => {
     })
 }
 
-export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHour, selectedEndHour, selectedCategories, selectedStations }) => {
+export const ajaxGetSelectedPrograms = (context, {
+  selectedDay,
+  selectedStartHour,
+  selectedEndHour,
+  selectedCategories,
+  selectedStations
+}) => {
   axios
     .get(url)
     .then(res => {
@@ -28,10 +35,10 @@ export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHou
 
 export const ajaxFindText = (context, text) => {
   const query = `s={timestamp:1}&q={"title":{"$regex":".*${text}.*",$options:"i"}}`
-  const url = LITERALS.TV_LIST_PREFIX + query + LITERALS.TV_LIST_SUFFIX
+  const urlFindText = LITERALS.TV_LIST_PREFIX + query + LITERALS.TV_LIST_SUFFIX
 
   axios
-    .get(url)
+    .get(urlFindText)
     .then(res => {
       context.commit('AJAX_FIND_TEXT', res.data)
     })
