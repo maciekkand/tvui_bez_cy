@@ -4,27 +4,31 @@ import { LITERALS } from './constants'
 export default ({ day, startHour, endHour, categories, stations }) => {
   let query = ''
   console.log('day = ', day)
-  console.log('startHour = ', startHour)
-  console.log('endHour = ', endHour)
+  console.log('startHour = ', Boolean(startHour))
+  console.log('typeof startHour = ', typeof startHour)
+  console.log('endHour = ', Boolean(endHour))
 
-  console.log('categories = ', categories)
+  categories ? (categories = JSON.stringify(categories)) : null
 
-  console.log('typeof categories = ', typeof categories)
-  categories ? categories = JSON.stringify(categories) : null
+  const hours24 = 24 * 60 * 60 * 1000
 
-  console.log('stations = ', stations)
+  const startDay = new Date().setUTCHours(0, 0, 0, 0) + day * hours24
+  console.log('startDay = ', new Date(startDay))
 
+  const start = new Date().setUTCHours(startHour || day * 24 + new Date().getHours(), 0, 0, 0)
+  console.log('start = ', new Date(start))
+  // const now = startHour ? start + startHour * 60 * 60 * 1000 : start + new Date().getHours() * 60 * 60 * 1000
 
-  const todayStart = new Date().setUTCHours(0, 0, 0, 0)
-  const todayEnd = new Date().setUTCHours(24, 0, 0, 0)
-  const nowHour = todayStart + new Date().getHours() * 60 * 60 * 1000
+  const end = endHour ? start + endHour * 60 * 60 * 1000 : new Date().setUTCHours(24, 0, 0, 0)
 
-  console.log('todayStart = ', new Date(todayStart))
-  console.log('todayEnd = ', new Date(todayEnd))
-  console.log('nowHour = ', new Date(nowHour))
+  //console.log('start = ', new Date(start))
+  console.log('end = ', new Date(end))
+  //console.log('now = ', new Date(now))
+
+  // const start = day ?
 
   //const queryHours = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${todayEnd}}}]}`
-  const queryHours = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${todayEnd}}}`
+  const queryHours = `s={timestamp:1}&q={"timestamp":{$gte:${start}},$and:[{"timestamp":{$lt:${end}}}`
   const queryStations = `${queryHours},{$and:[{"channel":{$in:${stations}}}]}]}`
   const queryCategories = `${queryHours},{$and:[{"category":{$in:${categories}}}]}]}`
   const queryCategoriesStations = `${queryHours},{$and:[{"category":{$in:${categories}}},{$and:[{"channel":{$in:${stations}}}]}]}]}`
@@ -33,15 +37,15 @@ export default ({ day, startHour, endHour, categories, stations }) => {
     console.log('****** queryCategoriesStations')
     query = queryCategoriesStations
   }
-  else if (categories) {
+ else if (categories) {
     console.log('****** queryCategories')
     query = queryCategories
   }
-  else if (stations) {
+ else if (stations) {
     console.log('****** queryStations')
     query = queryStations
   }
-  else {
+ else {
     console.log('****** queryHours')
     query = `${queryHours}]}`
   }
