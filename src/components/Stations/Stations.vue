@@ -1,9 +1,6 @@
 <template src="./Stations.html"></template>
 
 <script>
-import {
-  canal, discoveryNational, filmboxHboKino, polsat, polskie, tvpTvn, inne
-} from '../../data/data'
 import { START_STATIONS, CANAL, DISCOVERY_NATIONAL, FILMBOX_HBO_KINO, POLSAT,
          POLSKIE, TVP_TVN, INNE  } from '../../services/constants'
 
