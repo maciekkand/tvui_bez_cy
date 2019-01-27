@@ -1,7 +1,9 @@
 <template src="./Stations.html"></template>
 
 <script>
-import { canal, discoveryNational, filmboxHboKino, polsat, polskie, tvpTvn, inne } from '../../data/data'
+import {
+  canal, discoveryNational, filmboxHboKino, polsat, polskie, tvpTvn, inne
+} from '../../data/data'
 import constants from '../../data/constants'
 
 export default {
@@ -29,8 +31,8 @@ export default {
     setSelectedStations() {
       console.log(this.selected)
 
-      this.selected.length ?
-          localStorage.setItem('stations', JSON.stringify(this.selected))
+      this.selected.length
+        ? localStorage.setItem('stations', JSON.stringify(this.selected))
         : localStorage.setItem('stations', JSON.stringify(constants.START_STATIONS))
 
       this.$store.dispatch('setSelectedStations', this.selected)

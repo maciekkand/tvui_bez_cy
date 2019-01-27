@@ -1,6 +1,6 @@
 <template src="./Search.html"></template>
 
-  <script>
+<script>
 import { daysForSelectBox, hoursForSelectBox } from '../../data/data'
 import email from '../../services/email'
 
@@ -66,9 +66,8 @@ export default {
 
       const emailText = arrSelectedPrograms.join()
       /* cSpell:disable */
-        // email(emailText)  // fixme: odkomentuj to będzie słał maile
+      // email(emailText)  // fixme: odkomentuj to będzie słał maile
       /* cSpell:enable */
-
     },
     search() {
       if (this.textSearch) return this.$store.dispatch('findText', this.textSearch)
