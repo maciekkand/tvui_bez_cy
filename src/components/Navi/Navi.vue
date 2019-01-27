@@ -18,19 +18,16 @@ export default {
     if (!localStorage.getItem('stations')) localStorage.setItem('stations', JSON.stringify(constants.START_STATIONS))
 
     let stations = localStorage.getItem('stations') // || constants.START_STATIONS
-    console.log('stations = ', stations)
+    //console.log('stations = ', stations)
 
-    stations = stations
+    stations = `${stations
       .replace('[', '')
       .replace(']', '')
       .replace(/"/g, '')
       .replace(/,/g, ',  ')
+      .slice(0, 44)}..`
 
-    console.log('stations.length = ', stations.length)
-
-    if (stations.length > 50) {
-      stations = `${stations.slice(0, 50)} ..`
-    }
+    // stations = `${stations.slice(0, 48)} ..`
 
     /// this.stations = stations.slice(0,75).replace('[', '').replace(']', '').replace(/"/g, '').replace(/,/g, ',  ') + '...'
     //this.$store.dispatch('setSelectedStations', stations)
