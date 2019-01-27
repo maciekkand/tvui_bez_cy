@@ -6,11 +6,14 @@ export default ({ day, startHour, endHour, categories, stations }) => {
   console.log('day = ', day)
   console.log('startHour = ', startHour)
   console.log('endHour = ', endHour)
+
+  categories = JSON.stringify(categories)
   console.log('categories = ', categories)
+
   console.log('stations = ', stations)
 
-  const todayStart = new Date().setUTCHours(-1, 0, 0, 0)
-  const todayEnd = new Date().setUTCHours(23, 0, 0, 0)
+  const todayStart = new Date().setUTCHours(0, 0, 0, 0)
+  const todayEnd = new Date().setUTCHours(24, 0, 0, 0)
   const nowHour = todayStart + new Date().getHours() * 60 * 60 * 1000
 
   console.log('todayStart = ', new Date(todayStart))
@@ -24,10 +27,16 @@ export default ({ day, startHour, endHour, categories, stations }) => {
 
   //const selectedCategories = localStorage.getItem('categories')
 
-  const queryHours = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${todayEnd}}}]}`
+  //const queryHours = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${todayEnd}}}]}`
   //const queryHoursStations = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"channel":{$in:${selectedStations}}}]}]}`
   //const queryHoursCategories = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"channel":{$in:${selectedCategories}}}]}]}`
   //const queryHoursCategoryStations = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"category":{$in:${selectedCategories}}},{$and:[{"channel":{$in:${selectedStations}}}]}]}]}`
+
+  //const queryHours = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${todayEnd}}}]}`
+  const queryHours = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${todayEnd}}}`
+  //! const queryStations = `${queryHours},{$and:[{"channel":{$in:${stations}}}]}]}`
+  //! const queryCategories = `${queryHours},{$and:[{"category":{$in:${categories}}}]}]}`
+  //! const queryCategoriesStations = `${queryHours},{$and:[{"category":{$in:${categories}}},{$and:[{"channel":{$in:${stations}}}]}]}]}`
 
   /*
   const queryHours = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}}`
@@ -56,8 +65,11 @@ export default ({ day, startHour, endHour, categories, stations }) => {
 
   */
 
-  const urlString = LITERALS.TV_LIST_PREFIX + queryHours + LITERALS.TV_LIST_SUFFIX
-  console.log('urlString = ', urlString)
+  //! const urlString = LITERALS.TV_LIST_PREFIX + queryHours + LITERALS.TV_LIST_SUFFIX
+  //! const urlString = LITERALS.TV_LIST_PREFIX + queryStations + LITERALS.TV_LIST_SUFFIX
 
+  const urlString = LITERALS.TV_LIST_PREFIX + queryCategoriesStations + LITERALS.TV_LIST_SUFFIX
+
+  console.log('urlString = ', urlString)
   return urlString
 }
