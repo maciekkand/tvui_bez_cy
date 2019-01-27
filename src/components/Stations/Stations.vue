@@ -4,19 +4,20 @@
 import {
   canal, discoveryNational, filmboxHboKino, polsat, polskie, tvpTvn, inne
 } from '../../data/data'
-import constants from '../../data/constants'
+import { START_STATIONS, CANAL, DISCOVERY_NATIONAL, FILMBOX_HBO_KINO, POLSAT,
+         POLSKIE, TVP_TVN, INNE  } from '../../services/constants'
 
 export default {
   data() {
     return {
-      selected: this.$store.getters.getSelectedStations,
-      canal,
-      discoveryNational,
-      filmboxHboKino,
-      polsat,
-      polskie,
-      tvpTvn,
-      inne,
+      selected: this.$store.getters.getSelectedStations || START_STATIONS,   //
+      canal: CANAL,
+      discoveryNational: DISCOVERY_NATIONAL,
+      filmboxHboKino: FILMBOX_HBO_KINO,
+      polsat: POLSAT,
+      polskie: POLSKIE,
+      tvpTvn: TVP_TVN,
+      inne: INNE
     }
   },
   created() {
@@ -31,20 +32,20 @@ export default {
     setSelectedStations() {
       console.log(this.selected)
 
-      this.selected.length
-        ? localStorage.setItem('stations', JSON.stringify(this.selected))
-        : localStorage.setItem('stations', JSON.stringify(constants.START_STATIONS))
+      console.log('this.selected = ', this.selected)
+
+      //localStorage.setItem('stations', JSON.stringify(this.selected))
 
       this.$store.dispatch('setSelectedStations', this.selected)
       this.$router.push('/')
     },
     resetSelectedStations() {
-      this.selected = []
-      this.$store.dispatch('setSelectedStations', null)
-      localStorage.removeItem('stations')
+      this.selected = null
+      this.$store.dispatch('setSelectedStations', [])
+      localStorage.setItem('stations', [])
       console.log(localStorage.getItem('stations'))
-    },
-  },
+    }
+  }
 }
 </script>
 

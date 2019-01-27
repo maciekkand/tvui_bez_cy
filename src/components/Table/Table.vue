@@ -1,6 +1,8 @@
 <template src="./Table.html"></template>
 
 <script>
+import { FIELDS } from '../../services/constants'
+
 const selectedPrograms = new Set() //this.$store.getters.selectedPrograms
 
 export default {
@@ -9,63 +11,7 @@ export default {
       return this.$store.getters.getTodaysPrograms
     },
     fields() {
-      return [
-        {
-          key: 'index',
-          label: '#',
-        },
-        {
-          key: 'id',
-          label: 'id',
-          sortable: true,
-        },
-        {
-          key: 'dayString',
-          label: 'daystri',
-        },
-        {
-          key: 'channel',
-          label: 'channel',
-          sortable: true,
-        },
-        {
-          key: 'time',
-          label: 'time',
-          sortable: true,
-        },
-        /* {
-          key: 'timestamp',
-          label: 'timestamp'
-        },
-        */
-        /*
-        {
-          key: 'duration',
-          label: 'duration'
-        },
-        */
-        {
-          key: 'title',
-          label: 'title',
-        },
-        {
-          key: 'type',
-          label: 'type',
-        },
-        {
-          key: 'category',
-          label: 'category',
-          sortable: true,
-        },
-        {
-          key: 'link',
-          label: 'link',
-        },
-        {
-          key: 'checkbox',
-          label: '',
-        },
-      ]
+      return FIELDS
     },
     loading() {
       return this.$store.getters.getLoading
@@ -104,7 +50,6 @@ export default {
       }
 
       const arrSelectedPrograms = Array.from(selectedPrograms)
-
       // console.table(selectedPrograms, ['title'])
       console.table(arrSelectedPrograms, ['title'])
       this.$store.dispatch('addSelectedPrograms', arrSelectedPrograms)

@@ -1,12 +1,13 @@
 <template src="./Navi.html"></template>
 
 <script>
-import constants from '../../data/constants'
+import { START_STATIONS } from '../../services/constants'
 
 export default {
   data() {
     return {
-      stations: this.$store.getters.getSelectedStations,
+      //stations: this.$store.getters.getSelectedStations || START_STATIONS.join(', ').slice(0, 44)
+      stations: START_STATIONS.join(', ').slice(0, 44)
     }
   },
   computed: {
@@ -15,23 +16,8 @@ export default {
     },
   },
   created() {
-    if (!localStorage.getItem('stations')) localStorage.setItem('stations', JSON.stringify(constants.START_STATIONS))
-
-    let stations = localStorage.getItem('stations') // || constants.START_STATIONS
-    //console.log('stations = ', stations)
-
-    stations = `${stations
-      .replace('[', '')
-      .replace(']', '')
-      .replace(/"/g, '')
-      .replace(/,/g, ',  ')
-      .slice(0, 44)}..`
-
-    // stations = `${stations.slice(0, 48)} ..`
-
-    /// this.stations = stations.slice(0,75).replace('[', '').replace(']', '').replace(/"/g, '').replace(/,/g, ',  ') + '...'
-    //this.$store.dispatch('setSelectedStations', stations)
-    this.stations = stations
+    console.log('getters.getSelectedStations = ', this.$store.getters.getSelectedStations)
+     this.$store.getters.getSelectedStations ? this.stations = stations : null
   },
 }
 </script>

@@ -10,7 +10,6 @@ export default {
     'tv-navi': Navi,
     'tv-search': Search,
     'tv-table': Table
-  },
-  template: 'Base',
+  }
 }
 </script>

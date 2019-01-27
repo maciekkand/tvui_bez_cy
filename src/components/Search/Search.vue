@@ -1,8 +1,8 @@
 <template src="./Search.html"></template>
 
 <script>
-import { daysForSelectBox, hoursForSelectBox } from '../../data/data'
-import constants from '../../data/constants'
+import { daysForSelectBox, hoursForSelectBox } from '../../services/helpers'
+import { CATEGORIES } from '../../services/constants'
 import email from '../../services/email'
 
 export default {
@@ -16,8 +16,7 @@ export default {
       days: daysForSelectBox(),
       startHours: hoursForSelectBox(this.selectedDay, false),
       endHours: hoursForSelectBox(this.selectedDay, true),
-      categories: constants.CATEGORIES
-
+      categories: CATEGORIES,
     }
   },
   computed: {
@@ -33,16 +32,19 @@ export default {
     categorySelected(categories) {
       console.log('categories = ', categories)
       //console.log('item = ', item)
-      localStorage.setItem('categories', JSON.stringify(categories))
+      if (categories.length) {
+        localStorage.setItem('categories', JSON.stringify(categories))
+      }
+      else {
+        localStorage.removeItem('categories')
+        // this.selectedCategories = null
+      }
     },
     show() {
       const savedPrograms = localStorage.getItem('savedPrograms')
       console.log('savedPrograms = ', savedPrograms)
-      /* cSpell:disable */
       if (!savedPrograms) return alert('Brak zapamiętanych programów')
-      /* cSpell:enable */
 
-      // console.log('savedPrograms = ', savedPrograms)
       this.$store.commit('ADD_SAVED_PROGRAMS', JSON.parse(localStorage.getItem('savedPrograms')))
     },
     resetFavorites() {
@@ -62,23 +64,22 @@ export default {
       })
 
       const emailText = arrSelectedPrograms.join()
-      /* cSpell:disable */
       // email(emailText)  // fixme: odkomentuj to będzie słał maile
-      /* cSpell:enable */
     },
     search() {
       if (this.textSearch) return this.$store.dispatch('findText', this.textSearch)
-      /* cSpell:disable */
-      if (this.selectedStartHour && this.selectedEndHour && this.selectedEndHour < this.selectedStartHour) alert('Bład godzin')
-      /* cSpell:enable */
+      if (this.selectedStartHour && this.selectedEndHour && this.selectedEndHour < this.selectedStartHour) return alert('Bład godzin')
+
+      console.log('this.selectedCategories = ', this.selectedCategories)
+      console.log('this.$store.getters.getSelectedStations = ', this.$store.getters.getSelectedStations)
 
       const searchData = {
         selectedDay: this.selectedDay,
         selectedStartHour: this.selectedStartHour,
         selectedEndHour: this.selectedEndHour,
-        selectedCategories: this.selectedCategories,
-        //selectedStations: this.$store.getters.getSelectedStations
-        selectedStations: localStorage.getItem('stations'),
+        selectedCategories: this.selectedCategories && this.selectedCategories.length ? this.selectedCategories : null,
+        selectedStations: this.$store.getters.getSelectedStations
+        //selectedStations: localStorage.getItem('stations'),
       }
 
       // console.log('searchData = ', searchData)
@@ -114,6 +115,8 @@ export default {
 
       const allSelectedPrograms = oldSelectedPrograms.concat(currentSelectedPrograms)
       //console.log('allSelectedPrograms = ', allSelectedPrograms)
+
+      // if(allSelectedPrograms.length === 0) allSelectedPrograms = null
 
       localStorage.setItem('savedPrograms', JSON.stringify(allSelectedPrograms))
       this.$store.commit('ADD_TODAYS_PROGRAMS')
