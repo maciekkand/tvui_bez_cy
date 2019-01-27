@@ -11,5 +11,7 @@ export default {
     { text: 'Rozrywka', value: 'rozrywka' },
     { text: 'Dzieci', value: 'dla dzieci' },
     { text: 'Inne', value: 'inne' }
-  ]
+  ],
+  //CATEGORY_NAMES: ['Film', 'Serial', 'Sport', 'Wiadomości', 'Rozrywka', 'Dzieci', 'Inne']
+  CATEGORY_NAMES: ['film', 'serial', 'sport', 'wiadomosci','rozrywka', 'dzieci', 'inne']
 }

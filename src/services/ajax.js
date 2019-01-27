@@ -3,18 +3,41 @@ import axios from 'axios'
 import constants from '../data/constants'
 
 const initQuery = context => {
-  let selectedStations = localStorage.getItem('stations') || JSON.stringify(constants.START_STATIONS)
-  //let selectedStations = localStorage.getItem('stations') || constants.START_STATIONS
-  //console.log('selectedStations = ', selectedStations)
-  const stations = encodeURIComponent(selectedStations)
+  let query = ''
+  let selectedStations = localStorage.getItem('stations') || constants.START_STATIONS
+  //let selectedCategories = localStorage.getItem('categories') || constants.CATEGORY_NAMES
   let selectedCategories = localStorage.getItem('categories')
+
+  //console.log(' localStorage.getItem(categories) = ', localStorage.getItem('categories'))
+  //console.log('constants.CATEGORY_NAMES = ', constants.CATEGORY_NAMES)
 
   const nowHour = new Date().getTime() + 5 * 60 * 1000
   const nowMidnight = new Date().setUTCHours(24, 0, 0, 0)
-  const queryHoursStations = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"channel":{$in:${stations}}}]}]}`
-  // const queryHoursCategoryStations = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${selectedCategories}}},{$and:[{"channel":{$in:${selectedStations}}}]}]}]}`
 
-  const url = constants.TV_LIST_PREFIX + queryHoursStations + constants.TV_LIST_SUFFIX
+  const queryHoursCategoryStations = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"category":{$in:${selectedCategories}}},{$and:[{"channel":{$in:${selectedStations}}}]}]}]}`
+  const queryHoursCategories = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"channel":{$in:${selectedCategories}}}]}]}`
+  const queryHoursStations = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"channel":{$in:${selectedStations}}}]}]}`
+
+  // const queryHoursCategoryStations = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"category":{$in:${selectedCategories}}},{$and:[{"channel":{$in:${selectedStations}}}]}]}]}`
+
+  if (selectedCategories && selectedStations) {
+    console.log('****** selectedCategories && selectedStations')
+    query = queryHoursCategoryStations
+  }
+  else if (selectedCategories) {
+     console.log('****** selectedCategories')
+      query = queryHoursCategories
+  }
+  else if (selectedStations) {
+    console.log('****** selectedStations')
+    query = queryHoursStations
+  }
+  else {
+    console.log('****** queryHours')
+    query = queryHours
+  }
+
+  const url = constants.TV_LIST_PREFIX + query + constants.TV_LIST_SUFFIX
   console.log('url = ', url)
 
   return url
@@ -71,22 +94,18 @@ export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHou
   const queryHoursCategoryStations = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${arrSelectedCategories}}},{$and:[{"channel":{$in:${stations}}}]}]}]}`
 
   if (startHour && endHour && selectedCategories && selectedStations) {
-    //console.log('****** startHour && endHour && selectedCategories && selectedStations')
+    console.log('****** startHour && endHour && selectedCategories && selectedStations')
     query = queryHoursCategoryStations
-  }
-  else if (startHour && endHour && selectedCategories) {
+  } else if (startHour && endHour && selectedCategories) {
     // console.log('****** startHour && endHour && selectedCategories')
     query = queryHoursCategory
-  }
-  else if (startHour && endHour && selectedStations) {
+  } else if (startHour && endHour && selectedStations) {
     // console.log('****** startHour && endHour && selectedStations')
     query = queryHoursStations
-  }
-  else if (startHour && endHour) {
+  } else if (startHour && endHour) {
     //console.log('****** startHour && endHour')
     query = queryHours
-  }
-  else if (!startHour && !endHour) {
+  } else if (!startHour && !endHour) {
     //console.log('****** !startHour && !endHour')
     query = initQuery()
   }
