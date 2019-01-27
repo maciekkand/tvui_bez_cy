@@ -1,13 +1,13 @@
 <template src="./Navi.html"></template>
 
 <script>
-import { START_STATIONS } from '../../services/constants'
+import { LITERALS } from '../../services/constants'
 
 export default {
   data() {
     return {
-      //stations: this.$store.getters.getSelectedStations || START_STATIONS.join(', ').slice(0, 44)
-      stations: START_STATIONS.join(', ').slice(0, 44)
+      //stations: this.$store.getters.getSelectedStations || LITERALS.START_STATIONS.join(', ').slice(0, 44)
+      stations: LITERALS.START_STATIONS.join(', ').slice(0, 44)
     }
   },
   computed: {
@@ -22,7 +22,7 @@ export default {
 }
 </script>
 
-  <style>
+<style>
 a {
   color: greenyellow;
 }

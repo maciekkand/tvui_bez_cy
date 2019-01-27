@@ -100,23 +100,12 @@ export default {
       console.log('Tu Save: zapisuję do localStorage')
 
       if (typeof Storage === 'undefined') {
-        /* cSpell:disable */
         return alert('Sorry! Nie zapamiętam programów, bo Twoja przeglądarka nie wspiera localStorage')
-        /* cSpell:enable */
       }
-
-      //localStorage.removeItem('selectedPrograms')
 
       const oldSelectedPrograms = JSON.parse(localStorage.getItem('selectedPrograms')) || []
       const currentSelectedPrograms = this.$store.getters.getSelectedPrograms
-
-      //console.log('oldSelectedPrograms = ', oldSelectedPrograms)
-      //console.log('currentSelectedPrograms = ', currentSelectedPrograms)
-
       const allSelectedPrograms = oldSelectedPrograms.concat(currentSelectedPrograms)
-      //console.log('allSelectedPrograms = ', allSelectedPrograms)
-
-      // if(allSelectedPrograms.length === 0) allSelectedPrograms = null
 
       localStorage.setItem('savedPrograms', JSON.stringify(allSelectedPrograms))
       this.$store.commit('ADD_TODAYS_PROGRAMS')
@@ -125,7 +114,7 @@ export default {
 }
 </script>
 
-  <style scoped>
+<style scoped>
 div {
   color: white;
 }

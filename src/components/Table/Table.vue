@@ -3,7 +3,7 @@
 <script>
 import { FIELDS } from '../../services/constants'
 
-const selectedPrograms = new Set() //this.$store.getters.selectedPrograms
+const selectedPrograms = new Set() 
 
 export default {
   computed: {
@@ -53,8 +53,8 @@ export default {
       // console.table(selectedPrograms, ['title'])
       console.table(arrSelectedPrograms, ['title'])
       this.$store.dispatch('addSelectedPrograms', arrSelectedPrograms)
-    },
-  },
+    }
+  }
 }
 </script>
 

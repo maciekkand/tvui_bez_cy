@@ -1,15 +1,15 @@
-import { START_STATIONS, CATEGORY_NAMES, TV_LIST_PREFIX, TV_LIST_SUFFIX } from './constants'
+import { LITERALS } from './constants'
 
 export const query = context => {
   let query = ''
-  let selectedStations = localStorage.getItem('stations') || START_STATIONS
-  //let selectedCategories = localStorage.getItem('categories') || CATEGORY_NAMES
+  let selectedStations = localStorage.getItem('stations') || LITERALS.START_STATIONS
+  //let selectedCategories = localStorage.getItem('categories') || LITERALS.CATEGORY_NAMES
 
   let selectedCategories = localStorage.getItem('categories')
   // let selectedCategories = null
 
   //console.log(' localStorage.getItem(categories) = ', localStorage.getItem('categories'))
-  //console.log('CATEGORY_NAMES = ', CATEGORY_NAMES)
+  // console.log('LITERALS.CATEGORY_NAMES = ', LITERALS.CATEGORY_NAMES)
 
   const nowHour = new Date().getTime() + 5 * 60 * 1000
   const nowMidnight = new Date().setUTCHours(24, 0, 0, 0)
@@ -35,11 +35,8 @@ export const query = context => {
     query = queryHours
   }
 
-  const url = TV_LIST_PREFIX + query + TV_LIST_SUFFIX
+  const url = LITERALS.TV_LIST_PREFIX + query + LITERALS.TV_LIST_SUFFIX
   console.log('url = ', url)
 
   return url
 }
-
-
-

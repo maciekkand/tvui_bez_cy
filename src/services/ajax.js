@@ -28,7 +28,7 @@ export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHou
 
 export const ajaxFindText = (context, text) => {
   const query = `s={timestamp:1}&q={"title":{"$regex":".*${text}.*",$options:"i"}}`
-  const url = TV_LIST_PREFIX + query + TV_LIST_SUFFIX
+  const url = LITERALS.TV_LIST_PREFIX + query + LITERALS.TV_LIST_SUFFIX
 
   axios
     .get(url)
