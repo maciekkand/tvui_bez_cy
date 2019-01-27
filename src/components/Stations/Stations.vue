@@ -1,44 +1,54 @@
 <template src="./Stations.html"></template>
 
 <script>
-import { LITERALS, CANAL, DISCOVERY_NATIONAL, FILMBOX_HBO_KINO, POLSAT,
-         POLSKIE, TVP_TVN, INNE  } from '../../services/constants'
+import { LITERALS, CANAL, DISCOVERY_NATIONAL, FILMBOX_HBO_KINO, POLSAT, POLSKIE, TVP_TVN, INNE } from '../../services/constants'
 
 export default {
   data() {
     return {
-      selected: this.$store.getters.getSelectedStations || LITERALS.START_STATIONS,   //
+      //selected: this.$store.getters.getStations || LITERALS.START_STATIONS,   //
+      selected: null, // this.$store.getters.getStations,   //
       canal: CANAL,
       discoveryNational: DISCOVERY_NATIONAL,
       filmboxHboKino: FILMBOX_HBO_KINO,
       polsat: POLSAT,
       polskie: POLSKIE,
       tvpTvn: TVP_TVN,
-      inne: INNE
+      inne: INNE,
     }
   },
   created() {
     if (localStorage.getItem('stations')) {
-      this.$store.dispatch('setSelectedStations', localStorage.getItem('stations'))
-      console.log('getters.getSelectedStations', this.$store.getters.getSelectedStations)
+      this.$store.dispatch('setStations', localStorage.getItem('stations'))
+      console.log('getters.getStations', this.$store.getters.getStations)
       this.selected = JSON.parse(localStorage.getItem('stations'))
     }
   },
   methods: {
-    setSelectedStations() {
-      console.log(this.selected)
+    stationsSelected(stations) {
+      console.log('stations = ', stations)
+
+    if (stations.length) {
+        localStorage.setItem('stations', JSON.stringify(stations))
+      }
+      else {
+        localStorage.removeItem('stations')
+      }
+    },
+    setStations() {
       console.log('this.selected = ', this.selected)
 
-      this.$store.dispatch('setSelectedStations', this.selected)
+      //localStorage.setItem('stations', JSON.stringify(this.selected))
+      this.$store.dispatch('setStations', this.selected)
       this.$router.push('/')
     },
-    resetSelectedStations() {
+    resetStations() {
       this.selected = null
-      this.$store.dispatch('setSelectedStations', [])
-      localStorage.setItem('stations', [])
+      //this.$store.dispatch('setStations', [])
+      localStorage.removeItem('stations')
       console.log(localStorage.getItem('stations'))
-    }
-  }
+    },
+  },
 }
 </script>
 

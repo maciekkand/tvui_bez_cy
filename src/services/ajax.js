@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { url } from './ajaxHelpers'
+import url from './ajaxHelpers'
 import { LITERALS } from './constants'
 
 export const ajaxAddTodaysPrograms = context => {
@@ -14,9 +14,10 @@ export const ajaxAddTodaysPrograms = context => {
     })
 }
 
-export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHour, selectedEndHour, selectedCategories, selectedStations }) => {
+// export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHour, selectedEndHour, selectedCategories, selectedStations }) => {
+export const ajaxGetSelectedPrograms = (context, searchData) => {
   axios
-    .get(url)
+    .get(url(searchData))
     .then(res => {
       if (res.data.length > 999) alert('Zawęż przedział czasu, ilość kanałów lub kategorii, bo teraz część późniejszych programów nie jest wyświetlana')
       context.commit('ADD_TODAYS_PROGRAMS', res.data)

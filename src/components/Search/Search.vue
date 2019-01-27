@@ -8,15 +8,15 @@ import email from '../../services/helpers'
 export default {
   data() {
     return {
-      selectedDay: null,
-      selectedStartHour: null,
-      selectedEndHour: null,
-      selectedCategories: null,
+      day: null,
+      startHour: null,
+      endHour: null,
+      categories: null,
       textSearch: null,
       days: daysForSelectBox(),
       startHours: hoursForSelectBox(this.selectedDay, false),
       endHours: hoursForSelectBox(this.selectedDay, true),
-      categories: CATEGORIES,
+      categoriesList: CATEGORIES,
     }
   },
   computed: {
@@ -70,19 +70,19 @@ export default {
       if (this.textSearch) return this.$store.dispatch('findText', this.textSearch)
       if (this.selectedStartHour && this.selectedEndHour && this.selectedEndHour < this.selectedStartHour) return alert('Bład godzin')
 
-      console.log('this.selectedCategories = ', this.selectedCategories)
-      console.log('this.$store.getters.getSelectedStations = ', this.$store.getters.getSelectedStations)
+      console.log('getters.getStations = ', this.$store.getters.getStations)
 
       const searchData = {
-        selectedDay: this.selectedDay,
-        selectedStartHour: this.selectedStartHour,
-        selectedEndHour: this.selectedEndHour,
-        selectedCategories: this.selectedCategories && this.selectedCategories.length ? this.selectedCategories : null,
-        selectedStations: this.$store.getters.getSelectedStations
+        day: this.day,
+        startHour: this.startHour,
+        endHour: this.endHour,
+        categories: this.categories, // && this.Categories.length ? this.Categories : null,
+        stations: this.$store.getters.getStations
         //selectedStations: localStorage.getItem('stations'),
       }
 
-      // console.log('searchData = ', searchData)
+      console.log('searchData = ', searchData)
+
       this.$store.dispatch('getSelectedPrograms', searchData)
       this.$store.dispatch('setLoading', true)
     },

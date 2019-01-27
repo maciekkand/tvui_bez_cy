@@ -8,15 +8,15 @@ export default new Vuex.Store({
   state: {
     todaysPrograms: [],
     selectedPrograms: null,
-    selectedStations: null,
+    stations: null,
     loading: false,
   },
   getters: {
     getTodaysPrograms(state) {
       return state.todaysPrograms
     },
-    getSelectedStations(state) {
-      return state.selectedStations
+    getStations(state) {
+      return state.stations
     },
     getLoading(state) {
       return state.loading
@@ -41,9 +41,9 @@ export default new Vuex.Store({
 
       // state.selectedPrograms = []
     },
-    SET_SELECTED_STATIONS(state, stations) {
-      console.log('SET_SELECTED_STATIONS = ', stations)
-      state.selectedStations = stations
+    SET_STATIONS(state, stations) {
+      console.log('SET_STATIONS = ', stations)
+      state.stations = stations
     },
     SET_LOADING(state, loadingStatus) {
       state.loading = loadingStatus
@@ -68,8 +68,8 @@ export default new Vuex.Store({
     getSelectedPrograms(context, searchData) {
       ajaxGetSelectedPrograms(context, searchData)
     },
-    setSelectedStations(context, stations) {
-      context.commit('SET_SELECTED_STATIONS', stations)
+    setStations(context, stations) {
+      context.commit('SET_STATIONS', stations)
     },
     setLoading(context, loadingStatus) {
       context.commit('SET_LOADING', loadingStatus)

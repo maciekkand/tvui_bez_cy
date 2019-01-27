@@ -6,8 +6,8 @@ import { LITERALS } from '../../services/constants'
 export default {
   data() {
     return {
-      //stations: this.$store.getters.getSelectedStations || LITERALS.START_STATIONS.join(', ').slice(0, 44)
-      stations: LITERALS.START_STATIONS.join(', ').slice(0, 44)
+      //stations: this.$store.getters.getStations || LITERALS.START_STATIONS.join(', ').slice(0, 44)
+      // stations: LITERALS.START_STATIONS.join(', ').slice(0, 44)
     }
   },
   computed: {
@@ -16,8 +16,8 @@ export default {
     },
   },
   created() {
-    console.log('getters.getSelectedStations = ', this.$store.getters.getSelectedStations)
-     this.$store.getters.getSelectedStations ? this.stations = stations : null
+    console.log('getters.getStations = ', this.$store.getters.getStations)
+    this.$store.getters.getStations ? (this.stations = stations) : null
   },
 }
 </script>

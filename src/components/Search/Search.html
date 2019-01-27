@@ -3,11 +3,12 @@
   <b-container>
     <b-row>
       <b-col md="9">
-        <b-form-checkbox-group data-test="categories"
-                               v-model="selectedCategories"
+        <b-form-checkbox-group id="categories"
+                               data-test="categories"
+                               v-model="categories"
                                @change="categorySelected"
                                class="d-flex justify-content-md-between pt-2 mr-0"
-                               :options="categories">
+                               :options="categoriesList">
         </b-form-checkbox-group>
       </b-col>
 
@@ -51,7 +52,7 @@
       <b-col md="2">
         <b-form-select id="day"
                        data-test="day"
-                       v-model="selectedDay"
+                       v-model="day"
                        :options="days"
                        class="mb-3 ml-0"
                        size="md" />
@@ -60,7 +61,7 @@
       <b-col md="2">
         <b-form-select id="startHour"
                        data-test="startHour"
-                       v-model.number="selectedStartHour"
+                       v-model.number="startHour"
                        class="mb-3 ml-0"
                        :options="startHours">
         </b-form-select>
@@ -69,7 +70,7 @@
       <b-col md="2">
         <b-form-select id="endHour"
                        data-test="endHour"
-                       v-model.number="selectedEndHour"
+                       v-model.number="endHour"
                        :options="endHours">
         </b-form-select>
       </b-col>
