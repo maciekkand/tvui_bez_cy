@@ -30,21 +30,18 @@ export default {
 
     if (stations.length) {
         localStorage.setItem('stations', JSON.stringify(stations))
+        this.$store.dispatch('setStations', this.selected)
       }
       else {
         localStorage.removeItem('stations')
       }
     },
-    setStations() {
-      console.log('this.selected = ', this.selected)
-
-      //localStorage.setItem('stations', JSON.stringify(this.selected))
-      this.$store.dispatch('setStations', this.selected)
+    onOK() {
       this.$router.push('/')
     },
     resetStations() {
       this.selected = null
-      //this.$store.dispatch('setStations', [])
+      this.$store.dispatch('setStations', null)
       localStorage.removeItem('stations')
       console.log(localStorage.getItem('stations'))
     },

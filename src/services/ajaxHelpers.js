@@ -2,27 +2,34 @@
 import { LITERALS } from './constants'
 
 export default ({ day, startHour, endHour, categories, stations }) => {
+  const query = ''
   console.log('day = ', day)
   console.log('startHour = ', startHour)
   console.log('endHour = ', endHour)
   console.log('categories = ', categories)
   console.log('stations = ', stations)
 
-  let query = ''
+  const todayStart = new Date().setUTCHours(-1, 0, 0, 0)
+  const todayEnd = new Date().setUTCHours(23, 0, 0, 0)
+  const nowHour = todayStart + new Date().getHours() * 60 * 60 * 1000
+
+  console.log('todayStart = ', new Date(todayStart))
+  console.log('todayEnd = ', new Date(todayEnd))
+  console.log('nowHour = ', new Date(nowHour))
+
+  //const startDay = todayStart + day * 24 * 60 * 60 * 1000
 
   //const selectedStations = localStorage.getItem('stations') || LITERALS.START_STATIONS
-  const selectedStations = localStorage.getItem('stations')
+  //const selectedStations = localStorage.getItem('stations')
 
-  const selectedCategories = localStorage.getItem('categories')
+  //const selectedCategories = localStorage.getItem('categories')
 
-  const hour = new Date().getTime() + 5 * 60 * 1000
-  const midnight = new Date().setUTCHours(24, 0, 0, 0)
-
-  //const queryHours = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}}]}`
+  const queryHours = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${todayEnd}}}]}`
   //const queryHoursStations = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"channel":{$in:${selectedStations}}}]}]}`
   //const queryHoursCategories = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"channel":{$in:${selectedCategories}}}]}]}`
   //const queryHoursCategoryStations = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}},{$and:[{"category":{$in:${selectedCategories}}},{$and:[{"channel":{$in:${selectedStations}}}]}]}]}`
 
+  /*
   const queryHours = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${nowMidnight}}}`
   const queryCategories = `,{$and:[{"channel":{$in:${categories}}}]}]}`
   const queryStations = `,{$and:[{"channel":{$in:${stations}}}]}`
@@ -47,8 +54,10 @@ export default ({ day, startHour, endHour, categories, stations }) => {
     query = queryHours
   }
 
-  const urlString = LITERALS.TV_LIST_PREFIX + query + LITERALS.TV_LIST_SUFFIX
-  console.log('url = ', url)
+  */
+
+  const urlString = LITERALS.TV_LIST_PREFIX + queryHours + LITERALS.TV_LIST_SUFFIX
+  console.log('urlString = ', urlString)
 
   return urlString
 }
