@@ -16,7 +16,9 @@
     "Vuex",
     "dzieci",
     "inne",
-    "przy"
+    "przy",
+    "concat",
+    "stringify"
 
 
 

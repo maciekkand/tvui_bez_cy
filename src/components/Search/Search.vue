@@ -1,11 +1,10 @@
 <template src="./Search.html"></template>
 
-<script>
+  <script>
 import { daysForSelectBox, hoursForSelectBox } from '../../data/data'
 import email from '../../services/email'
 
 export default {
-
   data() {
     return {
       selectedDay: null,
@@ -19,7 +18,7 @@ export default {
       categories: [
         { text: 'Film', value: 'film' },
         { text: 'Serial', value: 'serial' },
-        // { text: 'Tele', value: 'telenowela' },
+        // {text: 'Tele', value: 'telenowela' },
         { text: 'Sport', value: 'sport' },
         { text: 'Wiadomości', value: 'wiadomosci' },
         { text: 'Rozrywka', value: 'rozrywka' },
@@ -42,17 +41,20 @@ export default {
     show() {
       const savedPrograms = localStorage.getItem('savedPrograms')
       console.log('savedPrograms = ', savedPrograms)
+      /* cSpell:disable */
+      if (!savedPrograms) return alert('Brak zapamiętanych programów')
+      /* cSpell:enable */
 
-      if (savedPrograms) {
-        console.log('savedPrograms = ', savedPrograms)
-        //selectedPrograms
-        this.$store.commit('ADD_SAVED_PROGRAMS', JSON.parse(localStorage.getItem('savedPrograms')))
-      }
+      console.log('savedPrograms = ', savedPrograms)
+      this.$store.commit('ADD_SAVED_PROGRAMS', JSON.parse(localStorage.getItem('savedPrograms')))
     },
     resetFavorites() {
       console.log('Tu resetFavorites !')
       localStorage.removeItem('savedPrograms')
       this.$store.commit('ADD_SAVED_PROGRAMS', [])
+
+      this.$store.dispatch('getSelectedPrograms', [])
+      this.$store.dispatch('setLoading', true)
     },
     email() {
       const arrSelectedPrograms = []
@@ -63,11 +65,16 @@ export default {
       })
 
       const emailText = arrSelectedPrograms.join()
-      // email(emailText)  // fixme: odkomentuj to będzie słał maile
+      /* cSpell:disable */
+        // email(emailText)  // fixme: odkomentuj to będzie słał maile
+      /* cSpell:enable */
+
     },
     search() {
       if (this.textSearch) return this.$store.dispatch('findText', this.textSearch)
+      /* cSpell:disable */
       if (this.selectedStartHour && this.selectedEndHour && this.selectedEndHour < this.selectedStartHour) alert('Bład godzin')
+      /* cSpell:enable */
 
       const searchData = {
         selectedDay: this.selectedDay,
@@ -91,10 +98,12 @@ export default {
       this.selectedCategories = []
     },
     save() {
-      console.log('Tu Save: zapisuję do localStorage, ślę maila i wyświetlam modala !')
+      console.log('Tu Save: zapisuję do localStorage')
 
       if (typeof Storage === 'undefined') {
+        /* cSpell:disable */
         return alert('Sorry! Nie zapamiętam programów, bo Twoja przeglądarka nie wspiera localStorage')
+        /* cSpell:enable */
       }
 
       //localStorage.removeItem('selectedPrograms')
@@ -115,7 +124,7 @@ export default {
 }
 </script>
 
-<style scoped>
+  <style scoped>
 div {
   color: white;
 }

@@ -4,6 +4,8 @@ import constants from '../data/constants'
 
 const initQuery = context => {
   let selectedStations = localStorage.getItem('stations') || JSON.stringify(constants.START_STATIONS)
+  //let selectedStations = localStorage.getItem('stations') || constants.START_STATIONS
+  console.log('selectedStations = ', selectedStations)
   let selectedCategories = localStorage.getItem('categories')
 
   const nowHour = new Date().getTime() + 5 * 60 * 1000
@@ -12,7 +14,7 @@ const initQuery = context => {
   // const queryHoursCategoryStations = `s={timestamp:1}&q={"timestamp":{$gte:${startHour}},$and:[{"timestamp":{$lt:${endHour}}},{$and:[{"category":{$in:${selectedCategories}}},{$and:[{"channel":{$in:${selectedStations}}}]}]}]}`
 
   const url = constants.TV_LIST_PREFIX + queryHoursStations + constants.TV_LIST_SUFFIX
-  //console.log('url = ', url)
+  console.log('url = ', url)
 
   return url
 }
@@ -45,6 +47,7 @@ Stwórz query w Studio 3T Query Builderze.
 /* spell-checker: enable */
 
 export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHour, selectedEndHour, selectedCategories, selectedStations }) => {
+  console.log('selectedStations = ', selectedStations)
   let query = ''
   const dayStartTimestamp = new Date().setUTCHours(0, 0, 0, 0) + selectedDay * 24 * 60 * 60 * 1000
 

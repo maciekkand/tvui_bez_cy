@@ -1,6 +1,8 @@
 <template src="./Navi.html"></template>
 
 <script>
+import constants from '../../data/constants'
+
 export default {
   data() {
     return {
@@ -13,34 +15,31 @@ export default {
     },
   },
   created() {
-    let stations = localStorage.getItem('stations') || null
+    if (!localStorage.getItem('stations')) localStorage.setItem('stations', JSON.stringify(constants.START_STATIONS))
 
-    if (stations) {
-      // this.$store.dispatch('setSelectedStations', stations)
-      console.log('localStorage(stations) = ', stations)
+    let stations = localStorage.getItem('stations') // || constants.START_STATIONS
+    console.log('stations = ', stations)
 
-      ///this.stations = stations.replace('[', '').replace(']', '').replace(/"/g, '').replace(/,/g, ',  ')
+    stations = stations
+      .replace('[', '')
+      .replace(']', '')
+      .replace(/"/g, '')
+      .replace(/,/g, ',  ')
 
-      stations = stations
-        .replace('[', '')
-        .replace(']', '')
-        .replace(/"/g, '')
-        .replace(/,/g, ',  ')
+    console.log('stations.length = ', stations.length)
 
-      console.log('stations.length = ', stations.length)
-
-      if (stations.length > 50) {
-        stations = `${stations.slice(0, 50)} ..`
-      }
-
-      /// this.stations = stations.slice(0,75).replace('[', '').replace(']', '').replace(/"/g, '').replace(/,/g, ',  ') + '...'
-      this.stations = stations
+    if (stations.length > 50) {
+      stations = `${stations.slice(0, 50)} ..`
     }
+
+    /// this.stations = stations.slice(0,75).replace('[', '').replace(']', '').replace(/"/g, '').replace(/,/g, ',  ') + '...'
+    //this.$store.dispatch('setSelectedStations', stations)
+    this.stations = stations
   },
 }
 </script>
 
-<style>
+  <style>
 a {
   color: greenyellow;
 }
@@ -49,7 +48,6 @@ body {
   font-variant: italic;
 }
 .stations {
-  font-size: '9px';
   color: yellow;
 }
 </style>

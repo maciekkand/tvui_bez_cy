@@ -1,13 +1,10 @@
 <template src="./Stations.html"></template>
 
 <script>
-import {
-  canal, discoveryNational, filmboxHboKino,
-  polsat, polskie, tvpTvn, inne
-} from '../../data/data'
+import { canal, discoveryNational, filmboxHboKino, polsat, polskie, tvpTvn, inne } from '../../data/data'
+import constants from '../../data/constants'
 
 export default {
-
   data() {
     return {
       selected: this.$store.getters.getSelectedStations,
@@ -17,7 +14,7 @@ export default {
       polsat,
       polskie,
       tvpTvn,
-      inne
+      inne,
     }
   },
   created() {
@@ -31,7 +28,11 @@ export default {
   methods: {
     setSelectedStations() {
       console.log(this.selected)
-      localStorage.setItem('stations', JSON.stringify(this.selected))
+
+      this.selected.length ?
+          localStorage.setItem('stations', JSON.stringify(this.selected))
+        : localStorage.setItem('stations', JSON.stringify(constants.START_STATIONS))
+
       this.$store.dispatch('setSelectedStations', this.selected)
       this.$router.push('/')
     },
@@ -40,13 +41,13 @@ export default {
       this.$store.dispatch('setSelectedStations', null)
       localStorage.removeItem('stations')
       console.log(localStorage.getItem('stations'))
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style scoped>
 div {
-  color: white
+  color: white;
 }
 </style>
