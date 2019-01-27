@@ -3,7 +3,7 @@
 <script>
 import { daysForSelectBox, hoursForSelectBox } from '../../services/helpers'
 import { CATEGORIES } from '../../services/constants'
-import email from '../../services/email'
+import email from '../../services/helpers'
 
 export default {
   data() {
