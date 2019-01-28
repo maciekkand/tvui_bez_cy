@@ -2,8 +2,8 @@
 
 <script>
 import store from '../../store/store'
-import { daysForSelectBox, hoursForSelectBox } from '../../services/helpers'
-import { CATEGORIES } from '../../services/constants'
+import { days, endHours } from '../../services/helpers'
+import { CATEGORIES, HOURS } from '../../services/constants'
 import email from '../../services/helpers'
 
 export default {
@@ -14,9 +14,11 @@ export default {
       endHour: this.$store.getters.getEndHour,
       categories: this.$store.getters.getCategories,
       textSearch: null,
-      days: daysForSelectBox(),
-      startHours: hoursForSelectBox(this.selectedDay, false),
-      endHours: hoursForSelectBox(this.selectedDay, true),
+      days: days(),
+      //startHours: hoursForSelectBox(this.selectedDay, false),
+      startHours: HOURS,
+      //endHours: hoursForSelectBox(this.selectedDay, true),
+      //endHours: HOURS,
       categoriesList: CATEGORIES,
     }
   },
@@ -24,6 +26,9 @@ export default {
     loading() {
       return this.$store.getters.getLoading
     },
+    endHours() {
+      return endHours(store.getters.getStartHour || null)
+    }
   },
   created() {
   },

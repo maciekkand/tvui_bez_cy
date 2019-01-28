@@ -1,5 +1,5 @@
 /* cSpell:disable */
-export const daysForSelectBox = () => {
+export const days = () => {
   const daysForSelectArray = []
 
   daysForSelectArray.push({
@@ -14,7 +14,6 @@ export const daysForSelectBox = () => {
     const dayObj = {
       text: dayString,
       value: index,
-      //valueStr: new Date(startOfDayTimestamp)
     }
     daysForSelectArray.push(dayObj)
   }
@@ -22,49 +21,22 @@ export const daysForSelectBox = () => {
   return daysForSelectArray
 }
 
-export const hoursForSelectBox = (selectedDay, endHour) => {
-  const hoursForSelectArray = []
-  let currentHour
+export const endHours = startHour => {
+  console.log('startHour = ', startHour)
 
-  if (new Date(selectedDay).toDateString() === new Date().toDateString()) {
-    currentHour = new Date().getHours()
-  }
-  else currentHour = 3
+  const hours = [{ text: 'Godzina Do', value: null }]
+  const start = startHour || 3
 
-  for (let index = currentHour; index < 24; index++) {
+  for (let index = start + 1; index < 25; index++) {
     const hour = {
-      text: index + endHour,
-      value: index + endHour,
+      text: index,
+      value: index,
     }
 
-    hoursForSelectArray.push(hour)
+    console.log('hour = ', hour)
+    hours.push(hour)
   }
 
-  if (endHour) {
-    hoursForSelectArray.unshift({
-      text: 'Godzina Do',
-      value: null,
-    })
-  }
-  else {
-    hoursForSelectArray.unshift({
-      text: 'Godzina Od',
-      value: null,
-    })
-  }
-
-  return hoursForSelectArray
-}
-
-export const email = text => {
-  const params = {
-    notes: text,
-  }
-
-  emailjs
-    .send('gmail', 'tv', params)
-    .then(res => {
-      console.log('SUCCESS!', res.status, res.text)
-    })
-    .catch(err => console.log('EMAIL FAILED:', err))
+  console.log('hours = ', hours)
+  return hours
 }
