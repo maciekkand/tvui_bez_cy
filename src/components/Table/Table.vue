@@ -3,7 +3,7 @@
 <script>
 import { FIELDS } from '../../services/constants'
 
-const selectedPrograms = new Set() 
+const selectedPrograms = new Set()
 
 export default {
   computed: {
@@ -18,6 +18,8 @@ export default {
     },
   },
   created() {
+    console.log('Tu Table created()')
+
     this.$store.dispatch('setLoading', true)
     this.$store.dispatch('addTodaysPrograms')
   },

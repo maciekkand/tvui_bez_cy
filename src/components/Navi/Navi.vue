@@ -16,8 +16,9 @@ export default {
     },
   },
   created() {
+    console.log('Tu Navi created()')
     console.log('getters.getStations = ', this.$store.getters.getStations)
-    this.$store.getters.getStations ? (this.stations = stations) : null
+    this.$store.getters.getStations ? this.stations = stations : null
   },
 }
 </script>

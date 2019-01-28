@@ -26,8 +26,9 @@ export default {
   },
   created() {
     console.log('Tu Search created()')
-    this.selectedCategories = JSON.parse(localStorage.getItem('categories'))
-    this.$store.dispatch('addTodaysPrograms')
+    this.categories = JSON.parse(localStorage.getItem('categories'))
+    this.startHours = localStorage.getItem('godziny').startHour
+    //this.$store.dispatch('addTodaysPrograms')
   },
   methods: {
     categorySelected(categories) {
@@ -72,16 +73,20 @@ export default {
 
       console.log('getters.getStations = ', this.$store.getters.getStations)
 
-      const searchData = {
+      const time = {
         day: this.day,
         startHour: this.startHour,
         endHour: this.endHour,
-        categories: this.categories, // && this.Categories.length ? this.Categories : null,
-        stations: this.$store.getters.getStations,
-        //selectedStations: localStorage.getItem('stations'),
       }
 
+      const searchData = Object.assign(time, {
+        categories: this.categories, // && this.Categories.length ? this.Categories : null,
+        stations: this.$store.getters.getStations,
+      })
+
       console.log('searchData = ', searchData)
+
+      localStorage.setItem('godziny', JSON.stringify(time))
 
       this.$store.dispatch('getSelectedPrograms', searchData)
       this.$store.dispatch('setLoading', true)
