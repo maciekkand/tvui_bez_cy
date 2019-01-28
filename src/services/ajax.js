@@ -4,7 +4,7 @@ import { LITERALS } from './constants'
 
 export const ajaxAddTodaysPrograms = context => {
   axios
-    .get(url)
+    .get(url())
     .then(res => {
       context.commit('ADD_TODAYS_PROGRAMS', res.data)
     })
@@ -16,6 +16,10 @@ export const ajaxAddTodaysPrograms = context => {
 
 // export const ajaxGetSelectedPrograms = (context, { selectedDay, selectedStartHour, selectedEndHour, selectedCategories, selectedStations }) => {
 export const ajaxGetSelectedPrograms = (context, searchData) => {
+
+  console.log('Tu ajaxGetSelectedPrograms')
+  console.log('searchData = ', searchData)
+
   axios
     .get(url(searchData))
     .then(res => {

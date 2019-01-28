@@ -25,8 +25,9 @@ export default {
     },
   },
   created() {
+    console.log('Tu Search created()')
     this.selectedCategories = JSON.parse(localStorage.getItem('categories'))
-    //this.categories = ["serial", "sport"]
+    this.$store.dispatch('addTodaysPrograms')
   },
   methods: {
     categorySelected(categories) {
@@ -34,8 +35,7 @@ export default {
       //console.log('item = ', item)
       if (categories.length) {
         localStorage.setItem('categories', JSON.stringify(categories))
-      }
-      else {
+      } else {
         localStorage.removeItem('categories')
         // this.selectedCategories = null
       }
@@ -77,7 +77,7 @@ export default {
         startHour: this.startHour,
         endHour: this.endHour,
         categories: this.categories, // && this.Categories.length ? this.Categories : null,
-        stations: this.$store.getters.getStations
+        stations: this.$store.getters.getStations,
         //selectedStations: localStorage.getItem('stations'),
       }
 

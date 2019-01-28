@@ -1,7 +1,10 @@
 /* eslint-disable prettier/prettier */
 import { LITERALS } from './constants'
 
-export default ({ day, startHour, endHour, categories, stations }) => {
+export default ({ day, startHour, endHour, categories, stations } =
+  { day: null, startHour: null, endHour: null, categories: null,
+    stations: JSON.stringify(LITERALS.START_STATIONS)}) => {
+
   let query = ''
   console.log('day = ', day)
   console.log('startHour = ', startHour)
@@ -22,7 +25,7 @@ export default ({ day, startHour, endHour, categories, stations }) => {
   console.log('end = ', new Date(end))
 
   //const queryHours = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${todayEnd}}}]}`
-  const queryHours = `s={timestamp:1}&q={"timestamp":{$gte:${start}},$and:[{"timestamp":{$lt:${end}}}`
+  const queryHours = `s={timestamp:1}&q={"timestamp":{$gte:${start}},$and:[{"timestamp":{$lte:${end}}}`
   const queryStations = `${queryHours},{$and:[{"channel":{$in:${stations}}}]}]}`
   const queryCategories = `${queryHours},{$and:[{"category":{$in:${categories}}}]}]}`
   const queryCategoriesStations = `${queryHours},{$and:[{"category":{$in:${categories}}},{$and:[{"channel":{$in:${stations}}}]}]}]}`
@@ -30,16 +33,13 @@ export default ({ day, startHour, endHour, categories, stations }) => {
   if (categories && stations) {
     console.log('****** queryCategoriesStations')
     query = queryCategoriesStations
-  }
- else if (categories) {
+  } else if (categories) {
     console.log('****** queryCategories')
     query = queryCategories
-  }
- else if (stations) {
+  } else if (stations) {
     console.log('****** queryStations')
     query = queryStations
-  }
- else {
+  } else {
     console.log('****** queryHours')
     query = `${queryHours}]}`
   }

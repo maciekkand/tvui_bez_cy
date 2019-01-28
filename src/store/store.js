@@ -63,7 +63,9 @@ export default new Vuex.Store({
   },
   actions: {
     addTodaysPrograms(context) {
-      ajaxAddTodaysPrograms(context)
+      console.log('addTodaysPrograms')
+      //const nullObj = { day: null, startHour:, endHour, categories, stations }
+      ajaxGetSelectedPrograms(context)
     },
     getSelectedPrograms(context, searchData) {
       ajaxGetSelectedPrograms(context, searchData)
