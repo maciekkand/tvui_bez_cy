@@ -38,9 +38,7 @@ export default {
 
       console.log('categoryFiltered = ', categoryFiltered)
 
-      this.$store.commit('START_STATIONS', categoryFiltered)
-
-
+      this.$store.dispatch('setCategoryFiltered', categoryFiltered)
       this.$store.dispatch('setCategories', categories)
     },
     daySelected(day) {

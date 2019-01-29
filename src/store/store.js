@@ -15,6 +15,7 @@ function initialState() {
     categories: null,
     todaysPrograms: null,
     selectedPrograms: null,
+    categoryFiltered: null,
     loading: false,
   }
 }
@@ -25,6 +26,9 @@ export default new Vuex.Store({
   getters: {
     getTodaysPrograms(state) {
       return state.todaysPrograms
+    },
+    getCategoryFiltered(state) {
+      return state.categoryFiltered
     },
     getStations(state) {
       return state.stations
@@ -55,6 +59,9 @@ export default new Vuex.Store({
       if (todaysPrograms) {
         // state.loading = true
       }
+    },
+    SET_CATEGORY_FILTERED(state, categoryFiltered) {
+      state.categoryFiltered = categoryFiltered
     },
     SET_STATIONS(state, stations) {
       state.stations = stations
@@ -100,6 +107,9 @@ export default new Vuex.Store({
     },
     getSelectedPrograms(context, searchData) {
       ajaxGetSelectedPrograms(context, searchData)
+    },
+    setCategoryFiltered(context, categoryFiltered) {
+      context.commit('SET_CATEGORY_FILTERED', categoryFiltered)
     },
     setStations(context, stations) {
       context.commit('SET_STATIONS', stations)
