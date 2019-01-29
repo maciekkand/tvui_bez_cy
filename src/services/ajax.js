@@ -2,11 +2,14 @@ import axios from 'axios'
 import url from './ajaxHelpers'
 import { LITERALS } from './constants'
 
-export const ajaxAddTodaysPrograms = context => {
+export const ajaxStartStations = context => {
+  console.log('ajaxStartStations')
+
   axios
-    .get(url())
+    .get(url(context, JSON.stringify(LITERALS.START_STATIONS)))
+    //.get(url(context, ['TVP 1', 'TVP 2', 'TVN', 'POLSAT']))
     .then(res => {
-      context.commit('ADD_TODAYS_PROGRAMS', res.data)
+      context.commit('START_STATIONS', res.data)
     })
     .catch(err => console.log('myError:', err))
     .finally(() => {
@@ -14,15 +17,13 @@ export const ajaxAddTodaysPrograms = context => {
     })
 }
 
-export const ajaxGetSelectedPrograms = (context, searchData) => {
-  //console.log('Tu ajaxGetSelectedPrograms')
-  //console.log('searchData = ', searchData)
-
+export const ajaxGetSelectedPrograms = context => {
+  console.log('ajaxGetSelectedPrograms')
   axios
     .get(url(context))
     .then(res => {
-      // if (res.data.length > 999) alert('Zawęż przedział czasu, ilość kanałów lub kategorii, bo teraz część późniejszych programów nie jest wyświetlana')
-      context.commit('ADD_TODAYS_PROGRAMS', res.data)
+      if (res.data.length > 999) alert('Zawęź przedział czasu, ilość kanałów lub kategorii, bo teraz część programów nie jest wyświetlana')
+      context.commit('START_STATIONS', res.data)
     })
     .catch(err => console.log('My error: ', err))
     .finally(() => {

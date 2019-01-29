@@ -1,13 +1,14 @@
 /* eslint-disable prettier/prettier */
 import { LITERALS } from './constants'
 
-export default (context) => {
+export default (context, stationsList) => {
+  console.log('stationsList = ', stationsList)
   let query = ''
   const day = context.getters.getDay
   const startHour = context.getters.getStartHour
   const endHour = context.getters.getEndHour
   let categories = JSON.stringify(context.getters.getCategories)
-  let stations = JSON.stringify(context.getters.getStations)
+  let stations = stationsList || JSON.stringify(context.getters.getStations)
 
   categories = categories === '[]' || categories === 'null' ? null : categories
   stations = stations === 'null' ? null : stations

@@ -26,8 +26,6 @@ export default {
       return endHours(store.getters.getStartHour || null)
     }
   },
-  created() {
-  },
   methods: {
     categorySelected(categories) {
       console.log('categories = ', categories)
@@ -91,12 +89,14 @@ export default {
       console.log('Tu Search: show()')
       const currentSelectedPrograms = this.$store.getters.getSelectedPrograms
       currentSelectedPrograms ? console.log('currentSelectedPrograms = ', currentSelectedPrograms) : null
-      this.$store.commit('ADD_TODAYS_PROGRAMS')
+      //this.$store.commit('ADD_TODAYS_PROGRAMS')
+      this.$store.commit('START_STATIONS')
       //this.$store.commit('ADD_SAVED_PROGRAMS', [])
       //if (!savedPrograms) return alert('Brak zapamiętanych programów')
     },
     resetFavorites() {
-      this.$store.commit('ADD_SAVED_PROGRAMS', [])
+      //this.$store.commit('ADD_SAVED_PROGRAMS', [])
+      this.$store.commit('START_STATIONS', [])
       this.$store.dispatch('resetFavorites')
       this.$store.dispatch('getSelectedPrograms', [])
       this.$store.dispatch('setLoading', true)

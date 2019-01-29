@@ -16,12 +16,6 @@ export default {
       inne: INNE,
     }
   },
-  created() {
-    this.stations = stations.length  > 45 ? stations.slice(0, 45) + '...' : stations
-    this.$store.dispatch('setStations',  this.selected)
-
-    //console.log('stations = ', stations)
-  },
   methods: {
     stationsSelected(stations) {
       console.log('stations = ', stations)
