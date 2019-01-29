@@ -29,6 +29,18 @@ export default {
   methods: {
     categorySelected(categories) {
       console.log('categories = ', categories)
+      const todaysPrograms = this.$store.getters.getTodaysPrograms
+      console.log('todaysPrograms = ', todaysPrograms)
+
+      const categoryFiltered = todaysPrograms.filter(el => {
+        return categories.includes(el.category)
+      })
+
+      console.log('categoryFiltered = ', categoryFiltered)
+
+      this.$store.commit('START_STATIONS', categoryFiltered)
+
+
       this.$store.dispatch('setCategories', categories)
     },
     daySelected(day) {

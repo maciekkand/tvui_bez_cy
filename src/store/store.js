@@ -53,7 +53,7 @@ export default new Vuex.Store({
       console.log('Tu store START_STATIONS')
       state.todaysPrograms = todaysPrograms || state.selectedPrograms
       if (todaysPrograms) {
-        state.loading = true
+        // state.loading = true
       }
     },
     SET_STATIONS(state, stations) {

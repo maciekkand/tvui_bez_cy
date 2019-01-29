@@ -3,7 +3,7 @@ const fs = require('fs')
 const axios = require('axios')
 const cheerio = require('cheerio')
 
-const fileSave = './tv2.json'
+const fileSave = './tv1.json'
 const urlPrefix = 'https://programtv.onet.pl/?dzien='
 
 function categoryCheck(type) {
@@ -193,9 +193,9 @@ function delay(day, page, a, b) {
 
 const getAllChannels = () => {
   for (let day = 0; day < 7; day++) {       // 0-7 - źle, 0-5 ?
-    delay(day, 200, 100)
+    delay(day, 200, 200)
     for (let page = 1; page < 8; page++) {  // 1-7
-      delay(day, page, 30, 30)
+      delay(day, page, 40, 40)
       kanal(day, page, 1, 20)               // 1, 20
     }
   }
