@@ -52,15 +52,8 @@ export default {
 
       const arrSelectedPrograms = Array.from(selectedPrograms)
       // console.table(selectedPrograms, ['title'])
-
-      const arrCleanedSelectedPrograms = arrSelectedPrograms.map( ({category, channel, date, dateTimestamp, daystring, id, link, time, timestamp, title, type}) => {
-        return { category, channel, date, dateTimestamp, daystring, id, link, time, timestamp, title, type }
-      })
-
-      console.log('arrCleanedSelectedPrograms = ', arrCleanedSelectedPrograms)
-
-      console.table(arrCleanedSelectedPrograms, ['title'])
-      this.$store.dispatch('addSelectedPrograms', arrCleanedSelectedPrograms)
+      console.table(arrSelectedPrograms, ['title'])
+      this.$store.dispatch('addSelectedPrograms', arrSelectedPrograms)
     }
   }
 }

@@ -97,20 +97,12 @@ export default {
     },
     show() {
       console.log('Tu Search: show()')
-      const selectedPrograms = this.$store.getters.getSelectedPrograms
-      if (!this.$store.getters.getSelectedPrograms) return alert('Brak wybranych programów')
-      //currentSelectedPrograms ? console.log('currentSelectedPrograms = ', currentSelectedPrograms) : null
-      console.log('selectedPrograms = ')
-      console.table(selectedPrograms, ['title'])
-
-      const arrSelectedPrograms = selectedPrograms.map( ({category, channel, date, dateTimestamp, daystring, id, link, time, timestamp, title, type}) => {
-        return { category, channel, date, dateTimestamp, daystring, id, link, time, timestamp, title, type }
-      })
-
-      console.log('arrSelectedPrograms = ')
-      console.log(arrSelectedPrograms)
-
+      const currentSelectedPrograms = this.$store.getters.getSelectedPrograms
+      currentSelectedPrograms ? console.log('currentSelectedPrograms = ', currentSelectedPrograms) : null
+      //this.$store.commit('ADD_TODAYS_PROGRAMS')
       this.$store.commit('START_STATIONS')
+      //this.$store.commit('ADD_SAVED_PROGRAMS', [])
+      //if (!savedPrograms) return alert('Brak zapamiętanych programów')
     },
     resetFavorites() {
       //this.$store.commit('ADD_SAVED_PROGRAMS', [])
