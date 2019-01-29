@@ -12,35 +12,26 @@ export default (context) => {
   categories = categories === '[]' || categories === 'null' ? null : categories
   stations = stations === 'null' ? null : stations
 
+  /*
   console.log('day = ', day)
   console.log('startHour = ', startHour)
   console.log('endHour = ', endHour)
-   console.log('categories = ', categories)
+  console.log('categories = ', categories)
   console.log('stations = ', stations)
+ */
 
   const start = new Date().setUTCHours((day * 24 + startHour) || day * 24 + new Date().getHours(), 0, 0, 0)
   const end = new Date().setUTCHours((day * 24 + endHour) || day * 24 + 24 + new Date().getHours(), 0, 0, 0)
 
+  /*
   console.log('start = ', start)
   console.log('end = ', end)
 
   console.log('start = ', new Date(start))
   console.log('end = ', new Date(end))
-
+ */
 
   const queryHours = `s={timestamp:1}&q={"timestamp":{$gte:${start}},$and:[{"timestamp":{$lte:${end}}}`
-
-
-
-
-
-
-
-
-
-
-
-
   const queryStations = `${queryHours},{$and:[{"channel":{$in:${stations}}}]}]}`
   const queryCategories = `${queryHours},{$and:[{"category":{$in:${categories}}}]}]}`
   const queryCategoriesStations = `${queryHours},{$and:[{"category":{$in:${categories}}},{$and:[{"channel":{$in:${stations}}}]}]}]}`

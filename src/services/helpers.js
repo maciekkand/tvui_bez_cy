@@ -22,8 +22,6 @@ export const days = () => {
 }
 
 export const endHours = startHour => {
-  console.log('startHour = ', startHour)
-
   const hours = [{ text: 'Godzina Do', value: null }]
   const start = startHour || 3
 
@@ -32,11 +30,7 @@ export const endHours = startHour => {
       text: index,
       value: index,
     }
-
-    console.log('hour = ', hour)
     hours.push(hour)
   }
-
-  console.log('hours = ', hours)
   return hours
 }

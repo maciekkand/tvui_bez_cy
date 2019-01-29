@@ -85,7 +85,6 @@ export default new Vuex.Store({
     RESET_STATE(state) {
       const s = initialState()
       Object.keys(s).forEach(key => {
-        console.log('key = ', key)
         if (key !== 'selectedPrograms') state[key] = s[key]
       })
     },
@@ -98,16 +97,12 @@ export default new Vuex.Store({
       ajaxGetSelectedPrograms(context)
     },
     getSelectedPrograms(context, searchData) {
-      console.log('searchData = ', searchData)
       ajaxGetSelectedPrograms(context, searchData)
     },
     setStations(context, stations) {
       context.commit('SET_STATIONS', stations)
     },
     setCategories(context, categories) {
-      console.log('categories = ', categories)
-      console.log('typeof categories = ', typeof categories)
-      console.log(Array.isArray(categories))
       context.commit('SET_CATEGORIES', categories)
     },
     setDay(context, day) {

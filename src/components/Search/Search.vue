@@ -2,9 +2,8 @@
 
 <script>
 import store from '../../store/store'
-import { days, endHours } from '../../services/helpers'
+import { days, endHours, email } from '../../services/helpers'
 import { CATEGORIES, HOURS } from '../../services/constants'
-import email from '../../services/helpers'
 
 export default {
   data() {
@@ -15,10 +14,7 @@ export default {
       categories: this.$store.getters.getCategories,
       textSearch: null,
       days: days(),
-      //startHours: hoursForSelectBox(this.selectedDay, false),
       startHours: HOURS,
-      //endHours: hoursForSelectBox(this.selectedDay, true),
-      //endHours: HOURS,
       categoriesList: CATEGORIES,
     }
   },
@@ -26,9 +22,6 @@ export default {
     loading() {
       return this.$store.getters.getLoading
     },
-    /* startHours() {
-      return HOURS
-    }, */
     endHours() {
       return endHours(store.getters.getStartHour || null)
     }
@@ -52,17 +45,22 @@ export default {
 
     email() {
       const arrSelectedPrograms = []
+      const selectedPrograms =  store.getters.getSelectedPrograms
+      console.log('selectedPrograms = ', selectedPrograms)
 
       selectedPrograms.map(el => {
         arrSelectedPrograms.push(`${el.dayString} ${el.time} - ${el.channel} - ${el.title}\r\n`)
       })
 
       const emailText = arrSelectedPrograms.join()
-      // email(emailText)  // fixme: odkomentuj to będzie słał maile
+
+      console.log('emailText = ', emailText)
+
+      email(emailText)  // fixme: odkomentuj to będzie słał maile
     },
     search() {
       if (this.textSearch) return this.$store.dispatch('findText', this.textSearch)
-      if (this.selectedStartHour && this.selectedEndHour && this.selectedEndHour < this.selectedStartHour) return alert('Błąd godzin')
+      if (this.startHour && this.endHour && this.endHour < this.startHour) return this.$refs.modalHours.show()
 
       const time = {
         day: this.day,
