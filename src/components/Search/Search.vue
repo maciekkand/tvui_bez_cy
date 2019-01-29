@@ -26,6 +26,9 @@ export default {
     loading() {
       return this.$store.getters.getLoading
     },
+    /* startHours() {
+      return HOURS
+    }, */
     endHours() {
       return endHours(store.getters.getStartHour || null)
     }
