@@ -8,22 +8,23 @@ const favorites = new Set()
 export default {
   computed: {
     items() {
-      console.log('items')
+      /* console.log('items')
       console.log('getters.showFavorites = ', this.$store.getters.showFavorites)
       console.log('getters.getCategoryFiltered = ', this.$store.getters.getCategoryFiltered)
       console.log('getters.getTodaysPrograms = ', this.$store.getters.getTodaysPrograms)
-
+ */
       if (this.$store.getters.showFavorites) {
-        //console.log('1')
+        console.log('1')
         this.$store.commit('SHOW_FAVORITES', false)
         return this.$store.getters.getFavorites
       }
       else if (this.$store.getters.getCategoryFiltered && this.$store.getters.getCategoryFiltered.length) {
-        //console.log('2')
+        // console.log('2')
         return this.$store.getters.getCategoryFiltered
       }
       else {
-        //console.log('3')
+        console.log('3')
+        this.$store.commit('SET_LOADING', false)
         return this.$store.getters.getTodaysPrograms
       }
     },

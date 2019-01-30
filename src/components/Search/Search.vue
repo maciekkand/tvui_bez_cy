@@ -24,7 +24,7 @@ export default {
     },
     endHours() {
       return endHours(store.getters.getStartHour || null)
-    }
+    },
   },
   methods: {
     categorySelected(categories) {
@@ -48,7 +48,7 @@ export default {
     },
     email() {
       const arrSelectedPrograms = []
-      const selectedPrograms =  store.getters.getSelectedPrograms
+      const selectedPrograms = store.getters.getSelectedPrograms
       console.log('selectedPrograms = ', selectedPrograms)
 
       selectedPrograms.map(el => {
@@ -59,7 +59,7 @@ export default {
 
       console.log('emailText = ', emailText)
 
-      email(emailText)  // fixme: odkomentuj to będzie słał maile
+      email(emailText) // fixme: odkomentuj to będzie słał maile
     },
     search() {
       if (this.textSearch) return this.$store.dispatch('findText', this.textSearch)
@@ -89,7 +89,6 @@ export default {
       this.textSearch = null
       // localStorage.setItem('vuex', []),
       this.$store.dispatch('resetState')
-
     },
     show() {
       console.log('getters.getFavorites = ', this.$store.getters.getFavorites)

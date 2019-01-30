@@ -59,6 +59,6 @@ export default (context, stationsList) => {
 
   const urlString = LITERALS.TV_LIST_PREFIX + query + LITERALS.TV_LIST_SUFFIX
 
-  console.log('urlString = ', urlString)
+  // console.log('urlString = ', urlString)
   return urlString
 }
