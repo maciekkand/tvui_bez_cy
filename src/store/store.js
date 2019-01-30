@@ -17,6 +17,8 @@ function initialState() {
     selectedPrograms: null,
     categoryFiltered: null,
     loading: false,
+    favorites: null,
+    showFavorites: false
   }
 }
 
@@ -50,6 +52,14 @@ export default new Vuex.Store({
     },
     getSelectedPrograms(state) {
       return state.selectedPrograms
+    },
+    getFavorites(state) {
+      console.log('getter: getFavorites = ')
+      return state.favorites
+    },
+    showFavorites(state) {
+      console.log('getter: showFavorites')
+      return state.showFavorites
     },
   },
   mutations: {
@@ -87,6 +97,10 @@ export default new Vuex.Store({
       console.log(selectedPrograms)
       state.selectedPrograms = selectedPrograms
     },
+    SHOW_FAVORITES(state, bool) {
+      console.log('SHOW_FAVORITES = ', bool)
+      state.showFavorites = bool
+    },
     AJAX_FIND_TEXT(state, foundPrograms) {
       state.todaysPrograms = foundPrograms
     },
@@ -99,8 +113,16 @@ export default new Vuex.Store({
         if (key !== 'selectedPrograms') state[key] = s[key]
       })
     },
+    ADD_FAVORITES(state, favorites) {
+      console.log('ADD_FAVORITES: favorites PRZED = ', favorites)
+      //state['selectedPrograms'] = initialState()['selectedPrograms']
+      state.favorites = favorites
+      console.log('state.favorites PO = ', state.favorites)
+    },
     RESET_FAVORITES(state) {
-      state['selectedPrograms'] = initialState()['selectedPrograms']
+      console.log('RESET_FAVORITES')
+      //state['selectedPrograms'] = initialState()['selectedPrograms']
+      state.favorites = null
     },
   },
   actions: {
@@ -142,6 +164,13 @@ export default new Vuex.Store({
     resetState(context) {
       context.commit('RESET_STATE')
     },
+    addFavorites(context, favorites) {
+      context.commit('ADD_FAVORITES', favorites)
+    },
+    /* showFavorites(context, bool) {
+      console.log('showFavorites')
+      //context.commit('SHOW_FAVORITES', bool)
+    }, */
     resetFavorites(context) {
       context.commit('RESET_FAVORITES')
     },

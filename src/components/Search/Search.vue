@@ -28,15 +28,11 @@ export default {
   },
   methods: {
     categorySelected(categories) {
-      // console.log('categories = ', categories)
       const todaysPrograms = this.$store.getters.getTodaysPrograms
-      // console.log('todaysPrograms = ', todaysPrograms)
 
       const categoryFiltered = todaysPrograms.filter(el => {
         return categories.includes(el.category)
       })
-
-      // console.log('categoryFiltered = ', categoryFiltered)
 
       this.$store.dispatch('setCategoryFiltered', categoryFiltered)
       this.$store.dispatch('setCategories', categories)
@@ -80,8 +76,9 @@ export default {
         stations: this.$store.getters.getStations,
       })
 
-      this.$store.dispatch('getSelectedPrograms', searchData)
       this.$store.dispatch('setLoading', true)
+      // this.$store.commit('SHOW_SELECTED_PROGRAMS', false)
+      this.$store.dispatch('getSelectedPrograms', searchData)
     },
     resetAll() {
       console.log('Reset')
@@ -95,18 +92,12 @@ export default {
 
     },
     show() {
-      console.log('Tu Search: show()')
-      const currentSelectedPrograms = this.$store.getters.getSelectedPrograms
-      //currentSelectedPrograms ? console.log('currentSelectedPrograms = ', currentSelectedPrograms) : null
-      console.log('currentSelectedPrograms = ', currentSelectedPrograms)
-      //this.$store.commit('ADD_TODAYS_PROGRAMS')
-      // this.$store.commit('START_STATIONS')
-      //this.$store.commit('ADD_SAVED_PROGRAMS', [])
-      //if (!savedPrograms) return alert('Brak zapamiętanych programów')
+      console.log('getters.getFavorites = ', this.$store.getters.getFavorites)
+      this.$store.commit('SHOW_FAVORITES', true)
     },
     resetFavorites() {
       //this.$store.commit('ADD_SAVED_PROGRAMS', [])
-      this.$store.commit('START_STATIONS', [])
+      //this.$store.commit('START_STATIONS', [])
       this.$store.dispatch('resetFavorites')
       this.$store.dispatch('getSelectedPrograms', [])
       this.$store.dispatch('setLoading', true)

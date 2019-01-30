@@ -7,7 +7,6 @@ export const ajaxStartStations = context => {
 
   axios
     .get(url(context, JSON.stringify(LITERALS.START_STATIONS)))
-    //.get(url(context, ['TVP 1', 'TVP 2', 'TVN', 'POLSAT']))
     .then(res => {
       context.commit('START_STATIONS', res.data)
     })

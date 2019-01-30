@@ -3,12 +3,29 @@
 <script>
 import { FIELDS } from '../../services/constants'
 
-const selectedPrograms = new Set()
+const favorites = new Set()
 
 export default {
   computed: {
     items() {
-      return !this.$store.getters.getCategoryFiltered.length ? this.$store.getters.getTodaysPrograms : this.$store.getters.getCategoryFiltered
+      console.log('items')
+      console.log('getters.showFavorites = ', this.$store.getters.showFavorites)
+      console.log('getters.getCategoryFiltered = ', this.$store.getters.getCategoryFiltered)
+      console.log('getters.getTodaysPrograms = ', this.$store.getters.getTodaysPrograms)
+
+      if (this.$store.getters.showFavorites) {
+        //console.log('1')
+        this.$store.commit('SHOW_FAVORITES', false)
+        return this.$store.getters.getFavorites
+      }
+      else if (this.$store.getters.getCategoryFiltered && this.$store.getters.getCategoryFiltered.length) {
+        //console.log('2')
+        return this.$store.getters.getCategoryFiltered
+      }
+      else {
+        //console.log('3')
+        return this.$store.getters.getTodaysPrograms
+      }
     },
     fields() {
       return FIELDS
@@ -24,12 +41,12 @@ export default {
   },
   methods: {
     onRowClicked(item) {
-      console.log('item = ', item)
+      console.log('item PRZED = ', item)
 
       if (typeof item !== 'object') {
-        selectedPrograms.forEach(el => {
+        favorites.forEach(el => {
           if (el.id === item) {
-            selectedPrograms.delete(el)
+            favorites.delete(el)
           }
         })
       }
@@ -47,13 +64,14 @@ export default {
           timestamp: item.item.timestamp,
           type: item.item.type,
         }
-        selectedPrograms.add(row)
+        favorites.add(row)
       }
 
-      const arrSelectedPrograms = Array.from(selectedPrograms)
-      console.table(arrSelectedPrograms, ['title'])
+      const arrFavorites = Array.from(favorites)
+      console.table(arrFavorites, ['title'])
+      console.log('item PO = ', item)
 
-      this.$store.dispatch('addSelectedPrograms', arrSelectedPrograms)
+      this.$store.dispatch('addFavorites', arrFavorites)
     }
   }
 }
