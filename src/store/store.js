@@ -90,15 +90,10 @@ export default new Vuex.Store({
       })
     },
     ADD_FAVORITES(state, favorites) {
-      //state['selectedPrograms'] = initialState()['selectedPrograms']
-      setTimeout(() => {
-        state.favorites = favorites
-        console.log('ADD_FAVORITES: favorites')
-      }, 1000)
+      state.favorites = favorites
     },
     RESET_FAVORITES(state) {
       console.log('RESET_FAVORITES')
-      //state['selectedPrograms'] = initialState()['selectedPrograms']
       state.favorites = null
     },
   },
