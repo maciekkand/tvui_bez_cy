@@ -9,15 +9,17 @@ export default {
   computed: {
     items() {
       //console.log('%c Tu Table computed()','color: yellow')
-      //console.log('this.$store.getters.getCategoryFiltered = ', this.$store.getters.getCategoryFiltered)
       //console.log('this.$store.getters.getTodaysPrograms = ', this.$store.getters.getTodaysPrograms)
       //console.log('getters.getCategoryFiltered = ', this.$store.getters.getCategoryFiltered)
       //console.log('typeof getters.getCategoryFiltered = ', typeof this.$store.getters.getCategoryFiltered)
       //console.log('isArray getters.getCategoryFiltered = ', Array.isArray(this.$store.getters.getCategoryFiltered))
-      //console.log('getters.getCategoryFiltered.length = ', this.$store.getters.getCategoryFiltered.length)
+      console.log('getters.getCategoryFiltered = ', this.$store.getters.getCategoryFiltered)
+      console.log('getters.getCategoryFiltered.length = ', this.$store.getters.getCategoryFiltered.length)
 
-      // return (this.$store.getters.getCategoryFiltered.length && this.$store.getters.getCategoryFiltered) ||  this.$store.getters.getTodaysPrograms
-      return this.$store.getters.getTodaysPrograms
+      //return this.$store.getters.getTodaysPrograms
+      //return (this.$store.getters.getCategoryFiltered && this.$store.getters.getCategoryFiltered.length) || this.$store.getters.getTodaysPrograms
+
+      return !this.$store.getters.getCategoryFiltered.length ? this.$store.getters.getTodaysPrograms : this.$store.getters.getCategoryFiltered
     },
     fields() {
       return FIELDS
@@ -44,17 +46,17 @@ export default {
       }
       else {
         const row = {
-          title: item.item.title,
-          id: item.item.id,
-          dayString: item.item.dayString,
-          time: item.item.time,
-          channel: item.item.channel,
-          type: item.item.type,
           category: item.item.category,
-          link: item.item.link,
+          channel: item.item.channel,
           date: item.item.date,
-          timestamp: item.item.timestamp,
           dateTimestamp: item.item.dateTimestamp,
+          dayString: item.item.dayString,
+          id: item.item.id,
+          link: item.item.link,
+          title: item.item.title,
+          time: item.item.time,
+          timestamp: item.item.timestamp,
+          type: item.item.type,
         }
         selectedPrograms.add(row)
       }

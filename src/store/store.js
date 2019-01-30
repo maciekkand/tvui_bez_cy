@@ -83,6 +83,8 @@ export default new Vuex.Store({
       state.loading = loadingStatus
     },
     ADD_SELECTED_PROGRAMS(state, selectedPrograms) {
+      console.log('ADD_SELECTED_PROGRAMS = ')
+      console.log(selectedPrograms)
       state.selectedPrograms = selectedPrograms
     },
     AJAX_FIND_TEXT(state, foundPrograms) {

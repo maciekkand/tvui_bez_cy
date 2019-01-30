@@ -97,9 +97,10 @@ export default {
     show() {
       console.log('Tu Search: show()')
       const currentSelectedPrograms = this.$store.getters.getSelectedPrograms
-      currentSelectedPrograms ? console.log('currentSelectedPrograms = ', currentSelectedPrograms) : null
+      //currentSelectedPrograms ? console.log('currentSelectedPrograms = ', currentSelectedPrograms) : null
+      console.log('currentSelectedPrograms = ', currentSelectedPrograms)
       //this.$store.commit('ADD_TODAYS_PROGRAMS')
-      this.$store.commit('START_STATIONS')
+      // this.$store.commit('START_STATIONS')
       //this.$store.commit('ADD_SAVED_PROGRAMS', [])
       //if (!savedPrograms) return alert('Brak zapamiętanych programów')
     },
