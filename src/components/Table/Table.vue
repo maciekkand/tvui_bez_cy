@@ -46,7 +46,7 @@ export default {
         }
       }
       else {
-        const row = {
+        const record = {
           category: item.item.category,
           channel: item.item.channel,
           date: item.item.date,
@@ -59,12 +59,14 @@ export default {
           timestamp: item.item.timestamp,
           type: item.item.type,
         }
-        favorites.push(row)
+        favorites.push(record)
       }
 
       // const arrFavorites = Array.from(favorites)
       // console.table(arrFavorites, ['title'])
       // console.log('item PO = ', item)
+      console.table(favorites, ['title'])
+      console.log('favorites = ', favorites)
 
       this.$store.dispatch('addFavorites', favorites)
     }
