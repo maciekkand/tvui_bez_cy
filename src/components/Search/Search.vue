@@ -65,20 +65,8 @@ export default {
       if (this.textSearch) return this.$store.dispatch('findText', this.textSearch)
       if (this.startHour && this.endHour && this.endHour < this.startHour) return this.$refs.modalHours.show()
 
-      const time = {
-        day: this.day,
-        startHour: this.startHour,
-        endHour: this.endHour,
-      }
-
-      const searchData = Object.assign(time, {
-        categories: this.categories, // && this.Categories.length ? this.Categories : null,
-        stations: this.$store.getters.getStations,
-      })
-
       this.$store.dispatch('setLoading', true)
-      // this.$store.commit('SHOW_SELECTED_PROGRAMS', false)
-      this.$store.dispatch('getSelectedPrograms', searchData)
+      this.$store.dispatch('getSelectedPrograms')
     },
     resetAll() {
       console.log('Reset')

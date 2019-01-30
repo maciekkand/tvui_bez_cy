@@ -102,8 +102,8 @@ export default new Vuex.Store({
       // console.log('Tu store startStations')
       ajaxStartStations(context)
     },
-    getSelectedPrograms(context, searchData) {
-      ajaxGetSelectedPrograms(context, searchData)
+    getSelectedPrograms(context) {
+      ajaxGetSelectedPrograms(context)
     },
     setCategoryFiltered(context, categoryFiltered) {
       context.commit('SET_CATEGORY_FILTERED', categoryFiltered)

@@ -46,7 +46,20 @@ export default {
         }
       }
       else {
-        favorites.push(item.item)
+        const record = {
+          category: item.item.category,
+          channel: item.item.channel,
+          date: item.item.date,
+          dateTimestamp: item.item.dateTimestamp,
+          dayString: item.item.dayString,
+          id: item.item.id,
+          link: item.item.link,
+          title: item.item.title,
+          time: item.item.time,
+          timestamp: item.item.timestamp,
+          type: item.item.type,
+        }
+        favorites.push(record)
       }
 
       console.table(favorites, ['title'])
