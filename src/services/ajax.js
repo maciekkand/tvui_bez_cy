@@ -3,7 +3,7 @@ import url from './ajaxHelpers'
 import { LITERALS } from './constants'
 
 export const ajaxStartStations = context => {
-  console.log('ajaxStartStations')
+  //console.log('ajaxStartStations')
 
   axios
     .get(url(context, JSON.stringify(LITERALS.START_STATIONS)))
@@ -18,7 +18,8 @@ export const ajaxStartStations = context => {
 }
 
 export const ajaxGetSelectedPrograms = context => {
-  console.log('ajaxGetSelectedPrograms')
+  //console.log('ajaxGetSelectedPrograms')
+
   axios
     .get(url(context))
     .then(res => {

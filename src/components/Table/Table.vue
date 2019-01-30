@@ -8,17 +8,6 @@ const selectedPrograms = new Set()
 export default {
   computed: {
     items() {
-      //console.log('%c Tu Table computed()','color: yellow')
-      //console.log('this.$store.getters.getTodaysPrograms = ', this.$store.getters.getTodaysPrograms)
-      //console.log('getters.getCategoryFiltered = ', this.$store.getters.getCategoryFiltered)
-      //console.log('typeof getters.getCategoryFiltered = ', typeof this.$store.getters.getCategoryFiltered)
-      //console.log('isArray getters.getCategoryFiltered = ', Array.isArray(this.$store.getters.getCategoryFiltered))
-      console.log('getters.getCategoryFiltered = ', this.$store.getters.getCategoryFiltered)
-      console.log('getters.getCategoryFiltered.length = ', this.$store.getters.getCategoryFiltered.length)
-
-      //return this.$store.getters.getTodaysPrograms
-      //return (this.$store.getters.getCategoryFiltered && this.$store.getters.getCategoryFiltered.length) || this.$store.getters.getTodaysPrograms
-
       return !this.$store.getters.getCategoryFiltered.length ? this.$store.getters.getTodaysPrograms : this.$store.getters.getCategoryFiltered
     },
     fields() {

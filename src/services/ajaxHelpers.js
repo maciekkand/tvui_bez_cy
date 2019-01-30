@@ -38,19 +38,19 @@ export default (context, stationsList) => {
   const queryCategoriesStations = `${queryHours},{$and:[{"category":{$in:${categories}}},{$and:[{"channel":{$in:${stations}}}]}]}]}`
 
   if (categories && stations) {
-    console.log('queryCategoriesStations')
+    // console.log('queryCategoriesStations')
     query = queryCategoriesStations
   }
   else if (categories) {
-    console.log('queryCategories')
+    // console.log('queryCategories')
     query = queryCategories
   }
   else if (stations) {
-    console.log('queryStations')
+    // console.log('queryStations')
     query = queryStations
   }
   else {
-    console.log('queryHours')
+    // console.log('queryHours')
     query = `${queryHours}]}`
   }
 

@@ -28,15 +28,15 @@ export default {
   },
   methods: {
     categorySelected(categories) {
-      console.log('categories = ', categories)
+      // console.log('categories = ', categories)
       const todaysPrograms = this.$store.getters.getTodaysPrograms
-      console.log('todaysPrograms = ', todaysPrograms)
+      // console.log('todaysPrograms = ', todaysPrograms)
 
       const categoryFiltered = todaysPrograms.filter(el => {
         return categories.includes(el.category)
       })
 
-      console.log('categoryFiltered = ', categoryFiltered)
+      // console.log('categoryFiltered = ', categoryFiltered)
 
       this.$store.dispatch('setCategoryFiltered', categoryFiltered)
       this.$store.dispatch('setCategories', categories)
