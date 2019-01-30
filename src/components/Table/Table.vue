@@ -3,7 +3,7 @@
 <script>
 import { FIELDS } from '../../services/constants'
 
-const favorites = new Set()
+const favorites = []
 
 export default {
   computed: {
@@ -36,14 +36,14 @@ export default {
   },
   methods: {
     onRowClicked(item) {
-      console.log('item PRZED = ', item)
+      console.log('item = ', item)
 
       if (typeof item !== 'object') {
-        favorites.forEach(el => {
-          if (el.id === item) {
-            favorites.delete(el)
+        for (let i = 0; i < favorites.length; i++) {
+          if (favorites[i].id === item) {
+            favorites.splice(i, 1)
           }
-        })
+        }
       }
       else {
         const row = {
@@ -59,14 +59,14 @@ export default {
           timestamp: item.item.timestamp,
           type: item.item.type,
         }
-        favorites.add(row)
+        favorites.push(row)
       }
 
-      const arrFavorites = Array.from(favorites)
-      console.table(arrFavorites, ['title'])
-      console.log('item PO = ', item)
+      // const arrFavorites = Array.from(favorites)
+      // console.table(arrFavorites, ['title'])
+      // console.log('item PO = ', item)
 
-      this.$store.dispatch('addFavorites', arrFavorites)
+      this.$store.dispatch('addFavorites', favorites)
     }
   }
 }

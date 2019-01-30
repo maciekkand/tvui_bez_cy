@@ -26,41 +26,17 @@ export default new Vuex.Store({
   plugins: [createPersistedState()],
   state: initialState,
   getters: {
-    getTodaysPrograms(state) {
-      return state.todaysPrograms
-    },
-    getCategoryFiltered(state) {
-      return state.categoryFiltered
-    },
-    getStations(state) {
-      return state.stations
-    },
-    getCategories(state) {
-      return state.categories
-    },
-    getDay(state) {
-      return state.day
-    },
-    getStartHour(state) {
-      return state.startHour
-    },
-    getEndHour(state) {
-      return state.endHour
-    },
-    getLoading(state) {
-      return state.loading
-    },
-    getSelectedPrograms(state) {
-      return state.selectedPrograms
-    },
-    getFavorites(state) {
-      console.log('getter: getFavorites = ')
-      return state.favorites
-    },
-    showFavorites(state) {
-      console.log('getter: showFavorites')
-      return state.showFavorites
-    },
+    getTodaysPrograms: state => state.todaysPrograms,
+    getCategoryFiltered: state => state.categoryFiltered,
+    getStations: state => state.stations,
+    getCategories: state => state.categories,
+    getDay: state => state.day,
+    getStartHour: state => state.startHour,
+    getEndHour: state => state.endHour,
+    getLoading: state => state.loading,
+    getSelectedPrograms: state => state.selectedPrograms,
+    getFavorites: state => state.favorites,
+    showFavorites: state => state.showFavorites,
   },
   mutations: {
     START_STATIONS(state, todaysPrograms) {
@@ -114,10 +90,11 @@ export default new Vuex.Store({
       })
     },
     ADD_FAVORITES(state, favorites) {
-      console.log('ADD_FAVORITES: favorites PRZED = ', favorites)
       //state['selectedPrograms'] = initialState()['selectedPrograms']
-      state.favorites = favorites
-      console.log('state.favorites PO = ', state.favorites)
+      setTimeout(() => {
+        state.favorites = favorites
+        console.log('ADD_FAVORITES: favorites')
+      }, 1000)
     },
     RESET_FAVORITES(state) {
       console.log('RESET_FAVORITES')
