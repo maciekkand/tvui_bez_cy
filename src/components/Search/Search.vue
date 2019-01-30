@@ -50,7 +50,6 @@ export default {
     endHourSelected(endHour) {
       this.$store.dispatch('setEndHour', endHour)
     },
-
     email() {
       const arrSelectedPrograms = []
       const selectedPrograms =  store.getters.getSelectedPrograms

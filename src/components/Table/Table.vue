@@ -8,11 +8,16 @@ const selectedPrograms = new Set()
 export default {
   computed: {
     items() {
-      console.log('getters.getCategoryFiltered = ', this.$store.getters.getCategoryFiltered)
-      console.log('typeof getters.getCategoryFiltered = ', typeof this.$store.getters.getCategoryFiltered)
-      console.log('isArray getters.getCategoryFiltered = ', Array.isArray(this.$store.getters.getCategoryFiltered))
-      console.log('getters.getCategoryFiltered.length = ', this.$store.getters.getCategoryFiltered.length)
-      return (this.$store.getters.getCategoryFiltered.length && this.$store.getters.getCategoryFiltered) ||  this.$store.getters.getTodaysPrograms
+      //console.log('%c Tu Table computed()','color: yellow')
+      //console.log('this.$store.getters.getCategoryFiltered = ', this.$store.getters.getCategoryFiltered)
+      //console.log('this.$store.getters.getTodaysPrograms = ', this.$store.getters.getTodaysPrograms)
+      //console.log('getters.getCategoryFiltered = ', this.$store.getters.getCategoryFiltered)
+      //console.log('typeof getters.getCategoryFiltered = ', typeof this.$store.getters.getCategoryFiltered)
+      //console.log('isArray getters.getCategoryFiltered = ', Array.isArray(this.$store.getters.getCategoryFiltered))
+      //console.log('getters.getCategoryFiltered.length = ', this.$store.getters.getCategoryFiltered.length)
+
+      // return (this.$store.getters.getCategoryFiltered.length && this.$store.getters.getCategoryFiltered) ||  this.$store.getters.getTodaysPrograms
+      return this.$store.getters.getTodaysPrograms
     },
     fields() {
       return FIELDS
@@ -22,13 +27,13 @@ export default {
     },
   },
   created() {
-    console.log('Tu Table created()')
+    // console.log('Tu Table created()')
     this.$store.dispatch('startStations')
     this.$store.dispatch('setLoading', true)
   },
   methods: {
     onRowClicked(item) {
-      console.log('item = ', item.item)
+      console.log('item = ', item)
 
       if (typeof item !== 'object') {
         selectedPrograms.forEach(el => {
@@ -55,8 +60,8 @@ export default {
       }
 
       const arrSelectedPrograms = Array.from(selectedPrograms)
-      // console.table(selectedPrograms, ['title'])
       console.table(arrSelectedPrograms, ['title'])
+
       this.$store.dispatch('addSelectedPrograms', arrSelectedPrograms)
     }
   }

@@ -2,7 +2,7 @@
 import { LITERALS } from './constants'
 
 export default (context, stationsList) => {
-  console.log('stationsList = ', stationsList)
+  //console.log('stationsList = ', stationsList)
   let query = ''
   const day = context.getters.getDay
   const startHour = context.getters.getStartHour
@@ -59,6 +59,6 @@ export default (context, stationsList) => {
 
   const urlString = LITERALS.TV_LIST_PREFIX + query + LITERALS.TV_LIST_SUFFIX
 
-  console.log('urlString = ', urlString)
+  //console.log('urlString = ', urlString)
   return urlString
 }
