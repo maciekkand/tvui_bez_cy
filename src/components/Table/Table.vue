@@ -8,11 +8,6 @@ const favorites = new Set()
 export default {
   computed: {
     items() {
-      /* console.log('items')
-      console.log('getters.showFavorites = ', this.$store.getters.showFavorites)
-      console.log('getters.getCategoryFiltered = ', this.$store.getters.getCategoryFiltered)
-      console.log('getters.getTodaysPrograms = ', this.$store.getters.getTodaysPrograms)
- */
       if (this.$store.getters.showFavorites) {
         console.log('1')
         this.$store.commit('SHOW_FAVORITES', false)
@@ -36,7 +31,6 @@ export default {
     },
   },
   created() {
-    // console.log('Tu Table created()')
     this.$store.dispatch('startStations')
     this.$store.dispatch('setLoading', true)
   },

@@ -95,8 +95,6 @@ export default {
       this.$store.commit('SHOW_FAVORITES', true)
     },
     resetFavorites() {
-      //this.$store.commit('ADD_SAVED_PROGRAMS', [])
-      //this.$store.commit('START_STATIONS', [])
       this.$store.dispatch('resetFavorites')
       this.$store.dispatch('getSelectedPrograms', [])
       this.$store.dispatch('setLoading', true)

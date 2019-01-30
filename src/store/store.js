@@ -18,7 +18,7 @@ function initialState() {
     categoryFiltered: null,
     loading: false,
     favorites: null,
-    showFavorites: false
+    showFavorites: false,
   }
 }
 
