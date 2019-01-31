@@ -45,7 +45,7 @@ export default {
   methods: {
     onRowClicked(item) {
       console.log('Tu onRowClicked: item = ', item)
-      let favorites = this.$store.getters.getFavorites
+      let favorites = this.$store.getters.getFavorites || []
 
       if (this.$store.getters.showFavorites) {
         console.log('%c Jesteś w Favorites i dwuklikłeś !','color: yellow')
