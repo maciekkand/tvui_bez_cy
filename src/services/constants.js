@@ -77,7 +77,7 @@ export const CATEGORIES = [
   { text: 'Film', value: 'film' },
   { text: 'Serial', value: 'serial' },
   { text: 'Sport', value: 'sport' },
-  { text: 'Wiad.', value: 'wiadomosci' },
+  { text: 'Wiadomości', value: 'wiadomosci' },
   { text: 'Rozrywka', value: 'rozrywka' },
   { text: 'Dzieci', value: 'dla dzieci' },
   { text: 'Inne', value: 'inne' }

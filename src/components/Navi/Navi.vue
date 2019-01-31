@@ -5,11 +5,6 @@ import store from '../../store/store'
 import { LITERALS } from '../../services/constants'
 
 export default {
-  data() {
-    return {
-      showBadge: false
-    }
-  },
   computed: {
     loading() {
       return this.$store.getters.getLoading
@@ -19,7 +14,7 @@ export default {
       if (stations) {
         return (stations = store.getters.getStations.join(', ').length > 45 ? store.getters.getStations.join(', ').slice(0, 45) + '...' : store.getters.getStations.join(', '))
       }
-    }
+    },
   },
 }
 </script>
