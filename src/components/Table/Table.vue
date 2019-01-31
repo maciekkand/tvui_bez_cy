@@ -6,6 +6,11 @@ import { FIELDS } from '../../services/constants'
 const favorites = []
 
 export default {
+  data() {
+    return {
+      selected: []
+    }
+  },
   computed: {
     items() {
       if (this.$store.getters.showFavorites) {
@@ -36,9 +41,11 @@ export default {
   },
   methods: {
     onRowClicked(item) {
-      console.log('item = ', item)
+      console.log('Tu onRowClicked: item = ', item)
 
       if (typeof item !== 'object') {
+        console.log('%c Tu if: item = ' + item,'color: yellow')
+
         for (let i = 0; i < favorites.length; i++) {
           if (favorites[i].id === item) {
             favorites.splice(i, 1)
@@ -46,6 +53,8 @@ export default {
         }
       }
       else {
+        console.log('%c Tu else','color: orange')
+
         const record = {
           category: item.item.category,
           channel: item.item.channel,
@@ -59,13 +68,25 @@ export default {
           timestamp: item.item.timestamp,
           type: item.item.type,
         }
+
         favorites.push(record)
+      }
+
+      console.log('this.selected = ', this.selected)
+
+      if (favorites.length > 2) {
+        console.log('favorites.length > 2; kasuję this.selected');
+        this.selected = []
       }
 
       console.table(favorites, ['title'])
       console.log('favorites = ', favorites)
 
       this.$store.dispatch('addFavorites', favorites)
+    },
+    onDblClick(item) {
+      console.log('Tu onDblClick: item = ', item)
+
     }
   }
 }

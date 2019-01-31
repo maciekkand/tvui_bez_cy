@@ -86,7 +86,7 @@ export default new Vuex.Store({
     RESET_STATE(state) {
       const s = initialState()
       Object.keys(s).forEach(key => {
-        if (key !== 'selectedPrograms') state[key] = s[key]
+        if (key !== 'favorites' && key !== 'todaysPrograms') state[key] = s[key]
       })
     },
     ADD_FAVORITES(state, favorites) {
