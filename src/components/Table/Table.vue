@@ -72,8 +72,6 @@ export default {
         favorites.push(record)
       }
 
-      console.log('this.selected = ', this.selected)
-
       if (favorites.length > 2) {
         console.log('favorites.length > 2; kasuję this.selected');
         this.selected = []
