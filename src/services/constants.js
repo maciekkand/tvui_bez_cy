@@ -58,6 +58,15 @@ export const FIELDS = [
     key: 'link',
     label: 'link',
   },
+  /*
+  {
+    key: 'checkbox',
+    label: '',
+  }
+  */
+]
+
+export const CHECKBOX = [
   {
     key: 'checkbox',
     label: '',
