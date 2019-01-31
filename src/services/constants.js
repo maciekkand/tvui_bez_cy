@@ -30,6 +30,17 @@ export const FIELDS = [
     label: 'time',
     sortable: true,
   },
+  /* {
+    key: 'timestamp',
+    label: 'timestamp'
+  },
+  */
+  /*
+  {
+    key: 'duration',
+    label: 'duration'
+  },
+  */
   {
     key: 'title',
     label: 'title',
@@ -47,6 +58,19 @@ export const FIELDS = [
     key: 'link',
     label: 'link',
   },
+  /*
+  {
+    key: 'checkbox',
+    label: '',
+  }
+  */
+]
+
+export const CHECKBOX = [
+  {
+    key: 'checkbox',
+    label: '',
+  },
 ]
 
 export const CATEGORIES = [
@@ -56,7 +80,7 @@ export const CATEGORIES = [
   { text: 'Wiad.', value: 'wiadomosci' },
   { text: 'Rozrywka', value: 'rozrywka' },
   { text: 'Dzieci', value: 'dla dzieci' },
-  { text: 'Inne', value: 'inne' },
+  { text: 'Inne', value: 'inne' }
 ]
 
 export const HOURS = [
