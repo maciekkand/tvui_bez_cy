@@ -65,7 +65,6 @@ export default {
       if (this.textSearch) return this.$store.dispatch('findText', this.textSearch)
       if (this.startHour && this.endHour && this.endHour < this.startHour) return this.$refs.modalHours.show()
 
-      this.$store.commit('SHOW_FAVORITES', false)
       this.$store.dispatch('setLoading', true)
       this.$store.dispatch('getSelectedPrograms')
     },
@@ -85,7 +84,7 @@ export default {
     },
     resetFavorites() {
       this.$store.dispatch('resetFavorites')
-      //this.$store.dispatch('getSelectedPrograms')
+      this.$store.dispatch('getSelectedPrograms', [])
       this.$store.dispatch('setLoading', true)
     },
   },
