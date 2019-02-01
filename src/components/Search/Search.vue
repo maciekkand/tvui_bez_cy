@@ -29,6 +29,10 @@ export default {
       return this.$store.getters.getFavorites ? this.$store.getters.getFavorites.length : 0
     }
   },
+  mounted() {
+    if (this.$store.getters.getFirstTime) this.$refs.modalFirstTime.show()
+    this.$store.commit('FIRST_TIME')
+  },
   methods: {
     categorySelected(categories) {
       const todaysPrograms = this.$store.getters.getTodaysPrograms
@@ -64,6 +68,9 @@ export default {
 
       email(emailText) // fixme: odkomentuj to będzie słał maile
     },
+    hideModalFirstTime() {
+      this.$refs.modalFirstTime.hide()
+    },
     search() {
       if (this.textSearch) return this.$store.dispatch('findText', this.textSearch)
       if (this.startHour && this.endHour && this.endHour < this.startHour) return this.$refs.modalHours.show()
@@ -98,5 +105,8 @@ export default {
 <style scoped>
 div {
   color: white;
+}
+.d-block {
+  color: black
 }
 </style>

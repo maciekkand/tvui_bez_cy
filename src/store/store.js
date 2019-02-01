@@ -19,6 +19,7 @@ function initialState() {
     loading: false,
     favorites: null,
     showFavorites: false,
+    firstTime: true
   }
 }
 
@@ -37,6 +38,7 @@ export default new Vuex.Store({
     getSelectedPrograms: state => state.selectedPrograms,
     getFavorites: state => state.favorites,
     showFavorites: state => state.showFavorites,
+    getFirstTime: state => state.firstTime,
   },
   mutations: {
     START_STATIONS(state, todaysPrograms) {
@@ -95,6 +97,9 @@ export default new Vuex.Store({
     RESET_FAVORITES(state) {
       console.log('RESET_FAVORITES')
       state.favorites = null
+    },
+    FIRST_TIME(state) {
+      state.firstTime = false
     },
   },
   actions: {
