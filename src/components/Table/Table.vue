@@ -3,13 +3,11 @@
 <script>
 import { FIELDS, CHECKBOX } from '../../services/constants'
 
-// const favorites = []
-
 export default {
   data() {
     return {
       selected: [],
-      //fields: FIELDS
+      fields: FIELDS
     }
   },
   computed: {
@@ -29,11 +27,6 @@ export default {
         return this.$store.getters.getTodaysPrograms
       }
     },
-    fields() {
-      //return FIELDS.concat(CHECKBOX)
-      return FIELDS
-    },
-
     loading() {
       return this.$store.getters.getLoading
     },
@@ -48,47 +41,17 @@ export default {
       let favorites = this.$store.getters.getFavorites || []
 
       if (this.$store.getters.showFavorites) {
-        console.log('%c Jesteś w Favorites i dwuklikłeś !','color: yellow')
-        console.log('%c Trzeba odjąć ten rekord z Favoritsów','color: orange')
-
         console.log('favorites = ', favorites)
 
         favorites = favorites.filter(el => {
           return el.id !== item.id
         })
-
-        console.log('favorites = ', favorites)
-
-        //favorites.splice(i, 1)
       }
       else {
-        console.log('%c Tu else','color: orange')
-        const record = {
-          category: item.category,
-          channel: item.channel,
-          date: item.date,
-          dateTimestamp: item.dateTimestamp,
-          dayString: item.dayString,
-          id: item.id,
-          link: item.link,
-          title: item.title,
-          time: item.time,
-          timestamp: item.timestamp,
-          type: item.type,
-        }
-
-        console.log('record = ', record)
-        favorites.push(record)
+        favorites.push(item)
       }
 
-      //console.table(favorites, ['title'])
-      //console.log('favorites = ', favorites)
-
       this.$store.dispatch('addFavorites', favorites)
-    },
-    onDblClick(item) {
-      console.log('Tu onDblClick: item = ', item)
-
     }
   }
 }
