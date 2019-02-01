@@ -82,6 +82,9 @@ const changeCategories = () => {
 const kanal = (day, page, channelFrom, channelTo) => {
   const url = `${urlPrefix + day}&strona=${page}`
   const config = { headers: { 'User-Agent': 'Mozilla/5.0' } }
+  const weekDayNames = ['Nie', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob']
+  const monthNames = ['Sty', 'Luty', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Paź', 'Lis', 'Gru']
+
 
   axios
     .get(url, config)
@@ -107,30 +110,31 @@ const kanal = (day, page, channelFrom, channelTo) => {
             .replace(/\t/g, '')
             .replace(/\n/g, '')
             .split(':')
+
           const timestampTodayMidnight = new Date().setUTCHours(0, 0, 0, 0) + day * 1000 * 60 * 60 * 24
 
           let hours = parseInt(time[0])
           let minutes = parseInt(time[1])
-          // tvHour = tvHour < 3 ? tvHour + 24 : tvHour
+
+          hours = hours < 3 ? hours + 24 : hours
 
           const milliseconds = hours * 60 * 60 * 1000 + minutes * 60 * 1000
-          const timestamp = timestampTodayMidnight + milliseconds + parseInt(Math.random() * 1000)
+
+          hours = hours > 23 ? hours - 24 : hours
+
+          let timestamp = timestampTodayMidnight + milliseconds + parseInt(Math.random() * 1000)
+
           const dateTimestamp = new Date(timestamp)
             .toISOString()
             .slice(0, 16)
             .replace('T', ' ')
 
           let date = new Date(timestamp).toISOString().slice(0, 10)
-          let dayString = new Date(timestamp).toDateString().slice(4, 10)
 
-          if (hours == 23) {
-            dayString = new Date(timestamp - 60 * 60 * 1000).toDateString().slice(4, 10)
-          }
-
-          if (hours >= 0 && hours < 3) {
-            dayString = new Date(timestamp + 24 * 60 * 60 * 1000).toDateString().slice(4, 10)
-            date = new Date(timestamp + 24 * 60 * 60 * 1000).toISOString().slice(0, 10)
-          }
+          const dayName = weekDayNames[new Date(date).getDay()]
+          const dayOfMonth = new Date(date).getDate()
+          const monthName = monthNames[new Date(date).getMonth()]
+          const dayString = dayName + ', ' + dayOfMonth + ' ' + monthName
 
           const link =
             '<a href="https://programtv.onet.pl' +
@@ -139,29 +143,32 @@ const kanal = (day, page, channelFrom, channelTo) => {
               .find('a')
               .attr('href') +
             '">Link</a>'
+
           const title = $(el)
             .find('.title a')
             .text()
             .replace(/\t/g, '')
             .replace(/\n/g, '')
+
           const type = $(el)
             .find('.type')
             .text()
             .replace(/\t/g, '')
             .replace(/\n/g, '')
+
           const category = categoryCheck(type)
 
           const seans = {
             id,
             channel,
+            dateTimestamp,
             dayString,
             date,
             time: hours + ':' + minutes.toString().padStart(2, '0'),
+            timestamp,
             title,
             category,
             type,
-            dateTimestamp,
-            timestamp,
             link,
           }
 
@@ -192,11 +199,12 @@ function delay(day, page, a, b) {
 }
 
 const getAllChannels = () => {
-  for (let day = 6; day < 7; day++) {       // 0-7 - źle, 0-5 ?
+  for (let day = 6; day < 7; day++) {
+    // 0 < 7 - źle, 0-5 ?
     //delay(day, 200, 200)
-    for (let page = 1; page < 8; page++) {  // 1-7
+    for (let page = 1; page < 8; page++) { // 1-7 (czyli < 8)
       delay(day, page, 20, 20)
-      kanal(day, page, 1, 20)               // 1, 20
+      kanal(day, page, 1, 20) // 1, 20
     }
   }
   console.log('Skończyłem i zapisałem do pliku: ', fileSave)
@@ -217,5 +225,6 @@ mongoimport --db local --collection tv1 --type json --file tv1.json -h 127.0.0.1
 
 
 UWAGA !!
-  Jeśli upload się wywala, pdszukaj nr rekordu którym wymienia, i wytnij komunikat o błędzie ('Error ...)
+  Jeśli upload się wywala, odszukaj nr rekordu którym wymienia, i wytnij komunikat o błędzie ('Error ...)
+  Przy ściaganiu po 1 dniu, ten problem nie wystepuje (może chrome nie zamyka połączenia i stąd mimo delaya, server wie że to cały czas ta pijawa)
 */

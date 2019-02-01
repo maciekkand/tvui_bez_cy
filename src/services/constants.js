@@ -7,57 +7,57 @@ export const LITERALS = {
 }
 
 export const FIELDS = [
-  {
-    key: 'index',
-    label: '#',
-  },
-  /* {
+         {
+           key: 'index',
+           label: '#',
+         },
+         /* {
     key: 'id',
     label: 'id',
     sortable: true,
   }, */
-  {
-    key: 'dayString',
-    label: 'Dzień&nbsp;&nbsp;&nbsp;',
-  },
-  {
-    key: 'channel',
-    label: 'Stacja',
-    sortable: true,
-  },
-  {
-    key: 'time',
-    label: 'Czas',
-    sortable: true,
-  },
-  {
-    key: 'timestamp',
-    label: 'Stamp',
-    sortable: true,
-  },
-  {
-    key: 'date',
-    label: 'dateTimestamp',
-    sortable: true,
-  },
-  {
-    key: 'title',
-    label: 'Tytuł',
-  },
-  {
-    key: 'type',
-    label: 'Rodzaj',
-  },
-  {
-    key: 'category',
-    label: 'Kategoria',
-    sortable: true,
-  },
-  {
-    key: 'link',
-    label: 'Link&nbsp;&nbsp;',
-  }
-]
+         {
+           key: 'dayString',
+           label: 'Dzień&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
+         },
+         {
+           key: 'channel',
+           label: 'Stacja',
+           sortable: true,
+         },
+         {
+           key: 'time',
+           label: 'Czas',
+           sortable: true,
+         },
+         /* {
+           key: 'timestamp',
+           label: 'Stamp',
+           sortable: true,
+         }, */
+         {
+           key: 'date',
+           label: 'dateTimestamp',
+           sortable: true,
+         },
+         {
+           key: 'title',
+           label: 'Tytuł',
+         },
+         {
+           key: 'type',
+           label: 'Rodzaj',
+         },
+         {
+           key: 'category',
+           label: 'Kategoria',
+           sortable: true,
+         },
+         {
+           key: 'link',
+           label: 'Link&nbsp;&nbsp;',
+         },
+       ]
 
 export const CATEGORIES = [
   { text: 'Film', value: 'film' },

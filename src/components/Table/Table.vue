@@ -48,7 +48,11 @@ export default {
         })
       }
       else {
-        favorites.push(item)
+        const isPresent = favorites.some(el => {
+          return el.id === item.id
+        })
+
+        if (!isPresent) favorites.push(item)
       }
 
       this.$store.dispatch('addFavorites', favorites)

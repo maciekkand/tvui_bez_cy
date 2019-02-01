@@ -2,19 +2,17 @@
   <b-container>
     <b-row v-cloak>
       <b-table id="table"
-               data-test="table"
-               striped
-               hover
-               dark
-               bordered
-               @row-dblclicked="onRowClicked"
-               :items="items"
-               :fields="fields">
+        data-test="table"
+        striped
+        hover
+        dark
+        bordered
+        @row-dblclicked="onRowClicked"
+        :items="items"
+        :fields="fields">
 
         <span slot="index" slot-scope="data">{{ data.index + 1 }}</span>
         <span slot="link" slot-scope="data" v-html="data.value">{{ data.value }}</span>
-        <span slot="date" slot-scope="data">{{ data.item.dateTimestamp }}</span>
-
       </b-table>
     </b-row>
   </b-container>
