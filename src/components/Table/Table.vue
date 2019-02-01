@@ -1,7 +1,7 @@
 <template src="./Table.html"></template>
 
 <script>
-import { FIELDS, CHECKBOX } from '../../services/constants'
+import { FIELDS } from '../../services/constants'
 
 export default {
   data() {

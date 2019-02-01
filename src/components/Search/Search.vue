@@ -88,7 +88,7 @@ export default {
     },
     resetFavorites() {
       this.$store.dispatch('resetFavorites')
-      //this.$store.dispatch('getSelectedPrograms')
+      this.$store.dispatch('getSelectedPrograms')
       this.$store.dispatch('setLoading', true)
     },
   },
