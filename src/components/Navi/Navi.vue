@@ -5,6 +5,11 @@ import store from '../../store/store'
 import { LITERALS } from '../../services/constants'
 
 export default {
+  data() {
+    return {
+      showBadge: false
+    }
+  },
   computed: {
     loading() {
       return this.$store.getters.getLoading
