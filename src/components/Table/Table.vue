@@ -15,7 +15,7 @@ export default {
     items() {
       if (this.$store.getters.showFavorites) {
         console.log('1')
-        this.$store.commit('SHOW_FAVORITES', false)
+        // this.$store.commit('SHOW_FAVORITES', false)
         return this.$store.getters.getFavorites
       }
       else if (this.$store.getters.getCategoryFiltered && this.$store.getters.getCategoryFiltered.length) {
@@ -41,41 +41,42 @@ export default {
   },
   methods: {
     onRowClicked(item) {
-      console.log('Tu onRowClicked: item = ', item)
+    console.log('Tu onRowClicked: item = ', item)
+    let favorites = this.$store.getters.getFavorites || []
 
-      if (typeof item !== 'object') {
-        console.log('%c Tu if: item = ' + item,'color: yellow')
+    if (this.$store.getters.showFavorites) {
+      console.log('%c Jesteś w Favorites i dwuklikłeś !','color: yellow')
+      console.log('%c Trzeba odjąć ten rekord z Favoritsów','color: orange')
 
-        for (let i = 0; i < favorites.length; i++) {
-          if (favorites[i].id === item) {
-            favorites.splice(i, 1)
-          }
-        }
+      console.log('favorites = ', favorites)
+
+      favorites = favorites.filter(el => {
+        return el.id !== item.id
+      })
+
+      console.log('favorites = ', favorites)
+
+      //favorites.splice(i, 1)
+    }
+    else {
+      console.log('%c Tu else','color: orange')
+      const record = {
+        category: item.category,
+        channel: item.channel,
+        date: item.date,
+        dateTimestamp: item.dateTimestamp,
+        dayString: item.dayString,
+        id: item.id,
+        link: item.link,
+        title: item.title,
+        time: item.time,
+        timestamp: item.timestamp,
+        type: item.type,
       }
-      else {
-        console.log('%c Tu else','color: orange')
 
-        const record = {
-          category: item.item.category,
-          channel: item.item.channel,
-          date: item.item.date,
-          dateTimestamp: item.item.dateTimestamp,
-          dayString: item.item.dayString,
-          id: item.item.id,
-          link: item.item.link,
-          title: item.item.title,
-          time: item.item.time,
-          timestamp: item.item.timestamp,
-          type: item.item.type,
-        }
-
-        favorites.push(record)
-      }
-
-      if (favorites.length > 2) {
-        console.log('favorites.length > 2; kasuję this.selected');
-        this.selected = []
-      }
+      console.log('record = ', record)
+      favorites.push(record)
+    }
 
       console.table(favorites, ['title'])
       console.log('favorites = ', favorites)
