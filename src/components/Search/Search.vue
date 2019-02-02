@@ -16,12 +16,10 @@ export default {
       days: days(),
       startHours: HOURS,
       categoriesList: CATEGORIES,
+      loading: this.$store.getters.getLoading
     }
   },
   computed: {
-    loading() {
-      return this.$store.getters.getLoading
-    },
     endHours() {
       return endHours(store.getters.getStartHour || null)
     },
@@ -30,8 +28,10 @@ export default {
     }
   },
   mounted() {
-    if (this.$store.getters.getFirstTime) this.$refs.modalFirstTime.show()
-    this.$store.commit('FIRST_TIME')
+    if (!localStorage.getItem('vuex_ft')) {
+      this.$refs.modalFirstTime.show()
+      localStorage.setItem('vuex_ft', true)
+    }
   },
   methods: {
     categorySelected(categories) {
@@ -56,7 +56,7 @@ export default {
     email() {
       const arrSelectedPrograms = []
       const selectedPrograms = store.getters.getSelectedPrograms
-      console.log('selectedPrograms = ', selectedPrograms)
+      // console.log('selectedPrograms = ', selectedPrograms)
 
       selectedPrograms.map(el => {
         arrSelectedPrograms.push(`${el.dayString} ${el.time} - ${el.channel} - ${el.title}\r\n`)
@@ -64,7 +64,7 @@ export default {
 
       const emailText = arrSelectedPrograms.join()
 
-      console.log('emailText = ', emailText)
+      // console.log('emailText = ', emailText)
 
       email(emailText) // fixme: odkomentuj to będzie słał maile
     },
@@ -72,15 +72,15 @@ export default {
       this.$refs.modalFirstTime.hide()
     },
     search() {
+      //console.log('setLoading = true')
       if (this.textSearch) return this.$store.dispatch('findText', this.textSearch)
-      if (this.startHour && this.endHour && this.endHour < this.startHour) return this.$refs.modalHours.show()
 
       this.$store.commit('SHOW_FAVORITES', false)
       this.$store.dispatch('setLoading', true)
       this.$store.dispatch('getSelectedPrograms')
     },
     resetAll() {
-      console.log('Reset')
+      //console.log('Reset')
       this.day = null
       this.startHour = null
       this.endHour = null
@@ -90,7 +90,7 @@ export default {
       this.$store.dispatch('resetState')
     },
     show() {
-      console.log('getters.getFavorites = ', this.$store.getters.getFavorites)
+      // console.log('getters.getFavorites = ', this.$store.getters.getFavorites)
       this.$store.commit('SHOW_FAVORITES', true)
     },
     resetFavorites() {

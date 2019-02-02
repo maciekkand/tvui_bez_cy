@@ -22,7 +22,7 @@ export const ajaxGetSelectedPrograms = context => {
   axios
     .get(url(context))
     .then(res => {
-      if (res.data.length > 999) alert('Zawęź przedział czasu, ilość kanałów lub kategorii, bo teraz część programów nie jest wyświetlana')
+      if (res.data.length > 999) alert(LITERALS.EXCESSIVE_DATA_MSG)
       context.commit('START_STATIONS', res.data)
     })
     .catch(err => console.log('My error: ', err))

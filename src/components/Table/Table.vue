@@ -13,7 +13,7 @@ export default {
   computed: {
     items() {
       if (this.$store.getters.showFavorites) {
-        console.log('1')
+        //console.log('1')
         // this.$store.commit('SHOW_FAVORITES', false)
         return this.$store.getters.getFavorites || []
       }
@@ -22,8 +22,8 @@ export default {
         return this.$store.getters.getCategoryFiltered
       }
       else {
-        console.log('3')
-        this.$store.commit('SET_LOADING', false)
+        //console.log('3')
+        //this.$store.commit('SET_LOADING', false)
         return this.$store.getters.getTodaysPrograms
       }
     },
@@ -37,11 +37,11 @@ export default {
   },
   methods: {
     onRowClicked(item) {
-      console.log('Tu onRowClicked: item = ', item)
+      //console.log('Tu onRowClicked: item = ', item)
       let favorites = this.$store.getters.getFavorites || []
 
       if (this.$store.getters.showFavorites) {
-        console.log('favorites = ', favorites)
+        //console.log('favorites = ', favorites)
 
         favorites = favorites.filter(el => {
           return el.id !== item.id

@@ -6,7 +6,7 @@ import { LITERALS, CANAL, DISCOVERY_NATIONAL, FILMBOX_HBO_KINO, POLSAT, POLSKIE,
 export default {
   data() {
     return {
-      selected: null, // this.$store.getters.getStations,   //
+      selected: this.$store.getters.getStations,
       canal: CANAL,
       discoveryNational: DISCOVERY_NATIONAL,
       filmboxHboKino: FILMBOX_HBO_KINO,
@@ -18,14 +18,15 @@ export default {
   },
   methods: {
     stationsSelected(stations) {
-      console.log('stations = ', stations)
+      // console.log('stations = ', stations)
       this.$store.dispatch('setStations', stations)
     },
     onOK() {
+      this.$store.dispatch('getSelectedPrograms')
       this.$router.push('/')
     },
     resetStations() {
-      this.selected = null
+      this.selected = []
       this.$store.dispatch('setStations', null)
     },
   },
