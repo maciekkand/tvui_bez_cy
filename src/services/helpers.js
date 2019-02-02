@@ -1,4 +1,6 @@
 /* cSpell:disable */
+import emailjs from 'emailjs-com'
+
 export const days = () => {
   const weekDayNames = ['Nie', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob']
   const monthNames = ['Sty', 'Luty', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Paź', 'Lis', 'Gru']
@@ -41,4 +43,17 @@ export const endHours = startHour => {
     hours.push(hour)
   }
   return hours
+}
+
+export const email = text => {
+  const templateParams = {
+    name: 'James',
+    notes: text,
+  }
+
+  emailjs.send('gmail', 'tv', templateParams)
+    .then(res => {
+      console.log('SUCCESS!', res.status, res.text)
+    })
+    .catch(err => console.log('EMAIL FAILED:', err))
 }

@@ -14,12 +14,26 @@ export default {
       categories: this.$store.getters.getCategories,
       textSearch: null,
       days: days(),
-      startHours: HOURS,
       categoriesList: CATEGORIES,
       loading: this.$store.getters.getLoading
     }
   },
   computed: {
+    startHours() {
+      const day = this.$store.getters.getDay
+      const startHour = this.$store.getters.getStartHour
+      const endHour = this.$store.getters.getEndHour
+
+      if ((!day || new Date(day).getDate() === new Date().getDate()) &&
+           !startHour && !endHour) {
+
+        const startHour = new Date().getHours()
+        const newHours = HOURS.slice(startHour - 2)
+        newHours.unshift(HOURS[0])
+        return newHours
+      }
+      return HOURS
+    },
     endHours() {
       return endHours(store.getters.getStartHour || null)
     },
@@ -35,8 +49,8 @@ export default {
   },
   methods: {
     categorySelected(categories) {
-      console.log('categorySelected')
-      console.log('this.$store.getters.getTodaysPrograms = ', this.$store.getters.getTodaysPrograms)
+      // console.log('categorySelected')
+      //console.log('this.$store.getters.getTodaysPrograms = ', this.$store.getters.getTodaysPrograms)
 
       const todaysPrograms = this.$store.getters.getTodaysPrograms
 
@@ -44,15 +58,15 @@ export default {
         return categories.includes(el.category)
       })
 
-      console.log('categories = ', categories)
-      console.log('categoryFiltered = ', categoryFiltered)
+      // console.log('categories = ', categories)
+      //console.log('categoryFiltered = ', categoryFiltered)
 
+      this.$store.commit('SHOW_CATEGORIES', true)
       this.$store.dispatch('setCategoryFiltered', categoryFiltered)
       this.$store.dispatch('setCategories', categories)
-
     },
     daySelected(day) {
-      console.log('day = ', day)
+      // console.log('day = ', day)
       this.$store.dispatch('setDay', day)
     },
     startHourSelected(startHour) {
@@ -83,6 +97,7 @@ export default {
       //console.log('setLoading = true')
       if (this.textSearch) return this.$store.dispatch('findText', this.textSearch)
 
+      this.$store.commit('SHOW_CATEGORIES', false)
       this.$store.commit('SHOW_FAVORITES', false)
       this.$store.dispatch('setLoading', true)
       this.$store.dispatch('getSelectedPrograms')

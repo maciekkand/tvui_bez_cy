@@ -12,20 +12,30 @@ export default {
   },
   computed: {
     items() {
-      if (this.$store.getters.showFavorites) {
-        console.log('%c 1','color: red')
+      const showFavorites = this.$store.getters.showFavorites
+      const getFavorites = this.$store.getters.getFavorites
+      const categoryFiltered = this.$store.getters.getCategoryFiltered
+      const showCategories = this.$store.getters.showCategories
+      const todaysPrograms = this.$store.getters.getTodaysPrograms
+
+      //if (this.$store.getters.showFavorites) {
+      if (showFavorites) {
+        // console.log('%c 1','color: red')
         // this.$store.commit('SHOW_FAVORITES', false)
-        return this.$store.getters.getFavorites || []
+        return getFavorites || []
       }
-      else if (this.$store.getters.getCategoryFiltered && this.$store.getters.getCategoryFiltered.length) {
-        console.log('%c 2','color: red')
-        console.log('this.$store.getters.getCategoryFiltered = ', this.$store.getters.getCategoryFiltered)
+      //else if (this.$store.getters.getCategoryFiltered && this.$store.getters.getCategoryFiltered.length) {
+      else if (showCategories && categoryFiltered && categoryFiltered.length) {
+        //console.log('%c 2','color: red')
+        // console.log('%c categoryFiltered = ', 'color: yellow')
+        // console.log(categoryFiltered)
         return this.$store.getters.getCategoryFiltered
+        //return todaysPrograms
       }
       else {
-        console.log('%c 3','color: red')
+        // console.log('%c 3','color: red')
         //this.$store.commit('SET_LOADING', false)
-        return this.$store.getters.getTodaysPrograms
+        return todaysPrograms
       }
     },
     loading() {

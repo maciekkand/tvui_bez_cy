@@ -1,17 +1,8 @@
 {
-  "name": "ShopsRing",
-  "type": "static",
-  "static": {
-    "public": "dist",
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  },
-  "alias": "shopsring",
+  "version": 2,
+  "name": "TVui",
+  "alias": "tvui",
   "files": [
-    "dist"
+    "./dist"
   ]
 }

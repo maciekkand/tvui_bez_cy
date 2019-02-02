@@ -7,7 +7,7 @@ export const ajaxGetSelectedPrograms = context => {
     .get(url(context))
     .then(res => {
       if (res.data.length > 999) alert(LITERALS.EXCESSIVE_DATA_MSG)
-      console.log('res.data = ', res.data)
+      //console.log('res.data = ', res.data)
       context.commit('START_STATIONS', res.data)
     })
     .catch(err => console.log('My error: ', err))

@@ -36,11 +36,11 @@ export const FIELDS = [
            label: 'Stamp',
            sortable: true,
          }, */
-  {
+  /* {
     key: 'date',
     label: 'dateTimestamp',
     sortable: true,
-  },
+  }, */
   {
     key: 'title',
     label: 'Tytuł',
