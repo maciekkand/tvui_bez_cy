@@ -9,7 +9,7 @@ export default {
   components: {
     'tv-navi': Navi,
     'tv-search': Search,
-    'tv-table': Table
-  }
+    'tv-table': Table,
+  },
 }
 </script>
