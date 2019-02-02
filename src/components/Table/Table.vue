@@ -13,16 +13,17 @@ export default {
   computed: {
     items() {
       if (this.$store.getters.showFavorites) {
-        //console.log('1')
+        console.log('%c 1','color: red')
         // this.$store.commit('SHOW_FAVORITES', false)
         return this.$store.getters.getFavorites || []
       }
       else if (this.$store.getters.getCategoryFiltered && this.$store.getters.getCategoryFiltered.length) {
-        // console.log('2')
+        console.log('%c 2','color: red')
+        console.log('this.$store.getters.getCategoryFiltered = ', this.$store.getters.getCategoryFiltered)
         return this.$store.getters.getCategoryFiltered
       }
       else {
-        //console.log('3')
+        console.log('%c 3','color: red')
         //this.$store.commit('SET_LOADING', false)
         return this.$store.getters.getTodaysPrograms
       }
@@ -32,7 +33,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('startStations')
+    this.$store.dispatch('getSelectedPrograms')
     this.$store.dispatch('setLoading', true)
   },
   methods: {

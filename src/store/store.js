@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 
-import { ajaxGetSelectedPrograms, ajaxStartStations, ajaxFindText } from '../services/ajax'
+import { ajaxGetSelectedPrograms, ajaxFindText } from '../services/ajax'
 
 Vue.use(Vuex)
 
@@ -12,7 +12,7 @@ function initialState() {
     startHour: null,
     endHour: null,
     stations: null,
-    categories: null,
+    categories: [],
     todaysPrograms: null,
     selectedPrograms: null,
     categoryFiltered: null,
@@ -40,9 +40,10 @@ export default new Vuex.Store({
   },
   mutations: {
     START_STATIONS(state, todaysPrograms) {
-      //console.log('Tu store START_STATIONS')
-      //console.log('todaysPrograms = ', todaysPrograms)
+      console.log('todaysPrograms = ', todaysPrograms)
+
       state.todaysPrograms = todaysPrograms || state.selectedPrograms
+
       if (todaysPrograms) {
         state.loading = true
       }
@@ -99,10 +100,6 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    startStations(context) {
-      // console.log('Tu store startStations')
-      ajaxStartStations(context)
-    },
     getSelectedPrograms(context) {
       ajaxGetSelectedPrograms(context)
     },

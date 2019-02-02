@@ -4,61 +4,61 @@ export const LITERALS = {
   TV_LIST_SUFFIX: '&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI',
   START_STATIONS: ['TVP 1', 'TVP 2', 'TVN', 'POLSAT'],
   CATEGORY_NAMES: ['film', 'serial', 'sport', 'wiadomosci', 'rozrywka', 'dzieci', 'inne'],
-  EXCESSIVE_DATA_MSG: 'Zawęź przedział czasu, zmniejsz ilość kanałów lub kategorii, bo teraz część późniejszych programów nie jest wyświetlana'
+  EXCESSIVE_DATA_MSG: 'Zawęź przedział czasu, zmniejsz ilość kanałów lub kategorii, bo teraz część późniejszych programów nie jest wyświetlana',
 }
 
 export const FIELDS = [
-         {
-           key: 'index',
-           label: '#',
-         },
-         /* {
+  {
+    key: 'index',
+    label: '#',
+  },
+  /* {
     key: 'id',
     label: 'id',
     sortable: true,
   }, */
-         {
-           key: 'dayString',
-           label: 'Dzień&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
-         },
-         {
-           key: 'channel',
-           label: 'Stacja',
-           sortable: true,
-         },
-         {
-           key: 'time',
-           label: 'Czas',
-           sortable: true,
-         },
-         /* {
+  {
+    key: 'dayString',
+    label: 'Dzień&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
+  },
+  {
+    key: 'channel',
+    label: 'Stacja',
+    sortable: true,
+  },
+  {
+    key: 'time',
+    label: 'Czas',
+    sortable: true,
+  },
+  /* {
            key: 'timestamp',
            label: 'Stamp',
            sortable: true,
          }, */
-         /* {
-           key: 'date',
-           label: 'dateTimestamp',
-           sortable: true,
-         }, */
-         {
-           key: 'title',
-           label: 'Tytuł',
-         },
-         {
-           key: 'type',
-           label: 'Rodzaj',
-         },
-         {
-           key: 'category',
-           label: 'Kategoria',
-           sortable: true,
-         },
-         {
-           key: 'link',
-           label: 'Link&nbsp;&nbsp;',
-         },
-       ]
+  {
+    key: 'date',
+    label: 'dateTimestamp',
+    sortable: true,
+  },
+  {
+    key: 'title',
+    label: 'Tytuł',
+  },
+  {
+    key: 'type',
+    label: 'Rodzaj',
+  },
+  {
+    key: 'category',
+    label: 'Kategoria',
+    sortable: true,
+  },
+  {
+    key: 'link',
+    label: 'Link&nbsp;&nbsp;',
+  },
+]
 
 export const CATEGORIES = [
   { text: 'Film', value: 'film' },
@@ -67,7 +67,7 @@ export const CATEGORIES = [
   { text: 'Wiadomości', value: 'wiadomosci' },
   { text: 'Rozrywka', value: 'rozrywka' },
   { text: 'Dzieci', value: 'dla dzieci' },
-  { text: 'Inne', value: 'inne' }
+  { text: 'Inne', value: 'inne' },
 ]
 
 export const HOURS = [

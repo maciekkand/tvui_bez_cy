@@ -35,16 +35,24 @@ export default {
   },
   methods: {
     categorySelected(categories) {
+      console.log('categorySelected')
+      console.log('this.$store.getters.getTodaysPrograms = ', this.$store.getters.getTodaysPrograms)
+
       const todaysPrograms = this.$store.getters.getTodaysPrograms
 
       const categoryFiltered = todaysPrograms.filter(el => {
         return categories.includes(el.category)
       })
 
+      console.log('categories = ', categories)
+      console.log('categoryFiltered = ', categoryFiltered)
+
       this.$store.dispatch('setCategoryFiltered', categoryFiltered)
       this.$store.dispatch('setCategories', categories)
+
     },
     daySelected(day) {
+      console.log('day = ', day)
       this.$store.dispatch('setDay', day)
     },
     startHourSelected(startHour) {

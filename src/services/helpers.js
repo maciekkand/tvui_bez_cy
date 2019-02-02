@@ -1,24 +1,32 @@
 /* cSpell:disable */
 export const days = () => {
-  const daysForSelectArray = []
+  const weekDayNames = ['Nie', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob']
+  const monthNames = ['Sty', 'Luty', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Paź', 'Lis', 'Gru']
+  const daysForSelectBox = []
 
-  daysForSelectArray.push({
+  daysForSelectBox.push({
     text: 'Dzień',
     value: null,
   })
 
   for (let index = 0; index < 7; index++) {
-    const day = new Date().getTime() + index * 1000 * 60 * 60 * 24
-    const dayString = new Date(day).toString().slice(0, 10)
+    const startOfDay = new Date().setUTCHours(index * 24, 0, 0, 0)
+
+    const dayName = weekDayNames[new Date(startOfDay).getDay()]
+    const dayOfMonth = new Date(startOfDay).getDate()
+    const monthName = monthNames[new Date(startOfDay).getMonth()]
+    const dayString = dayName + ' ' + dayOfMonth + ' ' + monthName
 
     const dayObj = {
       text: dayString,
-      value: index,
+      value: startOfDay,
+      dayString,
     }
-    daysForSelectArray.push(dayObj)
+
+    daysForSelectBox.push(dayObj)
   }
 
-  return daysForSelectArray
+  return daysForSelectBox
 }
 
 export const endHours = startHour => {

@@ -8,8 +8,8 @@
       </b-button>
     </b-row>
 
-    <b-row class="mt-2 mb-1">
-      <b-col md="4">
+    <b-row class="mt-2 mb-1" style="height: 20px">
+      <b-col md="2">
 
         <span>
           <router-link to="/stations"
@@ -24,13 +24,19 @@
             <a>Pomoc</a>
           </router-link>
 
-          <span v-show="loading"
-                md="1"
-                class="ml-5">
-            <img src="../../assets/spinner5.gif" />
-          </span>
 
         </span>
+
+
+      </b-col>
+
+      <b-col md="2">
+        <span v-show="loading"
+              md="1"
+              class="ml-5">
+          <img src="../../assets/spinner5.gif" />
+        </span>
+
       </b-col>
 
       <b-col>

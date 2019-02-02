@@ -2,27 +2,12 @@ import axios from 'axios'
 import url from './ajaxHelpers'
 import { LITERALS } from './constants'
 
-export const ajaxStartStations = context => {
-  //console.log('ajaxStartStations')
-
-  axios
-    .get(url(context, JSON.stringify(LITERALS.START_STATIONS)))
-    .then(res => {
-      context.commit('START_STATIONS', res.data)
-    })
-    .catch(err => console.log('myError:', err))
-    .finally(() => {
-      context.commit('SET_LOADING', false)
-    })
-}
-
 export const ajaxGetSelectedPrograms = context => {
-  //console.log('ajaxGetSelectedPrograms')
-
   axios
     .get(url(context))
     .then(res => {
       if (res.data.length > 999) alert(LITERALS.EXCESSIVE_DATA_MSG)
+      console.log('res.data = ', res.data)
       context.commit('START_STATIONS', res.data)
     })
     .catch(err => console.log('My error: ', err))
