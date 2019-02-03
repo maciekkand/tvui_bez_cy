@@ -8,7 +8,6 @@
     "lint": "vue-cli-service lint > _lint.js",
     "cy": "vue-cli-service test:e2e",
     "cydev": "vue-cli-service serve",
-    "eslint-check": "eslint --print-config .eslintrc.json | eslint-config-prettier-check",
     "deploy": "npm run build && cd dist && now",
     "devbuild": "npm run build && serve -s dist"
   },
@@ -21,7 +20,6 @@
     "eslint-config-prettier": "4.0.0",
     "eslint-plugin-prettier": "3.0.1",
     "lodash": "4.17.11",
-    "tsc": "1.20150623.0",
     "vue": "^2.6.2",
     "vue-router": "^3.0.2",
     "vuex": "^3.1.0",

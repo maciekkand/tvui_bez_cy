@@ -1,9 +1,8 @@
 <template src="./Search.html"></template>
 
 <script>
-import store from '../../store/store'
-import { days, endHours } from '../../services/helpers'
-import { CATEGORIES, HOURS } from '../../services/constants'
+import { days, startHours, endHours } from '../../services/helpers'
+import { CATEGORIES } from '../../services/constants'
 
 export default {
   data() {
@@ -16,23 +15,15 @@ export default {
       days: days(),
       categoriesList: CATEGORIES,
       loading: this.$store.getters.getLoading,
+      // selected: 'Nie, 10 Luty'
     }
   },
   computed: {
     startHours() {
-      const day = this.$store.getters.getDay
-      const startHour = this.$store.getters.getStartHour
-      const endHour = this.$store.getters.getEndHour
-
-      if ((!day || new Date(day).getDate() === new Date().getDate()) && !startHour && !endHour) {
-        const newHours = HOURS.slice(new Date().getHours() - 2)
-        newHours.unshift(HOURS[0])
-        return newHours
-      }
-      return HOURS
+      return startHours(this.$store.getters.getDay, this.$store.getters.getEndHour)
     },
     endHours() {
-      return endHours(store.getters.getStartHour || null)
+      return endHours(this.$store.getters.getDay, this.$store.getters.getStartHour)
     },
     favoritesCount() {
       return this.$store.getters.getFavorites ? this.$store.getters.getFavorites.length : 0
@@ -40,7 +31,7 @@ export default {
   },
   mounted() {
     if (!localStorage.getItem('vuex_ft')) {
-      this.$refs.modalFirstTime.show()
+      // this.$refs.modalFirstTime.show()   // todo: odkomentuj
       localStorage.setItem('vuex_ft', true)
     }
   },
