@@ -50,7 +50,7 @@ export default context => {
   }
 
   const urlString = LITERALS.TV_LIST_PREFIX + query + LITERALS.TV_LIST_SUFFIX
-  //console.log('%c urlString = ' + urlString, 'color: lime')
+  console.log('%c urlString = ' + urlString, 'color: lime')
 
   return urlString
 }

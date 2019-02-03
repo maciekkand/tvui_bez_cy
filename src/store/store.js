@@ -20,6 +20,7 @@ function initialState() {
     favorites: null,
     showFavorites: false,
     showCategories: true,
+    documentsCount: 0
   }
 }
 
@@ -38,6 +39,7 @@ export default new Vuex.Store({
     getFavorites: state => state.favorites,
     showFavorites: state => state.showFavorites,
     showCategories: state => state.showCategories,
+    getDocumentsCount: state => state.documentsCount
   },
   mutations: {
     START_STATIONS(state, todaysPrograms) {
@@ -95,6 +97,9 @@ export default new Vuex.Store({
     RESET_FAVORITES(state) {
       state.favorites = null
     },
+    GET_DOCUMENTS_COUNT(state, documentsCount) {
+      state.documentsCount = documentsCount
+    }
   },
   actions: {
     getSelectedPrograms(context) {

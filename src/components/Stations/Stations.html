@@ -21,7 +21,7 @@
       <b-col md="2"><h4>TVP, TVN</h4></b-col>
 
       <b-col>
-        <b-form-checkbox-group data-test="stations"
+        <b-form-checkbox-group data-test="stationsTvpTvn"
                                v-model="selected"
                                @change="stationsSelected"
                                class="mt-0"
@@ -36,7 +36,7 @@
       <b-col md="2"><h4>Polsat</h4></b-col>
 
       <b-col>
-        <b-form-checkbox-group data-test="stations"
+        <b-form-checkbox-group data-test="stationsPolsat"
                                v-model="selected"
                                @change="stationsSelected"
                                class="mt-0"
@@ -51,7 +51,7 @@
         <b-col md="2"><h4>Polskie</h4></b-col>
 
         <b-col>
-          <b-form-checkbox-group data-test="stations"
+          <b-form-checkbox-group data-test="stationsPolskie"
                                  v-model="selected"
                                  @change="stationsSelected"
                                  class="mt-0"
@@ -66,7 +66,7 @@
       <b-col md="2"><h4>Canal+</h4></b-col>
 
       <b-col>
-        <b-form-checkbox-group data-test="stations"
+        <b-form-checkbox-group data-test="stationsCanal"
                                v-model="selected"
                                @change="stationsSelected"
                                class="mt-0"
@@ -81,7 +81,7 @@
       <b-col md="2"><h4>Discovery, National</h4></b-col>
 
       <b-col>
-        <b-form-checkbox-group data-test="stations"
+        <b-form-checkbox-group data-test="stationsDiscoveryNational"
                                v-model="selected"
                                @change="stationsSelected"
                                class="mt-0"
@@ -94,7 +94,7 @@
       <b-col md="2"><h4>Filmbox, HBO, Kino</h4></b-col>
 
       <b-col>
-        <b-form-checkbox-group data-test="stations"
+        <b-form-checkbox-group data-test="stationsFilmboxHboKino"
                                v-model="selected"
                                @change="stationsSelected"
                                class="mt-0"
@@ -107,7 +107,7 @@
       <b-col md="2"><h4>Inne</h4></b-col>
 
       <b-col>
-        <b-form-checkbox-group data-test="stations"
+        <b-form-checkbox-group data-test="stationsInne"
                                v-model="selected"
                                @change="stationsSelected"
                                class="mt-0 mb-3"
@@ -117,7 +117,7 @@
     </b-row>
 
 
-      <b-button data-test='buttonOK'
+      <b-button data-test='btnOK'
                 @click="onOK"
                 size="md"
                 class="ml-0 px-5"
@@ -125,7 +125,7 @@
         OK
       </b-button>
 
-      <b-button data-test='buttonReset'
+      <b-button data-test='btnReset'
                 @click="resetStations"
                 size="md"
                 class="ml-5 px-5"

@@ -56,17 +56,23 @@ function categoryCheck(type) {
   /* #region  */
   if (isKids) {
     return 'dla dzieci'
-  } else if (isSport) {
+  }
+  else if (isSport) {
     return 'sport'
-  } else if (isNews) {
+  }
+  else if (isNews) {
     return 'wiadomosci'
-  } else if (isSerial) {
+  }
+  else if (isSerial) {
     return 'serial'
-  } else if (isFilm) {
+  }
+  else if (isFilm) {
     return 'film'
-  } else if (isEntertainment) {
+  }
+  else if (isEntertainment) {
     return 'rozrywka'
-  } else return 'inne'
+  }
+  else return 'inne'
 }
 
 /* #endregion */
@@ -188,6 +194,8 @@ const kanal = (day, page, channelFrom, channelTo) => {
   nawet ustawiona na 3s opóźnienie (i=20).
   Pomógł restart smarka, bo złapał nowe IP i ściaganie po 1 dniu
   przy opóźnieniu = 400 ms (i=3)
+  A teraz na delayu 100/100 między dniami i 40/40 między stronami
+  poszły 4 dni, bo tylko tyle mu ustawiłem. Pewnie poszłoby i 7
 */
 
 function delay(day, page, a, b) {
@@ -199,11 +207,10 @@ function delay(day, page, a, b) {
 }
 
 const getAllChannels = () => {
-  for (let day = 6; day < 7; day++) {
-    // 0 < 7 - źle, 0-5 ?
-    //delay(day, 200, 200)
-    for (let page = 1; page < 8; page++) { // 1-7 (czyli < 8)
-      delay(day, page, 20, 20)
+  for (let day = 0; day < 13; day++) {  // 0 < 13 (czyli 13 dni)
+    delay(day, 100, 100)
+    for (let page = 1; page < 8; page++) { // 1 < 8 (czyli 7 stron)
+      delay(day, page, 40, 40)
       kanal(day, page, 1, 20) // 1, 20
     }
   }
