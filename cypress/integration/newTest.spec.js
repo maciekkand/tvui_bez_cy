@@ -1,141 +1,160 @@
 /* eslint-disable*/
-describe('1. Selection by hours', () => {
+describe('I. Selection by hours', () => {
   beforeEach(() => {
     cy.visit('http://localhost:8080')
-    })
+    .get("[data-test='day']").as('day')
+    .get("[data-test='startHour']").as('startHour')
+    .get("[data-test='endHour']").as('endHour')
+    .get("[data-test='textSearch']").as('textSearch')
+    .get("[data-test='btnSearch']").as('btnSearch')
+    .get("[data-test='btnResetAll']").as('btnResetAll')
+    .get("[data-test='btnShow']").as('btnShow')
+    .get("[data-test='btnResetFavorites']").as('btnResetFavorites')
+  })
 
-    it.only('1. Enter "Pt 8 Luty and click Search button to get results', () => {
-    cy.get("[data-test='day']")
-      .select('Pt 9 Luty')
-      .get("[data-test='buttonSearch']")
+  it('1. Entering nothing gets "Pt, 8 Luty" in results "Dzień" row', () => {
+    cy.get('@btnSearch')
       .click()
-      //.get('#stockTable')
-      //.find('tbody')
-      //.find('tr')
-      //.should('have.length', 1)
+      .get('tr:nth-child(1) > td:nth-child(2)', { timeout: 8000 })
+      .should('have.text', 'Pt, 8 Luty')
+  })
+
+  it('2. Entering "Nie, 10 Luty" gets "Nie, 10 Luty" in results "Dzień" row', () => {
+      cy.get('@day')
+      .select('Nie 10 Luty')
+      .get('@btnSearch')
+      .click()
+      .get('tr:nth-child(1) > td:nth-child(2)', { timeout: 5000 })
+      .should('have.text', 'Nie, 10 Luty')
+  })
+
+  it('3. Entering 23 in startHour gets results starting with "22" in "Czas" column', () => {
+    cy.get('@startHour')
+    .select('23')
+    .get('@btnSearch')
+    .click()
+    .get('#table > tbody > tr:nth-child(1) > td:nth-child(4)')
+    .contains(/23/)
+    .should('exist')
+  })
+
+  it('4. Entering "Sob 9 Luty" and "6" as endHour gets results \
+          ending with "4" or "5" in "Czas" column', () => {
+
+    cy.get('@day')
+    .select('Sob 9 Luty')
+    .get('@endHour')
+    .select('6')
+    .get('@btnSearch')
+    .click()
+    .get('#table > tbody > tr:last > td:nth-child(4)')
+    .contains(/[4,5].*/)
+    .should('exist')
+    //.should('have.text', '5:59')
+  })
+
+  it('5. Entering "Pon 11 Luty" and "10" as startHour and "14" as endHour \
+              gets results starting with "10" and "12" or "13" in "Czas" column', () => {
+
+    cy.get('@day')
+    .select('Pon 11 Luty')
+    .get('@startHour')
+    .select('10')
+    .get('@endHour')
+    .select('14')
+    .get('@btnSearch')
+    .click()
+    .get('#table > tbody > tr:first > td:nth-child(4)')
+    .contains(/10.*/)
+    .should('exist')
+    .get('#table > tbody > tr:last > td:nth-child(4)')
+    .contains(/[12,13].*/)
+    .should('exist')
+    .get('@btnResetAll')
+    .click()
   })
 })
 
-describe('2. Wyszukiwanie sklepów - brak miasta lub ulicy', () => {
+describe('II. Selection by categories', () => {
   beforeEach(() => {
     cy.visit('http://localhost:8080')
+    .get("[data-test='day']").as('day')
+    .get("[data-test='startHour']").as('startHour')
+    .get("[data-test='endHour']").as('endHour')
+    .get("[data-test='textSearch']").as('textSearch')
+    .get("[data-test='btnSearch']").as('btnSearch')
+    .get("[data-test='btnResetAll']").as('btnResetAll')
+    .get("[data-test='btnShow']").as('btnShow')
+    .get("[data-test='btnResetFavorites']").as('btnResetFavorites')
+    .get("[data-test='table']").as('table')
   })
 
-  it('1. Brak miasta i ulicy, klik w Searcha i ma się wyświetlić modal "Brak miasta"', () => {
-    cy.get("[data-test='buttonSearch']")
-      .click()
-      .get("[data-test='modalCity']")
+  it('1. Checking "Inne" gets "inne" as a category name in the 1st \
+         and last row of the table', () => {
+    cy.get('@day')
+    .select('Pon 11 Luty')
+    .get('@btnSearch')
+    .click()
+    .get('#categories > div:nth-child(7) > label > span')
+    .click()
+    .get('#table > tbody > tr:first > td:nth-child(7)')
+    .contains('inne')
+    .should('exist')
+    .get('#table > tbody > tr:last > td:nth-child(7)')
+    .contains('inne')
+    .should('exist')
   })
 
-  it('2. Jest miasto, ale brak ulicy, klik w Searcha i ma wyświetlić się modal "Brak ulicy"', () => {
-    cy.get("[data-test='city']")
-      .select('Warszawa')
-
-    cy.get("[data-test='buttonSearch']")
-      .click()
-      .get("[data-test='modalStreet']")
+  it('2. Checking "Serial" and "Film" gets "film" or "serial" \
+              as a category name in the 1st and last row of the table', () => {
+    cy.get('@day')
+    .select('Wt 12 Luty')
+    .get('@btnSearch')
+    .click()
+    .get('spinner').should('not.be.visible')
+    .get('#categories > div:nth-child(1) > label > span')  // Film
+    .click()
+    .get('#categories > div:nth-child(2) > label > span')  // Serial
+    .click()
+    .get('#table > tbody > tr:first > td:nth-child(7)')
+    .contains('serial' || 'film')
+    .should('exist')
+    .get('#table > tbody > tr:last > td:nth-child(7)')
+    .contains('serial' || 'film')
+    .should('exist')
   })
 
-  it('3. Jest ulica ale brak miasta, klik w Searcha i ma wyświetlić się modal "Brak miasta"', () => {
-    cy.get("[data-test='street']")
-      .type('Dolna 5a')
+  it.only('3. Checking "Serial" and "Film" gets "film" or "serial" \
+              as a category name in the 1st and last row of the table', () => {
 
-    cy.contains('Search')
-      .click()
-      .get("[data-test='modalCity']")
+    cy.get("[data-test='hideModalFirstTime']")
+    .click()
+    .get('@day')
+    .select('Wt 12 Luty')
+    .get('@btnSearch')
+    .click()
+    .get('spinner').should('not.be.visible')
+    .get('#categories > div:nth-child(1) > label > span')  // Film
+    .click()
+    .get('#categories > div:nth-child(2) > label > span')  // Serial
+    .click()
+    //.get('#table > tbody > tr:first > td:nth-child(7)')
+
+    .get('#table')
+    .find('tr')
+    .eq(1)
+    .find('td')
+    .eq(6)
+    .contains('serial' || 'film')
+
+    .should('exist')
+    .get('#table > tbody > tr:last > td:nth-child(7)')
+    .contains('serial' || 'film')
+    .should('exist')
   })
+
+
+
 })
 
-describe(`3. Reset buttons (są sklepy (Wwa, Dolna 5a, 600m).
-             Czek w Chleb i Masło wyświetla kolumny Chleb, Maslo i Total`, () => {
-  // wybranie sklepów w promieniu 600m od Dolnej 5a, Wwa
-  beforeEach(() => {
-    cy.visit('http://localhost:8080')
-      .get("[data-test='city']")
-      .select('Warszawa')
-      .get("[data-test='street']")
-      .type('Dolna 5a')
-      .get("[data-test='radius']")
-      .clear()
-      .type(600)
-      .get("[data-test='buttonSearch']")
-      .click()
-
-      .wait(1000)
-
-      // czeknięcie boksów 'Chleb' i 'Masło'
-      .get("[data-test='stocks']")
-      .get('#__BVID__19__BV_check_0_opt_')
-      .check({ force: true })
-      .get('#__BVID__19__BV_check_1_opt_')
-      .check({ force: true })
-  })
-
-  it('1. Unczek zdejmuje czekboksy towarów i znika ich kolumny i Total', () => {
-    // czy nagłówek tabela zawiera słowa 'Total', 'Chleb' lub 'Masło'
-    cy.get('#stockTable thead tr th')
-      .contains(/Total/)
-      .get('#stockTable thead tr th')
-      .contains(/Chleb/)
-      .get('#stockTable thead tr th')
-      .contains(/Chleb/)
-
-      // uncheck boksa Chleb
-      .get("[data-test='stocks']")
-      .get('#__BVID__19__BV_check_0_opt_')
-      .uncheck({ force: true })
-
-      .wait(500)
-
-    // znika kolumna 'Chleb' ?
-    cy.get('#stockTable thead tr th')
-      .contains(/Chleb/)
-      .should('not.exist')
-
-      // uncheck boksa Maslo
-      .get("[data-test='stocks']")
-      .get('#__BVID__19__BV_check_1_opt_')
-      .uncheck({ force: true })
-
-      //Znika kolumna 'Maslo' ?
-      .get('#stockTable thead tr th')
-      .contains(/Maslo/)
-      .should('not.exist')
-
-      // i 'Total' ?
-      .get('#stockTable thead tr th')
-      .contains(/Total/)
-      .should('not.exist')
-  })
-
-  it('2. Klik Reset towarów odczekowuje towary i znika ich kolumny i kolumnę Total ?', () => {
-    // Klik w Reset powinien znikać kolumny Total, Chleb i Maslo
-    cy.get("[data-test='buttonResetStock']")
-      .click()
-
-      //Znika kolumna 'Total' ?
-      .get('#stockTable thead tr th')
-      .contains(/Total/)
-      .should('not.exist')
-
-      //Znika kolumna 'Chleb' ?
-      .get('#stockTable thead tr th')
-      .contains(/Chleb/)
-      .should('not.exist')
-
-      //Znika kolumna 'Maslo' ?
-      .get('#stockTable thead tr th')
-      .contains(/Maslo/)
-      .should('not.exist')
-  })
-
-  it('3. Klik Reset lokalizacji odczekowuje towary i znika ich kolumny i kolumnę Total ?', () => {
-    // Klik w Reset powinien znikać kolumny Total, Chleb i Maslo
-    cy.get("[data-test='buttonResetLocation']")
-      .click()
-
-      //Znika tabela towarów ?
-      .get('#stockTable')
-      .should('not.exist')
-  })
-})
+// #categories > div:nth-child(7) > label > span

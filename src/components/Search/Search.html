@@ -3,8 +3,8 @@
   <b-container>
     <b-row>
       <b-col md="8"  class='d-flex justify-content-start'>
-        <b-form-checkbox-group id="categories"
-                               data-test="categories"
+        <b-form-checkbox-group data-test="categories"
+                               id="categories"
                                v-model="categories"
                                @change="categorySelected"
                                class="d-flex justify-content-md-between pt-2 mr-0"
@@ -13,29 +13,25 @@
       </b-col>
 
       <b-col md="4" class='d-flex justify-content-end'>
-
-        <b-button id="show"
-                  data-test="buttonShow"
+        <b-button data-test="btnShow"
+                  id="btnShow"
                   @click="show"
                   size="md"
                   class="ml-0 pl-2 pr-3">
           Pokaż {{ favoritesCount }}
         </b-button>
-
-        <b-button id="resetFavorites"
-                  data-test="buttonResetFavorites"
+        <b-button data-test="btnResetFavorites"
+                  id="btnResetFavorites"
                   @click="resetFavorites"
                   size="md"
                   class="ml-2 pl-2 pr-2">
           Kasuj Wyb.
         </b-button>
       </b-col>
-
     </b-row>
-
   </b-container>
 
-  <b-modal ref="modalFirstTime" data-test="modalFirstTime" title="Obsługa" hide-footer>
+  <b-modal data-test="modalFirstTime" ref="modalFirstTime" class="d-block" title="Obsługa" hide-footer>
     <div class="d-block text-center">
       <h5>Program który chcesz zapamiętać, wybiera się dwuklikiem myszy na dowolnym jego polu</h5>
       <br>
@@ -47,17 +43,16 @@
       <br>
     </div>
 
-    <b-btn class="mt-3" variant="success" block @click="hideModalFirstTime">
+    <b-btn data-test="hideModalFirstTime" class="mt-3" variant="success" block @click="hideModalFirstTime">
       <h5>Zamknij</h5>
     </b-btn>
   </b-modal>
 
   <b-container>
     <b-row class="mt-4 d-flex justify-content-start">
-
       <b-col md="2">
-        <b-form-select id="day"
-                       data-test="day"
+        <b-form-select data-test="day"
+                       id="day"
                        v-model="day"
                        @change="daySelected"
                        :options="days"
@@ -65,48 +60,42 @@
                        size="md">
         </b-form-select>
       </b-col>
-
       <b-col md="2">
-        <b-form-select id="startHour"
-                       data-test="startHour"
+        <b-form-select data-test="startHour"
+                       id="startHour"
                        v-model.number="startHour"
                        @change="startHourSelected"
                        class="mb-3 ml-0"
                        :options="startHours">
         </b-form-select>
       </b-col>
-
       <b-col md="2">
-        <b-form-select id="endHour"
-                       data-test="endHour"
+        <b-form-select data-test="endHour"
+                       id="endHour"
                        v-model.number="endHour"
                        @change="endHourSelected"
                        :options="endHours">
         </b-form-select>
       </b-col>
-
       <b-col md="3">
-        <b-form-input id="textSearch"
-                      data-test="textSearch"
+        <b-form-input data-test="textSearch"
+                      id="textSearch"
                       v-model="textSearch"
                       class="mr-2"
                       placeholder="Wpisz szukany tekst">
         </b-form-input>
       </b-col>
-
     <b-col md="3 d-flex justify-content-end">
-
-      <b-button id="buttonSearch"
-                ref="buttonSearch"
-                data-test="buttonSearch"
+      <b-button data-test="btnSearch"
+                id="btnSearch"
+                ref="btnSearch"
                 @click="search"
                 size="md"
                 class="mb-3 pl-3 pr-4">
         Szukaj
       </b-button>
-
-      <b-button id="buttonResetAll"
-                data-test="buttonResetAll"
+      <b-button data-test="btnResetAll"
+                id="btnResetAll"
                 @click="resetAll"
                 class="ml-2 mb-3 px-2"
                 size="md">
