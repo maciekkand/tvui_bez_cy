@@ -37,15 +37,27 @@ export default {
   },
   methods: {
     categorySelected(categories) {
+      console.log('%c ___________________', 'color: violet')
+      console.log('%c categories = ' + JSON.stringify(categories), 'color: violet')
+      console.log('%c typeof categories = ' + typeof categories, 'color: violet')
+      console.log('%c categories = ' + Array.isArray(categories), 'color: violet')
+
+      categories.map(el => console.log(el))
+
       const todaysPrograms = this.$store.getters.getTodaysPrograms
 
       const categoryFiltered = todaysPrograms.filter(el => {
         return categories.includes(el.category)
       })
 
+      console.log('%c categoryFiltered.length = ' + categoryFiltered.length, 'color: lime')
+
       this.$store.commit('SHOW_CATEGORIES', true)
       this.$store.dispatch('setCategoryFiltered', categoryFiltered)
       this.$store.dispatch('setCategories', categories)
+      /*
+       */
+
     },
     daySelected(day) {
       this.$store.dispatch('setDay', day)
@@ -62,7 +74,7 @@ export default {
     search() {
       if (this.textSearch) return this.$store.dispatch('findText', this.textSearch)
 
-      this.$store.commit('SHOW_CATEGORIES', false)
+      // this.$store.commit('SHOW_CATEGORIES', false)
       this.$store.commit('SHOW_FAVORITES', false)
       this.$store.dispatch('setLoading', true)
       this.$store.dispatch('getSelectedPrograms')
@@ -71,7 +83,7 @@ export default {
       this.day = null
       this.startHour = null
       this.endHour = null
-      this.categories = null
+      this.categories = []
       this.textSearch = null
       this.$store.dispatch('resetState')
     },

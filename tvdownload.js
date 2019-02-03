@@ -234,4 +234,8 @@ mongoimport --db local --collection tv1 --type json --file tv1.json -h 127.0.0.1
 UWAGA !!
   Jeśli upload się wywala, odszukaj nr rekordu którym wymienia, i wytnij komunikat o błędzie ('Error ...)
   Przy ściaganiu po 1 dniu, ten problem nie wystepuje (może chrome nie zamyka połączenia i stąd mimo delaya, server wie że to cały czas ta pijawa)
-*/
+
+
+  git reset --hard 2b8c4977513cda292de67e37469e5e3af991b7bf
+  
+  */

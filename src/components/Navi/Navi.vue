@@ -1,7 +1,6 @@
 <template src="./Navi.html"></template>
 
 <script>
-import store from '../../store/store'
 
 export default {
   data() {
@@ -14,13 +13,14 @@ export default {
       return this.$store.getters.getLoading
     },
     stations() {
-      const stations = store.getters.getStations
+      const stations = this.$store.getters.getStations
       if (stations) {
         return stations.join(', ').length > 63 ? `${stations.join(', ').slice(0, 63)} ...` : stations.join(', ')
       }
+      return 0
     },
     documents() {
-      return store.getters.getDocumentsCount
+      return this.$store.getters.getCategoryFiltered.length || this.$store.getters.getDocumentsCount
     }
   },
 }
