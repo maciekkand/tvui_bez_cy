@@ -43,6 +43,7 @@ export default new Vuex.Store({
   },
   mutations: {
     START_STATIONS(state, todaysPrograms) {
+      console.log('%c todaysPrograms = ' + todaysPrograms.length, 'color: violet')
       state.todaysPrograms = todaysPrograms || state.selectedPrograms
 
       if (todaysPrograms) {

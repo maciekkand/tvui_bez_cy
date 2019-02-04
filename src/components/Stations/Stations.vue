@@ -21,6 +21,7 @@ export default {
       this.$store.dispatch('setStations', stations)
     },
     onOK() {
+      this.$store.commit('SHOW_CATEGORIES', false)
       this.$store.dispatch('getSelectedPrograms')
       this.$router.push('/')
     },

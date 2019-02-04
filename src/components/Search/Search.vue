@@ -74,7 +74,7 @@ export default {
     search() {
       if (this.textSearch) return this.$store.dispatch('findText', this.textSearch)
 
-      // this.$store.commit('SHOW_CATEGORIES', false)
+      this.$store.commit('SHOW_CATEGORIES', false)
       this.$store.commit('SHOW_FAVORITES', false)
       this.$store.dispatch('setLoading', true)
       this.$store.dispatch('getSelectedPrograms')
