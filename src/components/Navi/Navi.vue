@@ -21,13 +21,10 @@ export default {
     },
     documents() {
       const showCategories = this.$store.getters.showCategories
-      console.log('%c this.$store.getters.getCategoryFiltered.length = ' + this.$store.getters.getCategoryFiltered.length, 'color: white')
 
-      if(showCategories && this.$store.getters.getCategoryFiltered.length) {
+      if (showCategories && this.$store.getters.getCategoryFiltered.length) {
         return this.$store.getters.getCategoryFiltered.length
       }
-
-      //return showCategories ? this.$store.getters.getCategoryFiltered.length : this.$store.getters.getDocumentsCount
       return this.$store.getters.getDocumentsCount
     }
   },

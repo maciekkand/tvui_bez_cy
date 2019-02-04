@@ -3,7 +3,7 @@ const fs = require('fs')
 const axios = require('axios')
 const cheerio = require('cheerio')
 
-const fileSave = './tv1.json'
+const fileSave = './1.json'
 const urlPrefix = 'https://programtv.onet.pl/?dzien='
 
 function categoryCheck(type) {
@@ -85,7 +85,7 @@ const changeCategories = () => {
   })
 }
 
-const kanal = (day, page, channelFrom, channelTo) => {
+const kanal = (day, page, channelFrom = 1, channelTo = 21) => {
   const url = `${urlPrefix + day}&strona=${page}`
   const config = { headers: { 'User-Agent': 'Mozilla/5.0' } }
   const weekDayNames = ['Nie', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob']
@@ -98,7 +98,7 @@ const kanal = (day, page, channelFrom, channelTo) => {
     .then(res => {
       const $ = cheerio.load(res.data)
 
-      for (let channelNo = channelFrom; channelNo < channelTo + 1; channelNo++) {
+      for (let channelNo = channelFrom; channelNo < channelTo; channelNo++) {
         // 1-4
         const channel = $(`#boxTVHolder${channelNo}`)
           .find('span.tvName')
@@ -128,7 +128,7 @@ const kanal = (day, page, channelFrom, channelTo) => {
 
           hours = hours > 23 ? hours - 24 : hours
 
-          let timestamp = timestampTodayMidnight + milliseconds + parseInt(Math.random() * 1000)
+          let timestamp = timestampTodayMidnight + milliseconds
 
           const dateTimestamp = new Date(timestamp)
             .toISOString()
@@ -140,7 +140,7 @@ const kanal = (day, page, channelFrom, channelTo) => {
           const dayName = weekDayNames[new Date(date).getDay()]
           const dayOfMonth = new Date(date).getDate()
           const monthName = monthNames[new Date(date).getMonth()]
-          const dayString = dayName + ', ' + dayOfMonth + ' ' + monthName
+          const dayString = dayName + ' ' + dayOfMonth + ' ' + monthName
 
           const link =
             '<a href="https://programtv.onet.pl' +
@@ -198,7 +198,7 @@ const kanal = (day, page, channelFrom, channelTo) => {
   poszły 4 dni, bo tylko tyle mu ustawiłem. Pewnie poszłoby i 7
 */
 
-function delay(day, page, a, b) {
+function delay(day = 0, page = 1, a, b) {
   console.time()
   const rand = Math.round(Math.random() * a + b)
   console.log('day = ' + day + ' page = ' + page + '  rand = ' + rand)
@@ -219,23 +219,21 @@ const getAllChannels = () => {
 
 //changeCategories()
 
-getAllChannels()
+//getAllChannels()
+
+
+// kanal(1, 1)
+
+// kanal(1, 2)
+// kanal(1, 3)
+// kanal(1, 4)
+// kanal(1, 5)
+// kanal(1, 6)
+kanal(1, 7)
+
 
 /*
 Import i query z sortowaniem po id programu
 
-mongoimport -h ds163054.mlab.com:63054 -d tvui -c tvui1 -u nabu -p kupa1312 --file tv1.json --jsonArray
-
-https://api.mlab.com/api/1/databases/tvui/collections/tvui1?s={id:1}&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI
-
-mongoimport --db local --collection tv1 --type json --file tv1.json -h 127.0.0.1:27017 --jsonArray
-
-
-UWAGA !!
-  Jeśli upload się wywala, odszukaj nr rekordu którym wymienia, i wytnij komunikat o błędzie ('Error ...)
-  Przy ściaganiu po 1 dniu, ten problem nie wystepuje (może chrome nie zamyka połączenia i stąd mimo delaya, server wie że to cały czas ta pijawa)
-
-
-  git reset --hard 2b8c4977513cda292de67e37469e5e3af991b7bf
-  
-  */
+mongoimport -h ds163054.mlab.com:63054 -d tvui -c tvui1 -u nabu -p kupa1312 --file 1.json --jsonArray
+*/

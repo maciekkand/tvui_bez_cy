@@ -81,6 +81,7 @@ export default new Vuex.Store({
       state.showCategories = bool
     },
     AJAX_FIND_TEXT(state, foundPrograms) {
+      console.log('%c foundPrograms = ' + foundPrograms.length, 'color: white')
       state.todaysPrograms = foundPrograms
     },
     ADD_SAVED_PROGRAMS(state, savedPrograms) {
@@ -131,6 +132,7 @@ export default new Vuex.Store({
       context.commit('ADD_SELECTED_PROGRAMS', selectedPrograms)
     },
     findText(context, text) {
+      console.log('%c text = ' + text, 'color: white')
       context.commit('SET_LOADING', true)
       ajaxFindText(context, text)
     },

@@ -14,7 +14,6 @@ export default {
     items() {
       const showFavorites = this.$store.getters.showFavorites
       const getFavorites = this.$store.getters.getFavorites
-      const categoryFiltered = this.$store.getters.getCategoryFiltered
       const showCategories = this.$store.getters.showCategories
       const todaysPrograms = this.$store.getters.getTodaysPrograms
 
@@ -30,7 +29,6 @@ export default {
 
       console.log('%c todaysPrograms = ' + todaysPrograms.length, 'color: yellow')
       return todaysPrograms
-
     },
     loading() {
       return this.$store.getters.getLoading
