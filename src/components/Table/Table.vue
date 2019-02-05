@@ -3,7 +3,7 @@
 <script>
 import { FIELDS, CHECKBOX } from '../../services/constants'
 
-const favorites = []
+// const favorites = []
 
 export default {
   data() {
@@ -17,7 +17,7 @@ export default {
       if (this.$store.getters.showFavorites) {
         console.log('1')
         // this.$store.commit('SHOW_FAVORITES', false)
-        return this.$store.getters.getFavorites
+        return this.$store.getters.getFavorites || []
       }
       else if (this.$store.getters.getCategoryFiltered && this.$store.getters.getCategoryFiltered.length) {
         // console.log('2')
@@ -45,7 +45,7 @@ export default {
   methods: {
     onRowClicked(item) {
       console.log('Tu onRowClicked: item = ', item)
-      let favorites = this.$store.getters.getFavorites
+      let favorites = this.$store.getters.getFavorites || []
 
       if (this.$store.getters.showFavorites) {
         console.log('%c Jesteś w Favorites i dwuklikłeś !','color: yellow')
