@@ -1,4 +1,5 @@
 /* eslint-disable */
+/* #region cSpell-disable */
 const fs = require('fs')
 const axios = require('axios')
 const cheerio = require('cheerio')
@@ -7,8 +8,6 @@ const fileSave = './1.json'
 const urlPrefix = 'https://programtv.onet.pl/?dzien='
 
 function categoryCheck(type) {
-  /* #region cSpell-disable */
-
   const arraySerial = ['serial', 'telenowela']
   const arrayFilm = ['film', 'komedi', 'dramat', 'horror', 'thriller', 'western']
   const arrayEntertainment = ['rozrywk', 'teleturniej', 'show', 'muzycz', 'kabaret']
@@ -51,9 +50,6 @@ function categoryCheck(type) {
   const isSport = arraySport.map(el => type.includes(el)).includes(true)
   const isNews = arrayNews.map(el => type.includes(el)).includes(true)
 
-  /* #endregion */
-
-  /* #region  */
   if (isKids) {
     return 'dla dzieci'
   }
@@ -75,8 +71,6 @@ function categoryCheck(type) {
   else return 'inne'
 }
 
-/* #endregion */
-
 const changeCategories = () => {
   const data = JSON.parse(fs.readFileSync('./tv1.json'))
   data.map(el => {
@@ -90,7 +84,6 @@ const kanal = (day, page, channelFrom = 1, channelTo = 21) => {
   const config = { headers: { 'User-Agent': 'Mozilla/5.0' } }
   const weekDayNames = ['Nie', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob']
   const monthNames = ['Sty', 'Luty', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Paź', 'Lis', 'Gru']
-
 
   axios
     .get(url, config)
@@ -123,9 +116,7 @@ const kanal = (day, page, channelFrom = 1, channelTo = 21) => {
           let minutes = parseInt(time[1])
 
           hours = hours < 3 ? hours + 24 : hours
-
           const milliseconds = hours * 60 * 60 * 1000 + minutes * 60 * 1000
-
           hours = hours > 23 ? hours - 24 : hours
 
           let timestamp = timestampTodayMidnight + milliseconds
@@ -181,10 +172,11 @@ const kanal = (day, page, channelFrom = 1, channelTo = 21) => {
           fs.appendFileSync(fileSave, `${JSON.stringify(seans)},\n`)
         })
       }
+      fs.appendFileSync(fileSave, `\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n`)
     })
     .catch(err => {
       fs.appendFileSync(fileSave, err)
-      //console.log('Erorek:', err))
+      console.log('Erorek !')
     })
 }
 
@@ -222,14 +214,113 @@ const getAllChannels = () => {
 //getAllChannels()
 
 
-// kanal(1, 1)
 
-// kanal(1, 2)
-// kanal(1, 3)
-// kanal(1, 4)
-// kanal(1, 5)
-// kanal(1, 6)
-kanal(1, 7)
+// kanal(1, 1)    // 20
+// kanal(1, 2)    // 40
+// kanal(1, 3)      //  60
+// kanal(1, 4)   //  80
+// kanal(1, 5)    // 100
+// kanal(1, 6)    // 120
+// kanal(1, 7)    // 140
+
+
+// kanal(2, 1)
+// kanal(2, 2)
+// kanal(2, 3)
+// kanal(2, 4)
+// kanal(2, 5)
+// kanal(2, 6)
+// kanal(2, 7)
+
+
+// kanal(3, 1)
+// kanal(3, 2)
+// kanal(3, 3)
+// kanal(3, 4)
+// kanal(3, 5)
+// kanal(3, 6)
+// kanal(3, 7)
+
+
+// kanal(4, 1)
+// kanal(4, 2)
+// kanal(4, 3)
+// kanal(4, 4)
+// kanal(4, 5)
+// kanal(4, 6)
+// kanal(4, 7)
+
+
+// kanal(5, 1)
+// kanal(5, 2)
+// kanal(5, 3)
+// kanal(5, 4)
+// kanal(5, 5)
+// kanal(5, 6)
+// kanal(5, 7)
+
+
+// kanal(6, 1)
+// kanal(6, 2)
+// kanal(6, 3)
+// kanal(6, 4)
+// kanal(6, 5)
+// kanal(6, 6)
+// kanal(6, 7)
+
+
+// kanal(7, 1)
+// kanal(7, 2)
+// kanal(7, 3)
+// kanal(7, 4)
+// kanal(7, 5)
+// kanal(7, 6)
+// kanal(7, 7)
+
+
+// kanal(8, 1)
+// kanal(8, 2)
+// kanal(8, 3)
+// kanal(8, 4)
+// kanal(8, 5)
+// kanal(8, 6)
+// kanal(8, 7)
+
+
+// kanal(9, 1)
+// kanal(9, 2)
+// kanal(9, 3)
+// kanal(9, 4)
+// kanal(9, 5)
+// kanal(9, 6)
+// kanal(9, 7)
+
+
+// kanal(10, 1)
+// kanal(10, 2)
+// kanal(10, 3)
+// kanal(10, 4)
+// kanal(10, 5)
+// kanal(10, 6)
+// kanal(10, 7)
+
+
+// kanal(11, 1)
+// kanal(11, 2)
+// kanal(11, 3)
+// kanal(11, 4)
+// kanal(11, 5)
+// kanal(11, 6)
+// kanal(11, 7)
+
+
+// kanal(12, 1)
+// kanal(12, 2)
+// kanal(12, 3)
+// kanal(12, 4)
+// kanal(12, 5)
+// kanal(12, 6)
+// kanal(12, 7)
 
 
 /*

@@ -119,11 +119,11 @@ export const DISCOVERY_NATIONAL = [
     value: 'Nat Geo People HD',
   },
   {
-    text: 'National Geographic',
+    text: 'Nat Geo',
     value: 'National Geographic',
   },
   {
-    text: 'National Geographic Wild',
+    text: 'Nat Geo Wild',
     value: 'National Geographic Wild',
   },
 ]
@@ -153,18 +153,7 @@ export const FILMBOX_HBO_KINO = [
     text: 'HBO3',
     value: 'HBO3',
   },
-  {
-    text: 'Kino Polska Muzyka',
-    value: 'Kino Polska Muzyka',
-  },
-  {
-    text: 'Kino Polska',
-    value: 'Kino Polska',
-  },
-  {
-    text: 'Kino TV',
-    value: 'Kino TV',
-  },
+
 ]
 
 export const POLSAT = [
@@ -262,6 +251,18 @@ export const POLSKIE = [
   {
     text: 'History 2',
     value: 'HISTORY2',
+  },
+  {
+    text: 'Kino Polska',
+    value: 'Kino Polska',
+  },
+  {
+    text: 'Kino Polska Muzyka',
+    value: 'Kino Polska Muzyka',
+  },
+  {
+    text: 'Kino TV',
+    value: 'Kino TV',
   },
   {
     text: 'Kuchnia+',

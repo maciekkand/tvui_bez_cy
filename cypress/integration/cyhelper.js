@@ -15,3 +15,11 @@ export const station = (groupName, stationIndex ) => {
   cy.get(query).find('input').eq(stationIndex).click({ force: true })
 }
 
+export const tableCell = (tr, td) => {
+  if (typeof tr === 'string') {
+    return '#table > tbody > tr:' + tr + ' > td:nth-child(' + td + ')'
+  }
+
+  return '#table > tbody > tr:nth-child(' + tr + ') > td:nth-child(' + td + ')'
+}
+

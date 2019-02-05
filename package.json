@@ -9,7 +9,11 @@
     "cy": "vue-cli-service test:e2e",
     "cydev": "vue-cli-service serve",
     "deploy": "npm run build && cd dist && now",
-    "devbuild": "npm run build && serve -s dist"
+    "devbuild": "npm run build && serve -s dist",
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "dependencies": {
     "axios": "0.18.0",
@@ -19,6 +23,7 @@
     "cypress-vue-unit-test": "1.11.0",
     "eslint-config-prettier": "4.0.0",
     "eslint-plugin-prettier": "3.0.1",
+    "jest": "22.4.4",
     "lodash": "4.17.11",
     "vue": "^2.6.2",
     "vue-router": "^3.0.2",
