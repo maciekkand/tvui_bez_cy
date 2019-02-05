@@ -25,6 +25,9 @@ export default {
     endHours() {
       return endHours(store.getters.getStartHour || null)
     },
+    favoritesCount() {
+      return this.$store.getters.getFavorites ? this.$store.getters.getFavorites.length : 0
+    }
   },
   methods: {
     categorySelected(categories) {
