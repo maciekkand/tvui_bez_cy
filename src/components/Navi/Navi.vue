@@ -14,10 +14,12 @@ export default {
     },
     stations() {
       const stations = this.$store.getters.getStations
+
       if (stations) {
         return stations.join(', ').length > 63 ? `${stations.join(', ').slice(0, 63)} ...` : stations.join(', ')
       }
-      return 0
+      
+      return 'Wszystkie stacje'
     },
     documents() {
       const showCategories = this.$store.getters.showCategories

@@ -38,7 +38,7 @@ const hoursArray = (start, end, isEnd) => {
     hours.push(hour)
   }
 
-  const lineFirst = isEnd ? { text: 'Godzina Do', value: null } : { text: 'Godzina Od', value: null }
+  const lineFirst = isEnd ? { text: 'Do godziny', value: null } : { text: 'Od godziny', value: null }
   hours.unshift(lineFirst)
   return hours
 }

@@ -15,43 +15,32 @@ export default context => {
     startHour = new Date().getHours()
   }
 
-  //const start = startOfDay + (startHour - 0.5) * 60 * 60 * 1000
-  //const start = startOfDay + startHour * 60 * 60 * 1000
-  //console.log('%c new Date().getMinutes() = ' + new Date().getMinutes(), 'color: white')
-
-  //const start = startOfDay + startHour * 60 * minutes + (new Date().getMinutes() - 30) * minutes
   const start = startOfDay + startHour * 60 * minutes - 30 * minutes
 
   console.log('%c startHour = ' + startHour, 'color: orange')
   console.log('%c start = ' + new Date(start), 'color: orange')
-
-
   console.log('%c new Date().getMinutes() - 30 = ' + (new Date().getMinutes() - 30), 'color: white')
 
   const end = startOfDay + endHour * 60 * minutes
   console.log('%c end = ' + new Date(end), 'color: orange')
 
-  //console.log('%c start = ' + new Date(start), 'color: yellow')
-  //console.log('%c end = ' + new Date(end), 'color: yellow')
-
   categories = categories && categories.length ? JSON.stringify(categories) : null
   stations = stations ? encodeURIComponent(JSON.stringify(stations)) : null
-  //stations = stations && stations.length ? JSON.stringify(stations) : null
 
   const queryHours = `s={timestamp:1}&q={"timestamp":{$gte:${start}},$and:[{"timestamp":{$lte:${end}}}`
   const queryStations = `${queryHours},{$and:[{"channel":{$in:${stations}}}]}]}`
   const queryCategories = `${queryHours},{$and:[{"category":{$in:${categories}}}]}]}`
   const queryCategoriesStations = `${queryHours},{$and:[{"category":{$in:${categories}}},{$and:[{"channel":{$in:${stations}}}]}]}]}`
 
-  if (categories && stations) { 
+  if (categories && categories.length && stations && stations.length) {
     console.log('categories && stations')
     query = queryCategoriesStations
   }
-  else if (categories) {
+  else if (categories && categories.length ) {
     console.log('categories')
     query = queryCategories
   }
-  else if (stations) {
+  else if (stations && JSON.parse(decodeURIComponent(stations)).length) {
     console.log('stations')
     console.log('%c stations = ' + stations, 'color: lime')
     query = queryStations
