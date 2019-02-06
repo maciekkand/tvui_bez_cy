@@ -57,25 +57,28 @@ export const ajaxFindText = (context, text) => {
     })
 }
 
-export const email = (address, favorites) => {
+export const sendEmail = (email, favorites) => {
   let html = ''
   const subject = LITERALS.EMAIL_SUBJECT
   const proxy = LITERALS.EMAIL_PROXY
-  const favoritesObj = JSON.parse(favorites)
 
-  favoritesObj.map(el => {
+  favorites.map(el => {
     html += '<h4>' + el.dayString + ' ' + el.time + ' ' + el.channel + ' ' + el.title + '</h4>'
   })
 
   html = 'Wybrane przez Ciebie programy na najbliższy tydzień:' + html
-
   console.log('%c html = ' + html, 'color: lightblue')
 
-  const mailUrl = proxy + '?to=' + address + '&subject=' + subject + '&html=' + html
-
+  const mailUrl = proxy + '?to=' + email + '&subject=' + subject + '&html=' + html
   console.log('%c mailUrl = ' + mailUrl, 'color: orange')
 
   axios.post(mailUrl)
-    .then(() => console.log('Mail pchnięty !'))
-    .catch( err => console.log('Mail dupa: ', err))
+    .then(() => {
+      console.log('Email wysłany')
+      alert('Email wysłany. Sprawdź za chwilę skrzynkę')
+    })
+    .catch(err => console.log('Mail error: ', err))
+    .finally(() => {
+      alert('Email wysłany. Sprawdź za chwilę skrzynkę')
+    })
 }

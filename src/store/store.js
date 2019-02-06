@@ -20,7 +20,8 @@ function initialState() {
     favorites: null,
     showFavorites: false,
     showCategories: true,
-    documentsCount: 0
+    documentsCount: 0,
+    email: ''
   }
 }
 
@@ -39,7 +40,8 @@ export default new Vuex.Store({
     getFavorites: state => state.favorites,
     showFavorites: state => state.showFavorites,
     showCategories: state => state.showCategories,
-    getDocumentsCount: state => state.documentsCount
+    getDocumentsCount: state => state.documentsCount,
+    getEmail: state => state.email
   },
   mutations: {
     START_STATIONS(state, todaysPrograms) {
@@ -88,9 +90,9 @@ export default new Vuex.Store({
       state.todaysPrograms = savedPrograms
     },
     RESET_STATE(state) {
-      const s = initialState()
-      Object.keys(s).forEach(key => {
-        if (key !== 'favorites' && key !== 'todaysPrograms') state[key] = s[key]
+      const init = initialState()
+      Object.keys(init).forEach(key => {
+        if (key !== 'favorites' && key !== 'todaysPrograms' && key !== 'email') state[key] = init[key]
       })
     },
     ADD_FAVORITES(state, favorites) {
@@ -101,6 +103,10 @@ export default new Vuex.Store({
     },
     GET_DOCUMENTS_COUNT(state, documentsCount) {
       state.documentsCount = documentsCount
+    },
+    SET_EMAIL(state, email) {
+      console.log('%c 2) SET_EMAIL email = ' + email, 'color: white')
+      state.email = email
     }
   },
   actions: {
@@ -144,6 +150,10 @@ export default new Vuex.Store({
     },
     resetFavorites(context) {
       context.commit('RESET_FAVORITES')
+    },
+    setEmail(context, email) {
+      console.log('1. Tu setEmail()')
+      context.commit('SET_EMAIL', email)
     },
   },
 })

@@ -8,7 +8,7 @@
       </b-button>
     </b-row>
 
-    <b-row class="mt-2 mb-1" style="height: 20px">
+    <b-row class="mt-2 mb-1" style="height: 40px">
       <b-col md="2">
 
           <router-link to="/stations"
@@ -29,10 +29,21 @@
         <span data-test='spinner'
               v-show="loading"
               class="ml-4">
-          <img src="../../assets/spinner5.gif" />
+          <img src="../../assets/spinner6.gif" />
         </span>
-
       </b-col>
+
+      <b-modal id="modalEmail"
+                ref="modalEmail"
+                title="Podaj swój email, proszę"
+                @ok="handleOk"
+                @shown="clearEmail">
+
+        <form @submit.stop.prevent="handleSubmit">
+          <b-form-input type="text" placeholder="Twój email" v-model="email" />
+        </form>
+
+      </b-modal>
 
       <b-col md="6" class="ml-3">
         <span class="documents">&nbsp&nbsp( {{ documents }} )</span>
@@ -42,7 +53,7 @@
       <b-col class='d-flex justify-content-end'>
         <b-button data-test="btnEmail"
                   id="btnEmail"
-                  @click="sendEmail"
+                  @click="onEmail"
                   size="md"
                   class="pl-3 pr-4">
           &nbsp;&nbsp;Email&nbsp;&nbsp;

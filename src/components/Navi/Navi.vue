@@ -1,12 +1,15 @@
 <template src="./Navi.html"></template>
 
 <script>
-import { email } from '../../services/ajax'
+import { sendEmail } from '../../services/ajax'
+let email = ''
+let favorites = null
 
 export default {
   data() {
     return {
-      showBadge: false
+      showBadge: false,
+      email: null
     }
   },
   computed: {
@@ -17,7 +20,7 @@ export default {
       const stations = this.$store.getters.getStations
 
       if (stations) {
-        return stations.join(', ').length > 65 ? `${stations.join(', ').slice(0, 65)} ...` : stations.join(', ')
+        return stations.join(', ').length > 62 ? `${stations.join(', ').slice(0, 62)} ...` : stations.join(', ')
       }
 
       return 'Wszystkie stacje'
@@ -32,9 +35,33 @@ export default {
     }
   },
   methods: {
-    sendEmail() {
-      const address = 'nabu1312@gmail.com'
-      email(address, JSON.stringify(this.$store.getters.getFavorites))
+    onEmail() {
+      email = this.$store.getters.getEmail
+      favorites = this.$store.getters.getFavorites
+      if (!favorites) return alert('Brak wybranych programów')
+      if (!email) return this.$refs.modalEmail.show()
+
+      console.log('%c Mail jest idę do sendEmail = ', 'color: white')
+      sendEmail(email, favorites)
+    },
+    clearEmail() {
+      this.email = ''
+    },
+    handleOk(evt) {
+      evt.preventDefault()
+      if (!this.email) {
+        alert('Proszę podaj swój email')
+      }
+      else {
+        this.handleSubmit()
+      }
+    },
+    handleSubmit() {
+      this.$store.dispatch('setEmail', this.email)
+      sendEmail(this.email, favorites)
+      this.clearEmail()
+      this.$refs.modalEmail.hide()
+      console.log('%c Mail teraz już jest, idę do sendMail; this.email = ' + this.email, 'color: white')
     }
   }
 }
@@ -42,7 +69,7 @@ export default {
 
 <style>
 a {
-  color: greenyellow;
+  color: lime;
   font-size: 1.1em
 }
 body {

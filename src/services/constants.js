@@ -25,13 +25,13 @@ export const FIELDS = [
     sortable: true,
   },
   {
-    key: 'channel',
-    label: 'Stacja',
+    key: 'time',
+    label: 'Czas',
     sortable: true,
   },
   {
-    key: 'time',
-    label: 'Czas',
+    key: 'channel',
+    label: 'Stacja',
     sortable: true,
   },
   /* {
