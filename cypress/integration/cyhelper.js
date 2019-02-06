@@ -23,3 +23,13 @@ export const tableCell = (tr, td) => {
   return '#table > tbody > tr:nth-child(' + tr + ') > td:nth-child(' + td + ')'
 }
 
+export const isWordInColumn = (el, word) => {
+  const regex = new RegExp(word, 'i')
+
+  cy.wrap(el).invoke('text').then(text => {
+    if (!text.match(regex)) {
+      throw new Error('Incorrect station')
+    }
+  })
+
+}

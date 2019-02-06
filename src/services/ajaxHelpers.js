@@ -50,8 +50,23 @@ export default context => {
     query = `${queryHours}]}`
   }
 
-  const urlString = LITERALS.TV_LIST_PREFIX + query + LITERALS.TV_LIST_SUFFIX
-  console.log('%c urlString = ' + urlString, 'color: lime')
+  // const urlString = LITERALS.TV_LIST_PREFIX + query + LITERALS.TV_LIST_SUFFIX
+  // url: "{\"timestamp\":{$gte:1550219400000},$and:[{\"timestamp\":{$lte:1550228400000}},{$and:[{\"channel\":{$in:[\"TVP 2\"]}}]}]}"
+
+  // query = {timestamp:{$gte:1550219400000},$and:[{timestamp:{$lte:1550228400000}}]}
+  query = {timestamp:{$gte:1550219400000},$and:[{timestamp:{$lte:1550228400000}},{$and:[{channel:{$in:["TVP 1"]}}]}]}
+
+  query = JSON.stringify(query)
+
+  console.log('%c query = ' + query, 'color: white')
+
+  const urlString = 'http://localhost:3000/' + query
+
+  // const urlString = 'https://api-b0cx3vvvg.now.sh/' + query
+
+  //óconst urlString = 'https://api-k1jupj1n4.now.sh/' + query
+
+  console.log('%c urlString =  ' + urlString, 'color: lime')
 
   return urlString
 }

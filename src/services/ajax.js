@@ -20,7 +20,6 @@ export const ajaxGetSelectedPrograms = context => {
 }
 
 export const ajaxFindText = (context, text) => {
-
   let query = ''
   const minutes = 60 * 1000
   const day = context.getters.getDay
@@ -56,4 +55,27 @@ export const ajaxFindText = (context, text) => {
     .finally(() => {
       context.commit('SET_LOADING', false)
     })
+}
+
+export const email = (address, favorites) => {
+  let html = ''
+  const subject = LITERALS.EMAIL_SUBJECT
+  const proxy = LITERALS.EMAIL_PROXY
+  const favoritesObj = JSON.parse(favorites)
+
+  favoritesObj.map(el => {
+    html += '<h4>' + el.dayString + ' ' + el.time + ' ' + el.channel + ' ' + el.title + '</h4>'
+  })
+
+  html = 'Wybrane przez Ciebie programy na najbliższy tydzień:' + html
+
+  console.log('%c html = ' + html, 'color: lightblue')
+
+  const mailUrl = proxy + '?to=' + address + '&subject=' + subject + '&html=' + html
+
+  console.log('%c mailUrl = ' + mailUrl, 'color: orange')
+
+  axios.post(mailUrl)
+    .then(() => console.log('Mail pchnięty !'))
+    .catch( err => console.log('Mail dupa: ', err))
 }

@@ -1,6 +1,7 @@
 <template src="./Navi.html"></template>
 
 <script>
+import { email } from '../../services/ajax'
 
 export default {
   data() {
@@ -16,9 +17,9 @@ export default {
       const stations = this.$store.getters.getStations
 
       if (stations) {
-        return stations.join(', ').length > 63 ? `${stations.join(', ').slice(0, 63)} ...` : stations.join(', ')
+        return stations.join(', ').length > 65 ? `${stations.join(', ').slice(0, 65)} ...` : stations.join(', ')
       }
-      
+
       return 'Wszystkie stacje'
     },
     documents() {
@@ -30,12 +31,19 @@ export default {
       return this.$store.getters.getDocumentsCount
     }
   },
+  methods: {
+    sendEmail() {
+      const address = 'nabu1312@gmail.com'
+      email(address, JSON.stringify(this.$store.getters.getFavorites))
+    }
+  }
 }
 </script>
 
 <style>
 a {
   color: greenyellow;
+  font-size: 1.1em
 }
 body {
   color: white;
@@ -47,5 +55,4 @@ body {
 .documents {
   color: lime;
 }
-
 </style>

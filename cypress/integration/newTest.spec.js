@@ -1,30 +1,23 @@
 /* eslint-disable*/
 /// <reference types="Cypress" />
-import { dayAndHours, category, station, tableCell } from './cyhelper'
+import { dayAndHours, category, station, tableCell, isWordInColumn } from './cyhelper'
 
 describe('I. Selection by hours', () => {
-  it.only('1. Entering nothing gets "Czw 14 Luty" in last row and 0 hour in the one', () => {
+  it('1. Entering nothing gets "Śr 20 Luty" in last row and 0 hour in the one', () => {
+    const currentHour = new RegExp(new Date().getHours() - 1)
 
-    const currentHour = new Date().getHours() - 1
-    cy.log(currentHour)
-
-    dayAndHours('Czw 14 Luty', '', '')
+    dayAndHours('Śr 20 Luty', '', '')
     cy.wait(3000)
     cy.get("[data-test='btnSearch']").click()
-      //.get(tableCell(1, 4)).contains(/0.+/).should('exist')
-
-      .get(tableCell(1, 4)).contains(/${currentHour}/).should('exist')
-
-
-
-      .get(tableCell('last', 2)).should('have.text', 'Czw 14 Luty')
+      .get(tableCell(1, 4)).contains(currentHour).should('exist')
+      .get(tableCell('last', 2)).should('have.text', 'Śr 20 Luty')
   })
 
-  it('2. Entering "Czw 14 Luty", "7" as startHour,  \
+  it('2. Entering "Śr 20 Luty", "7" as startHour,  \
           "10" as endHour gest "6" or "7"in the first rows "Czas" column \
           and "9" or "10" in the last one', () => {
 
-    dayAndHours('Czw 14 Luty', '7', '10')
+    dayAndHours('Śr 20 Luty', '7', '10')
     cy.wait(5000)
     cy.get("[data-test='btnSearch']").click()
     .get(tableCell(1, 4)).contains(/[6, 7].*/).should('exist')
@@ -34,12 +27,12 @@ describe('I. Selection by hours', () => {
 })
 
 describe('II. Selection by hours and categories', () => {
-  it('1. Selecting "Czw 14 Luty", startHour = "10", endHour="12", \
+  it('1. Selecting "Śr 20 Luty", startHour = "10", endHour="12", \
           checking "Serial" and "Inne", gets "serial" in the first row \
           and "inne" as a category name, in the last one. \
           There is over 100 documents returned', () => {
 
-    dayAndHours('Czw 14 Luty', '10', '12')
+    dayAndHours('Śr 20 Luty', '10', '12')
     cy.wait(5000)
     cy.get("[data-test='btnSearch']").click()
 
@@ -51,12 +44,12 @@ describe('II. Selection by hours and categories', () => {
     .get('#table > tbody > tr').its('length').should('be.gte', 100)
   })
 
-  it('2. Selecting "Czw 14 Luty", startHour = 18, endHour = 22, \
+  it('2. Selecting "Śr 20 Luty", startHour = 18, endHour = 22, \
     checking "Wiadomości" and "Sport", gets "sport" in the first row \
     and "wiadomosci" as a category name, in the last one. \
     There is over 50 documents returned', () => {
 
-    dayAndHours('Czw 14 Luty', '18', '22')
+    dayAndHours('Śr 20 Luty', '18', '22')
     cy.wait(5000)
     cy.get("[data-test='btnSearch']").click()
 
@@ -72,7 +65,7 @@ describe('II. Selection by hours and categories', () => {
 
 describe('IV. Selection by stations and hours', () => {
 
-  it('1. Entering "Czw 14 Luty", startHour = 10, endHour = 14, \
+  it('1. Entering "Śr 20 Luty", startHour = 10, endHour = 14, \
       checking "TVP1", "POLSAT" and "ATM Rozrywka" gets \
       "TVP 1" and "ATM Rozrywka", as stations names \
       in the 1st and last row of the table', () => {
@@ -83,28 +76,19 @@ describe('IV. Selection by stations and hours', () => {
       station('Polskie', 2)
       cy.get("[data-test='btnOK']").click().wait(2000)
 
-      dayAndHours('Czw 14 Luty', '10', '24')
+      dayAndHours('Śr 20 Luty', '10', '24')
       cy.wait(2000)
       cy.get("[data-test='btnSearch']").click().wait(500)
 
-
       cy.get('#table > tbody > tr > td:nth-child(3)')
       .each(($el, index, $list) => {
-        cy.wrap($el).invoke('text').then(text => {
-          //cy.log(text)
-
-          if(text !== 'TVP 1' && text !== 'POLSAT' && text !== 'ATM Rozrywka') {
-            //cy.log(text)
-            throw new Error('Incorrect station')
-          }
-        })
+        eachLoop($el, ['TVP 1', 'POLSAT', 'ATM Rozrywka'])
       }).should('exist')
-
     })
 })
 
 describe('V. Selection by stations, categories and hours', () => {
-  it('1. Entering "Czw 14 Luty", startHour = 9, endHour = 13, \
+  it('1. Entering "Śr 20 Luty", startHour = 9, endHour = 13, \
               checking "Serial" and "Inne" as categories and \
               "TVP 1", "CANAL+ Film" and "Nat Geo People HD" as stations, \
               gets "TVP 1" and "Nat Geo People HD" as a stations names \
@@ -119,7 +103,7 @@ describe('V. Selection by stations, categories and hours', () => {
       category(2)
       category(7)
 
-      dayAndHours('Czw 14 Luty', '9', '13')
+      dayAndHours('Śr 20 Luty', '9', '13')
       cy.wait(1000)
       cy.get("[data-test='btnSearch']").click().wait(1000)
 
@@ -132,7 +116,7 @@ describe('V. Selection by stations, categories and hours', () => {
 })
 
 describe('VI. Selection by favorites, categories and hours', () => {
-  it('1. Entering "Czw 14 Luty", startHour = 13, endHour = 17, \
+  it('1. Entering "Śr 20 Luty", startHour = 13, endHour = 17, \
               checking "TVP2", "Canal+ Film" and "Nat Geo People", checking \
               "Serial" and "Inne", and selects 2 favorite programs, \
               doubleclicking on them. Gets you "Opowieść.." and "Ostatni", \
@@ -147,7 +131,7 @@ describe('VI. Selection by favorites, categories and hours', () => {
       category(2)
       category(7)
 
-      dayAndHours('Czw 14 Luty', '9', '13')
+      dayAndHours('Śr 20 Luty', '9', '13')
       cy.wait(500)
       cy.get("[data-test='btnSearch']").click()
 
@@ -174,23 +158,19 @@ describe('VI. Selection by favorites, categories and hours', () => {
 })
 
 describe('VII. Selection by text search, stations, categories and hours', () => {
-  it('1. Entering keyword "report" to the text search box gets entries \
+  it('1. Entering keyword "leśn" to the text search box gets entries \
       containing this word in the "title" column', () => {
 
+    const word = 'leśn'
+
     cy.visit('http://localhost:8080')
-    .get("[data-test='textSearch']").type('report').wait(2000)
+    .get("[data-test='textSearch']").type(word).wait(2000)
     .get("[data-test='btnSearch']").click()
 
-    cy.get('#table > tbody > tr > td:nth-child(6)').wait(100)
-
-    .each(($el, index, $list) => {
-      cy.wrap($el).invoke('text').then(text => {
-        if(!text.match(/report/i)) {
-          cy.log(text)
-          throw new Error('Incorrect station')
-        }
-      })
-    }).should('exist')
+    cy.get('#table > tbody > tr > td:nth-child(5)').wait(100)
+      .each(($el, index, $list) => {
+        isWordInColumn($el, word)
+      }).should('exist')
 
   })
 })

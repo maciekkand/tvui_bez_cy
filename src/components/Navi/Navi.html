@@ -1,5 +1,5 @@
 <div>
-  <b-container class="mb-3">
+  <b-container class="mb-4">
     <b-row >
       <b-button @click="showBadge=!showBadge" style="background-color: Transparent; border: none; cursor:pointer; overflow: none; outline:none">
         <img v-if="showBadge"
@@ -11,38 +11,43 @@
     <b-row class="mt-2 mb-1" style="height: 20px">
       <b-col md="2">
 
-        <span>
           <router-link to="/stations"
                        active-class='active'
-                       class='ml-0' >
+                       class='ml-0'>
             <a>Stacje</a>
           </router-link>
 
           <router-link to="/about"
                        active-class='active'
-                       class='ml-4'>
-            <a>Pomoc</a>
-          </router-link>
-
-
-        </span>
-
+                       class='ml-5'>
+          <a>Pomoc</a>
+        </router-link>
 
       </b-col>
 
-      <b-col md="2">
+      <b-col md="1">
         <span data-test='spinner'
               v-show="loading"
-              md="1"
-              class="ml-5">
+              class="ml-4">
           <img src="../../assets/spinner5.gif" />
         </span>
 
       </b-col>
 
-      <b-col>
-        <span class="documents ml-0">&nbsp&nbsp( {{ documents }} )</span>
-        <span class="stations ml-0">&nbsp&nbsp{{ stations || 'Wszystkie stacje' }}</span>
+      <b-col md="6" class="ml-3">
+        <span class="documents">&nbsp&nbsp( {{ documents }} )</span>
+        <span class="stations">&nbsp&nbsp{{ stations || 'Wszystkie stacje' }}</span>
+      </b-col>
+
+      <b-col class='d-flex justify-content-end'>
+        <b-button data-test="btnEmail"
+                  id="btnEmail"
+                  @click="sendEmail"
+                  size="md"
+                  class="pl-3 pr-4">
+          &nbsp;&nbsp;Email&nbsp;&nbsp;
+        </b-button>
+
       </b-col>
 
     </b-row>
