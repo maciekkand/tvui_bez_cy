@@ -2,6 +2,7 @@
 
 <script>
 import { sendEmail } from '../../services/ajax'
+
 let email = ''
 let favorites = null
 

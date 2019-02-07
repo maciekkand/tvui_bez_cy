@@ -1,7 +1,9 @@
 <template src="./Stations.html"></template>
 
 <script>
-import { CANAL, DISCOVERY_NATIONAL, FILMBOX_HBO_KINO, POLSAT, POLSKIE, TVP_TVN, INNE } from '../../services/constants'
+import {
+  CANAL, DISCOVERY_NATIONAL, FILMBOX_HBO_KINO, POLSAT, POLSKIE, TVP_TVN, INNE
+} from '../../services/constants'
 
 export default {
   data() {
