@@ -15,7 +15,6 @@ export default {
       days: days(),
       categoriesList: CATEGORIES,
       loading: this.$store.getters.getLoading,
-      // selected: 'Nie, 10 Luty'
     }
   },
   computed: {
@@ -31,7 +30,6 @@ export default {
   },
   mounted() {
     if (!localStorage.getItem('vuex_ft')) {
-      // this.$refs.modalFirstTime.show()  // fixme odkomentuj jak skończysz testy !
       localStorage.setItem('vuex_ft', true)
     }
   },
@@ -49,20 +47,15 @@ export default {
       }
 
       categories.map(el => console.log(el))
-
       const todaysPrograms = this.$store.getters.getTodaysPrograms
 
       const categoryFiltered = todaysPrograms.filter(el => {
         return categories.includes(el.category)
       })
 
-      console.log('%c categoryFiltered.length = ' + categoryFiltered.length, 'color: lime')
-
       this.$store.commit('SHOW_CATEGORIES', true)
       this.$store.dispatch('setCategoryFiltered', categoryFiltered)
       this.$store.dispatch('setCategories', categories)
-      /*
-       */
 
     },
     daySelected(day) {

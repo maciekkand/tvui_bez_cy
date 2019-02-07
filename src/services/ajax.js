@@ -6,9 +6,7 @@ export const ajaxGetSelectedPrograms = context => {
   axios
     .get(url(context))
     .then(res => {
-      // context.commit('SET_LOADING', false)
       if (res.data.length > 999) alert(LITERALS.EXCESSIVE_DATA_MSG)
-      console.log('%c res.data.length = ' + res.data.length, 'color: violet')
 
       context.commit('GET_DOCUMENTS_COUNT', res.data.length)
       context.commit('START_STATIONS', res.data)
@@ -41,7 +39,6 @@ export const ajaxFindText = (context, text) => {
   query = !day && !context.getters.getStartHour && !context.getters.getStartHour ? queryText : queryHoursText
 
   const urlTextSearch = LITERALS.TV_LIST_PREFIX + query + LITERALS.TV_LIST_SUFFIX
-  console.log('%c urlTextSearch = ' + urlTextSearch, 'color: lime')
 
   axios
     .get(urlTextSearch)
@@ -67,10 +64,7 @@ export const sendEmail = (email, favorites) => {
   })
 
   html = 'Wybrane przez Ciebie programy na najbliższy tydzień:' + html
-  console.log('%c html = ' + html, 'color: lightblue')
-
   const mailUrl = proxy + '?to=' + email + '&subject=' + subject + '&html=' + html
-  console.log('%c mailUrl = ' + mailUrl, 'color: orange')
 
   axios.post(mailUrl)
     .then(() => {
