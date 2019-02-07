@@ -103,7 +103,6 @@ export default new Vuex.Store({
       state.documentsCount = documentsCount
     },
     SET_EMAIL(state, email) {
-      console.log('%c 2) SET_EMAIL email = ' + email, 'color: white')
       state.email = email
     }
   },

@@ -7,7 +7,6 @@ export const ajaxGetSelectedPrograms = context => {
     .get(url(context))
     .then(res => {
       if (res.data.length > 999) alert(LITERALS.EXCESSIVE_DATA_MSG)
-
       context.commit('GET_DOCUMENTS_COUNT', res.data.length)
       context.commit('START_STATIONS', res.data)
     })
@@ -37,13 +36,11 @@ export const ajaxFindText = (context, text) => {
   const queryText = `s={timestamp:1}&q={$or:[{"type":{"$regex":".*${text}.*",$options:"i"}},{"title":{"$regex":".*${text}.*",$options:"i"}}]}`
 
   query = !day && !context.getters.getStartHour && !context.getters.getStartHour ? queryText : queryHoursText
-
   const urlTextSearch = LITERALS.TV_LIST_PREFIX + query + LITERALS.TV_LIST_SUFFIX
 
   axios
     .get(urlTextSearch)
     .then(res => {
-      console.log('%c res.data = ' + res.data.length, 'color: white')
       context.commit('GET_DOCUMENTS_COUNT', res.data.length)
       context.commit('SHOW_CATEGORIES', false)
       context.commit('AJAX_FIND_TEXT', res.data)
@@ -59,7 +56,7 @@ export const sendEmail = (email, favorites) => {
   const subject = LITERALS.EMAIL_SUBJECT
   const proxy = LITERALS.EMAIL_PROXY
 
-  favorites.map(el => {
+  favorites.forEach(el => {
     html += '<h4>' + el.dayString + ' ' + el.time + ' ' + el.channel + ' ' + el.title + '</h4>'
   })
 
@@ -68,7 +65,6 @@ export const sendEmail = (email, favorites) => {
 
   axios.post(mailUrl)
     .then(() => {
-      console.log('Email wysłany')
       alert('Email wysłany. Sprawdź za chwilę skrzynkę')
     })
     .catch(err => console.log('Mail error: ', err))

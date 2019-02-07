@@ -20,13 +20,9 @@ export default {
       if (showFavorites) {
         return getFavorites || []
       }
-
       if (showCategories) {
-        console.log('%c showCategories = ' + showCategories, 'color: yellow')
         return this.$store.getters.getCategoryFiltered
       }
-
-      console.log('%c todaysPrograms = ' + todaysPrograms.length, 'color: yellow')
       return todaysPrograms
     },
     loading() {
