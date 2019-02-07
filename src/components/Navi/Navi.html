@@ -1,7 +1,10 @@
 <div>
   <b-container class="mb-4">
     <b-row >
-      <b-button @click="showBadge=!showBadge" style="background-color: Transparent; border: none; cursor:pointer; overflow: none; outline:none">
+      <b-button @click="showBadge=!showBadge"
+                style="background-color: Transparent; border: none; cursor:pointer; overflow: none; outline:none"
+                aria-label="badge">
+
         <img v-if="showBadge"
              src="../../assets/badge1.png"
              alt="">
@@ -40,7 +43,7 @@
                 @shown="clearEmail">
 
         <form @submit.stop.prevent="handleSubmit">
-          <b-form-input type="text" placeholder="Twój email" v-model="email" />
+          <b-form-input type="text" label="email" placeholder="Twój email" v-model="email" />
         </form>
 
       </b-modal>

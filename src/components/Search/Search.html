@@ -59,6 +59,7 @@
                        id="day"
                        v-model="day"
                        ref="day"
+                       aria-label="day"
                        @change="daySelected"
                        :options="days"
                        class="mb-3 ml-0"
@@ -69,6 +70,7 @@
         <b-form-select data-test="startHour"
                        id="startHour"
                        v-model.number="startHour"
+                       aria-label="startHour"
                        @change="startHourSelected"
                        class="mb-3 ml-0"
                        :options="startHours">
@@ -78,6 +80,7 @@
         <b-form-select data-test="endHour"
                        id="endHour"
                        v-model.number="endHour"
+                       aria-label="endHour"
                        @change="endHourSelected"
                        :options="endHours">
         </b-form-select>
@@ -86,6 +89,7 @@
         <b-form-input data-test="textSearch"
                       id="textSearch"
                       v-model="textSearch"
+                      aria-label="textSearch"
                       class="mr-2"
                       placeholder="Wpisz szukany tekst">
         </b-form-input>

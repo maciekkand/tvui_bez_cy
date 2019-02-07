@@ -23,6 +23,7 @@
       <b-col>
         <b-form-checkbox-group data-test="stationsTvpTvn"
                                v-model="selected"
+                               label="stationsTvpTvn"
                                @change="stationsSelected"
                                class="mt-0"
                                :options="tvpTvn">
@@ -36,6 +37,7 @@
       <b-col>
         <b-form-checkbox-group data-test="stationsPolsat"
                                v-model="selected"
+                               label="stationsPolsat"
                                @change="stationsSelected"
                                class="mt-0"
                                :options="polsat">
@@ -49,6 +51,7 @@
         <b-col>
           <b-form-checkbox-group data-test="stationsPolskie"
                                  v-model="selected"
+                                 label="stationsPolskie"
                                  @change="stationsSelected"
                                  class="mt-0"
                                  :options="polskie">
@@ -62,6 +65,7 @@
       <b-col>
         <b-form-checkbox-group data-test="stationsCanal"
                                v-model="selected"
+                               label="stationsCanal"
                                @change="stationsSelected"
                                class="mt-0"
                                :options="canal">
@@ -75,6 +79,7 @@
       <b-col>
         <b-form-checkbox-group data-test="stationsDiscoveryNational"
                                v-model="selected"
+                               label="stationsDiscoveryNational"
                                @change="stationsSelected"
                                class="mt-0"
                                :options="discoveryNational">
@@ -88,6 +93,7 @@
       <b-col>
         <b-form-checkbox-group data-test="stationsFilmboxHboKino"
                                v-model="selected"
+                               label="stationsFilmboxHboKino"
                                @change="stationsSelected"
                                class="mt-0"
                                :options="filmboxHboKino">
@@ -101,6 +107,7 @@
       <b-col>
         <b-form-checkbox-group data-test="stationsInne"
                                v-model="selected"
+                               label="stationsInne"
                                @change="stationsSelected"
                                class="mt-0 mb-3"
                                :options="inne">
@@ -112,16 +119,14 @@
       <b-button data-test='btnOK'
                 @click="onOK"
                 size="md"
-                class="ml-0 mr-5 mt-0 px-5 pt-2 pb-2"
-                variant="secondary">
+                class="ml-0 mr-5 mt-0 px-5 pt-2 pb-2">
         OK
       </b-button>
 
       <b-button data-test='btnReset'
                 @click="resetStations"
                 size="md"
-                class="ml-5 mt-0 px-5 pt-2 pb-2"
-                variant="secondary">
+                class="ml-5 mt-0 px-5 pt-2 pb-2">
         Kasuj
       </b-button>
     </b-row>
