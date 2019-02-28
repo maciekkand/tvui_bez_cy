@@ -6,18 +6,23 @@ import { ajaxGetSelectedPrograms, ajaxFindText } from '../services/ajax'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
-  plugins: [createPersistedState()],
-  state: {
+function initialState() {
+  return {
     day: null,
     startHour: null,
     endHour: null,
     stations: null,
     categories: null,
-    todaysPrograms: [],
+    todaysPrograms: null,
     selectedPrograms: null,
     loading: false,
-  },
+  }
+}
+
+
+export default new Vuex.Store({
+  plugins: [createPersistedState()],
+  state: initialState,
   getters: {
     getTodaysPrograms(state) {
       return state.todaysPrograms
@@ -90,6 +95,12 @@ export default new Vuex.Store({
       //console.log('savedPrograms = ', savedPrograms)
       state.todaysPrograms = savedPrograms
     },
+    RESET_STATE(state) {
+      const s = initialState()
+      Object.keys(s).forEach(key => {
+        state[key] = s[key]
+      })
+    },
   },
   actions: {
     addTodaysPrograms(context) {
@@ -124,6 +135,9 @@ export default new Vuex.Store({
     findText(context, text) {
       context.commit('SET_LOADING', true)
       ajaxFindText(context, text)
+    },
+    resetState(context) {
+      context.commit('RESET_STATE')
     },
   },
 })

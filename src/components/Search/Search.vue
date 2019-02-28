@@ -1,6 +1,7 @@
 <template src="./Search.html"></template>
 
 <script>
+import store from '../../store/store'
 import { daysForSelectBox, hoursForSelectBox } from '../../services/helpers'
 import { CATEGORIES } from '../../services/constants'
 import email from '../../services/helpers'
@@ -78,11 +79,14 @@ export default {
     },
     resetAll() {
       console.log('Reset')
-      this.selectedDay = null
-      this.selectedStartHour = null
-      this.selectedEndHour = null
+      this.day = null
+      this.startHour = null
+      this.endHour = null
+      this.categories = null
       this.textSearch = null
-      this.selectedCategories = []
+      localStorage.setItem('vuex', []),
+      this.$store.dispatch('resetState')
+
     },
     save() {
       if (typeof Storage === 'undefined') {
