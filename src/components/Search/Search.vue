@@ -8,10 +8,10 @@ import email from '../../services/helpers'
 export default {
   data() {
     return {
-      day: null,
-      startHour: null,
-      endHour: null,
-      categories: null,
+      day: this.$store.getters.getDay,
+      startHour: this.$store.getters.getStartHour,
+      endHour: this.$store.getters.getEndHour,
+      categories: this.$store.getters.getCategories,
       textSearch: null,
       days: daysForSelectBox(),
       startHours: hoursForSelectBox(this.selectedDay, false),
@@ -29,6 +29,15 @@ export default {
   methods: {
     categorySelected(categories) {
       this.$store.dispatch('setCategories', categories)
+    },
+    daySelected(day) {
+      this.$store.dispatch('setDay', day)
+    },
+    startHourSelected(startHour) {
+      this.$store.dispatch('setStartHour', startHour)
+    },
+    endHourSelected(endHour) {
+      this.$store.dispatch('setEndHour', endHour)
     },
     show() {
       if (!savedPrograms) return alert('Brak zapamiętanych programów')

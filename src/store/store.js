@@ -9,13 +9,13 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   plugins: [createPersistedState()],
   state: {
-    todaysPrograms: [],
-    selectedPrograms: null,
-    stations: null,
-    categories: null,
     day: null,
     startHour: null,
     endHour: null,
+    stations: null,
+    categories: null,
+    todaysPrograms: [],
+    selectedPrograms: null,
     loading: false,
   },
   getters: {
@@ -32,10 +32,10 @@ export default new Vuex.Store({
       return state.day
     },
     getStartHour(state) {
-      return state.getStartHour
+      return state.startHour
     },
     getEndHour(state) {
-      return state.getEndHour
+      return state.endHour
     },
     getLoading(state) {
       return state.loading
