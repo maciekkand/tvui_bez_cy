@@ -18,7 +18,7 @@ export default {
     },
   },
   created() {
-    console.log('Tu Table created()')
+    //console.log('Tu Table created()')
 
     this.$store.dispatch('setLoading', true)
     this.$store.dispatch('addTodaysPrograms')

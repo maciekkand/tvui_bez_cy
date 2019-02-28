@@ -6,7 +6,6 @@ import { LITERALS, CANAL, DISCOVERY_NATIONAL, FILMBOX_HBO_KINO, POLSAT, POLSKIE,
 export default {
   data() {
     return {
-      //selected: this.$store.getters.getStations || LITERALS.START_STATIONS,   //
       selected: null, // this.$store.getters.getStations,   //
       canal: CANAL,
       discoveryNational: DISCOVERY_NATIONAL,
@@ -18,23 +17,15 @@ export default {
     }
   },
   created() {
-    if (localStorage.getItem('stations')) {
-      this.$store.dispatch('setStations', localStorage.getItem('stations'))
-      console.log('getters.getStations', this.$store.getters.getStations)
-      this.selected = JSON.parse(localStorage.getItem('stations'))
-    }
+    this.stations = stations.length  > 45 ? stations.slice(0, 45) + '...' : stations
+    this.$store.dispatch('setStations',  this.selected)
+
+    //console.log('stations = ', stations)
   },
   methods: {
     stationsSelected(stations) {
       console.log('stations = ', stations)
-
-    if (stations.length) {
-        localStorage.setItem('stations', JSON.stringify(stations))
-        this.$store.dispatch('setStations', this.selected)
-      }
-      else {
-        localStorage.removeItem('stations')
-      }
+      this.$store.dispatch('setStations', stations)
     },
     onOK() {
       this.$router.push('/')
@@ -42,8 +33,6 @@ export default {
     resetStations() {
       this.selected = null
       this.$store.dispatch('setStations', null)
-      localStorage.removeItem('stations')
-      console.log(localStorage.getItem('stations'))
     },
   },
 }

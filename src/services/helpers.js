@@ -28,7 +28,8 @@ export const hoursForSelectBox = (selectedDay, endHour) => {
 
   if (new Date(selectedDay).toDateString() === new Date().toDateString()) {
     currentHour = new Date().getHours()
-  } else currentHour = 3
+  }
+  else currentHour = 3
 
   for (let index = currentHour; index < 24; index++) {
     const hour = {
@@ -44,7 +45,8 @@ export const hoursForSelectBox = (selectedDay, endHour) => {
       text: 'Godzina Do',
       value: null,
     })
-  } else {
+  }
+  else {
     hoursForSelectArray.unshift({
       text: 'Godzina Od',
       value: null,

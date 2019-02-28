@@ -25,32 +25,15 @@ export default {
     },
   },
   created() {
-    console.log('Tu Search created()')
-    this.categories = JSON.parse(localStorage.getItem('categories'))
-    this.startHours = localStorage.getItem('godziny').startHour
-    //this.$store.dispatch('addTodaysPrograms')
   },
   methods: {
     categorySelected(categories) {
-      console.log('categories = ', categories)
-      //console.log('item = ', item)
-      if (categories.length) {
-        localStorage.setItem('categories', JSON.stringify(categories))
-      } else {
-        localStorage.removeItem('categories')
-        // this.selectedCategories = null
-      }
+      this.$store.dispatch('setCategories', categories)
     },
     show() {
-      const savedPrograms = localStorage.getItem('savedPrograms')
-      console.log('savedPrograms = ', savedPrograms)
       if (!savedPrograms) return alert('Brak zapamiętanych programów')
-
-      this.$store.commit('ADD_SAVED_PROGRAMS', JSON.parse(localStorage.getItem('savedPrograms')))
     },
     resetFavorites() {
-      console.log('Tu resetFavorites !')
-      localStorage.removeItem('savedPrograms')
       this.$store.commit('ADD_SAVED_PROGRAMS', [])
 
       this.$store.dispatch('getSelectedPrograms', [])
@@ -58,7 +41,6 @@ export default {
     },
     email() {
       const arrSelectedPrograms = []
-      const selectedPrograms = JSON.parse(localStorage.getItem('selectedPrograms'))
 
       selectedPrograms.map(el => {
         arrSelectedPrograms.push(`${el.dayString} ${el.time} - ${el.channel} - ${el.title}\r\n`)
@@ -71,8 +53,6 @@ export default {
       if (this.textSearch) return this.$store.dispatch('findText', this.textSearch)
       if (this.selectedStartHour && this.selectedEndHour && this.selectedEndHour < this.selectedStartHour) return alert('Bład godzin')
 
-      console.log('getters.getStations = ', this.$store.getters.getStations)
-
       const time = {
         day: this.day,
         startHour: this.startHour,
@@ -84,10 +64,6 @@ export default {
         stations: this.$store.getters.getStations,
       })
 
-      console.log('searchData = ', searchData)
-
-      localStorage.setItem('godziny', JSON.stringify(time))
-
       this.$store.dispatch('getSelectedPrograms', searchData)
       this.$store.dispatch('setLoading', true)
     },
@@ -98,21 +74,14 @@ export default {
       this.selectedEndHour = null
       this.textSearch = null
       this.selectedCategories = []
-
-      localStorage.removeItem('categories')
     },
     save() {
-      console.log('Tu Save: zapisuję do localStorage')
-
       if (typeof Storage === 'undefined') {
         return alert('Sorry! Nie zapamiętam programów, bo Twoja przeglądarka nie wspiera localStorage')
       }
 
-      const oldSelectedPrograms = JSON.parse(localStorage.getItem('selectedPrograms')) || []
       const currentSelectedPrograms = this.$store.getters.getSelectedPrograms
       const allSelectedPrograms = oldSelectedPrograms.concat(currentSelectedPrograms)
-
-      localStorage.setItem('savedPrograms', JSON.stringify(allSelectedPrograms))
       this.$store.commit('ADD_TODAYS_PROGRAMS')
     },
   },

@@ -6,9 +6,9 @@ export default ({ day, startHour, endHour, categories, stations } =
     stations: JSON.stringify(LITERALS.START_STATIONS)}) => {
 
   let query = ''
-  console.log('day = ', day)
-  console.log('startHour = ', startHour)
-  console.log('endHour = ', endHour)
+  //console.log('day = ', day)
+  //console.log('startHour = ', startHour)
+  //console.log('endHour = ', endHour)
 
   categories ? (categories = JSON.stringify(categories)) : null
 
@@ -18,11 +18,11 @@ export default ({ day, startHour, endHour, categories, stations } =
   const x = new Date().setUTCHours(startHour, 0, 0, 0)
   const y = new Date().setUTCHours(day * 24 + new Date().getHours(), 0, 0, 0)
 
-  console.log('x = ', new Date(x))
-  console.log('y = ', new Date(y))
+  //console.log('x = ', new Date(x))
+  //console.log('y = ', new Date(y))
 
-  console.log('start = ', new Date(start))
-  console.log('end = ', new Date(end))
+  //console.log('start = ', new Date(start))
+  //console.log('end = ', new Date(end))
 
   //const queryHours = `s={timestamp:1}&q={"timestamp":{$gte:${nowHour}},$and:[{"timestamp":{$lt:${todayEnd}}}]}`
   const queryHours = `s={timestamp:1}&q={"timestamp":{$gte:${start}},$and:[{"timestamp":{$lte:${end}}}`
@@ -31,16 +31,19 @@ export default ({ day, startHour, endHour, categories, stations } =
   const queryCategoriesStations = `${queryHours},{$and:[{"category":{$in:${categories}}},{$and:[{"channel":{$in:${stations}}}]}]}]}`
 
   if (categories && stations) {
-    console.log('****** queryCategoriesStations')
+    //console.log('****** queryCategoriesStations')
     query = queryCategoriesStations
-  } else if (categories) {
-    console.log('****** queryCategories')
+  }
+  else if (categories) {
+    //console.log('****** queryCategories')
     query = queryCategories
-  } else if (stations) {
-    console.log('****** queryStations')
+  }
+  else if (stations) {
+    //console.log('****** queryStations')
     query = queryStations
-  } else {
-    console.log('****** queryHours')
+  }
+  else {
+    //console.log('****** queryHours')
     query = `${queryHours}]}`
   }
 
@@ -50,6 +53,6 @@ export default ({ day, startHour, endHour, categories, stations } =
   //const urlString = LITERALS.TV_LIST_PREFIX + queryCategoriesStations + LITERALS.TV_LIST_SUFFIX
   const urlString = LITERALS.TV_LIST_PREFIX + query + LITERALS.TV_LIST_SUFFIX
 
-  console.log('urlString = ', urlString)
+  //console.log('urlString = ', urlString)
   return urlString
 }

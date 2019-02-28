@@ -1,10 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { ajaxAddTodaysPrograms, ajaxGetSelectedPrograms, ajaxFindText } from '../services/ajax'
+import createPersistedState from 'vuex-persistedstate'
+
+import { ajaxGetSelectedPrograms, ajaxFindText } from '../services/ajax'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  plugins: [createPersistedState()],
   state: {
     todaysPrograms: [],
     selectedPrograms: null,
@@ -27,43 +30,45 @@ export default new Vuex.Store({
   },
   mutations: {
     ADD_TODAYS_PROGRAMS(state, todaysPrograms) {
-      // console.log('ADD_TODAYS_PROGRAMS')
-      // console.log('todaysPrograms = ', JSON.stringify(todaysPrograms))
-      // console.table(todaysPrograms, ['title'])
+      // //console.log('ADD_TODAYS_PROGRAMS')
+      // //console.log('todaysPrograms = ', JSON.stringify(todaysPrograms))
+      // //console.table(todaysPrograms, ['title'])
 
       state.todaysPrograms = todaysPrograms || state.selectedPrograms
 
       if (todaysPrograms) {
-        //console.log('todaysPrograms = ', todaysPrograms)
-        //console.table(todaysPrograms, ['title'])
+        ////console.log('todaysPrograms = ', todaysPrograms)
+        ////console.table(todaysPrograms, ['title'])
         state.loading = true
       }
 
       // state.selectedPrograms = []
     },
     SET_STATIONS(state, stations) {
-      console.log('SET_STATIONS = ', stations)
       state.stations = stations
+    },
+    SET_CATEGORIES(state, categories) {
+      state.categories = categories
     },
     SET_LOADING(state, loadingStatus) {
       state.loading = loadingStatus
     },
     ADD_SELECTED_PROGRAMS(state, selectedPrograms) {
-      // console.table(selectedPrograms, ['title'])
+      // //console.table(selectedPrograms, ['title'])
       state.selectedPrograms = selectedPrograms
     },
     AJAX_FIND_TEXT(state, foundPrograms) {
-      console.log('foundPrograms = ', foundPrograms)
+      //console.log('foundPrograms = ', foundPrograms)
       state.todaysPrograms = foundPrograms
     },
     ADD_SAVED_PROGRAMS(state, savedPrograms) {
-      console.log('savedPrograms = ', savedPrograms)
+      //console.log('savedPrograms = ', savedPrograms)
       state.todaysPrograms = savedPrograms
-    }
+    },
   },
   actions: {
     addTodaysPrograms(context) {
-      console.log('addTodaysPrograms')
+      //console.log('addTodaysPrograms')
       //const nullObj = { day: null, startHour:, endHour, categories, stations }
       ajaxGetSelectedPrograms(context)
     },
@@ -72,6 +77,9 @@ export default new Vuex.Store({
     },
     setStations(context, stations) {
       context.commit('SET_STATIONS', stations)
+    },
+    setCategories(context, categories) {
+      context.commit('SET_CATEGORIES', categories)
     },
     setLoading(context, loadingStatus) {
       context.commit('SET_LOADING', loadingStatus)
