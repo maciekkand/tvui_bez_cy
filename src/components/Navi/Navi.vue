@@ -6,9 +6,6 @@ import { LITERALS } from '../../services/constants'
 export default {
   data() {
     return {
-      // stations: null  // || LITERALS.START_STATIONS.join(', ').slice(0, 44)
-      //stations: this.$store.getters.getStations.length  > 45 ? this.$store.getters.getStations.slice(0, 45) + '...' : this.$store.getters.getStations
-      //stations: null
       stations: this.$store.getters.getStations.join(', ').length > 45 ?  this.$store.getters.getStations.join(', ').slice(0, 45) + '...' :  this.$store.getters.getStations.join(', ')
     }
   },

@@ -12,6 +12,10 @@ export default new Vuex.Store({
     todaysPrograms: [],
     selectedPrograms: null,
     stations: null,
+    categories: null,
+    day: null,
+    startHour: null,
+    endHour: null,
     loading: false,
   },
   getters: {
@@ -20,6 +24,18 @@ export default new Vuex.Store({
     },
     getStations(state) {
       return state.stations
+    },
+    getCategories(state) {
+      return state.categories
+    },
+    getDay(state) {
+      return state.day
+    },
+    getStartHour(state) {
+      return state.getStartHour
+    },
+    getEndHour(state) {
+      return state.getEndHour
     },
     getLoading(state) {
       return state.loading
@@ -49,6 +65,15 @@ export default new Vuex.Store({
     },
     SET_CATEGORIES(state, categories) {
       state.categories = categories
+    },
+    SET_DAY(state, day) {
+      state.day = day
+    },
+    SET_START_HOUR(state, startHour) {
+      state.startHour = startHour
+    },
+    SET_END_HOUR(state, endHour) {
+      state.endHour = endHour
     },
     SET_LOADING(state, loadingStatus) {
       state.loading = loadingStatus
@@ -80,6 +105,15 @@ export default new Vuex.Store({
     },
     setCategories(context, categories) {
       context.commit('SET_CATEGORIES', categories)
+    },
+    setDay(context, day) {
+      context.commit('SET_DAY', day)
+    },
+    setStartHour(context, startHour) {
+      context.commit('SET_START_HOUR', startHour)
+    },
+    setEndHour(context, endHour) {
+      context.commit('SET_END_HOUR', endHour)
     },
     setLoading(context, loadingStatus) {
       context.commit('SET_LOADING', loadingStatus)
