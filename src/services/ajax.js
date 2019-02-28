@@ -19,7 +19,7 @@ export const ajaxGetSelectedPrograms = (context, searchData) => {
   //console.log('searchData = ', searchData)
 
   axios
-    .get(url(searchData))
+    .get(url(context))
     .then(res => {
       if (res.data.length > 999) alert('Zawęż przedział czasu, ilość kanałów lub kategorii, bo teraz część późniejszych programów nie jest wyświetlana')
       context.commit('ADD_TODAYS_PROGRAMS', res.data)
