@@ -41,12 +41,7 @@ export default {
     endHourSelected(endHour) {
       this.$store.dispatch('setEndHour', endHour)
     },
-    resetFavorites() {
-      this.$store.commit('ADD_SAVED_PROGRAMS', [])
 
-      this.$store.dispatch('getSelectedPrograms', [])
-      this.$store.dispatch('setLoading', true)
-    },
     email() {
       const arrSelectedPrograms = []
 
@@ -82,16 +77,23 @@ export default {
       this.endHour = null
       this.categories = null
       this.textSearch = null
-      localStorage.setItem('vuex', []),
+      // localStorage.setItem('vuex', []),
       this.$store.dispatch('resetState')
 
     },
     show() {
+      console.log('Tu Search: show()')
       const currentSelectedPrograms = this.$store.getters.getSelectedPrograms
       currentSelectedPrograms ? console.log('currentSelectedPrograms = ', currentSelectedPrograms) : null
       this.$store.commit('ADD_TODAYS_PROGRAMS')
       //this.$store.commit('ADD_SAVED_PROGRAMS', [])
       //if (!savedPrograms) return alert('Brak zapamiętanych programów')
+    },
+    resetFavorites() {
+      this.$store.commit('ADD_SAVED_PROGRAMS', [])
+      this.$store.dispatch('resetFavorites')
+      this.$store.dispatch('getSelectedPrograms', [])
+      this.$store.dispatch('setLoading', true)
     },
   },
 }

@@ -19,7 +19,6 @@ function initialState() {
   }
 }
 
-
 export default new Vuex.Store({
   plugins: [createPersistedState()],
   state: initialState,
@@ -86,8 +85,12 @@ export default new Vuex.Store({
     RESET_STATE(state) {
       const s = initialState()
       Object.keys(s).forEach(key => {
-        state[key] = s[key]
+        console.log('key = ', key)
+        if (key !== 'selectedPrograms') state[key] = s[key]
       })
+    },
+    RESET_FAVORITES(state) {
+      state['selectedPrograms'] = initialState()['selectedPrograms']
     },
   },
   actions: {
@@ -95,6 +98,7 @@ export default new Vuex.Store({
       ajaxGetSelectedPrograms(context)
     },
     getSelectedPrograms(context, searchData) {
+      console.log('searchData = ', searchData)
       ajaxGetSelectedPrograms(context, searchData)
     },
     setStations(context, stations) {
@@ -127,6 +131,9 @@ export default new Vuex.Store({
     },
     resetState(context) {
       context.commit('RESET_STATE')
+    },
+    resetFavorites(context) {
+      context.commit('RESET_FAVORITES')
     },
   },
 })

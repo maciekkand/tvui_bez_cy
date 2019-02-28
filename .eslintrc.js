@@ -14,6 +14,7 @@ module.exports = {
     'computed-property-spacing': 0,
     // 'comma-dangle': ['error', 'only-multiline'],
     'consistent-return': 'off',
+    'dot-notation':'off',
     'func-call-spacing': 0,
     'import/prefer-default-export': 'warn',
     // indent: ['error', 2],
