@@ -29,6 +29,7 @@ export default {
   },
   methods: {
     categorySelected(categories) {
+      console.log('categories = ', categories)
       this.$store.dispatch('setCategories', categories)
     },
     daySelected(day) {
@@ -39,9 +40,6 @@ export default {
     },
     endHourSelected(endHour) {
       this.$store.dispatch('setEndHour', endHour)
-    },
-    show() {
-      if (!savedPrograms) return alert('Brak zapamiętanych programów')
     },
     resetFavorites() {
       this.$store.commit('ADD_SAVED_PROGRAMS', [])
@@ -61,7 +59,7 @@ export default {
     },
     search() {
       if (this.textSearch) return this.$store.dispatch('findText', this.textSearch)
-      if (this.selectedStartHour && this.selectedEndHour && this.selectedEndHour < this.selectedStartHour) return alert('Bład godzin')
+      if (this.selectedStartHour && this.selectedEndHour && this.selectedEndHour < this.selectedStartHour) return alert('Błąd godzin')
 
       const time = {
         day: this.day,
@@ -88,14 +86,12 @@ export default {
       this.$store.dispatch('resetState')
 
     },
-    save() {
-      if (typeof Storage === 'undefined') {
-        return alert('Sorry! Nie zapamiętam programów, bo Twoja przeglądarka nie wspiera localStorage')
-      }
-
+    show() {
       const currentSelectedPrograms = this.$store.getters.getSelectedPrograms
-      const allSelectedPrograms = oldSelectedPrograms.concat(currentSelectedPrograms)
+      currentSelectedPrograms ? console.log('currentSelectedPrograms = ', currentSelectedPrograms) : null
       this.$store.commit('ADD_TODAYS_PROGRAMS')
+      //this.$store.commit('ADD_SAVED_PROGRAMS', [])
+      //if (!savedPrograms) return alert('Brak zapamiętanych programów')
     },
   },
 }

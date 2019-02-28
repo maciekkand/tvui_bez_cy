@@ -51,19 +51,10 @@ export default new Vuex.Store({
   },
   mutations: {
     ADD_TODAYS_PROGRAMS(state, todaysPrograms) {
-      // //console.log('ADD_TODAYS_PROGRAMS')
-      // //console.log('todaysPrograms = ', JSON.stringify(todaysPrograms))
-      // //console.table(todaysPrograms, ['title'])
-
       state.todaysPrograms = todaysPrograms || state.selectedPrograms
-
       if (todaysPrograms) {
-        ////console.log('todaysPrograms = ', todaysPrograms)
-        ////console.table(todaysPrograms, ['title'])
         state.loading = true
       }
-
-      // state.selectedPrograms = []
     },
     SET_STATIONS(state, stations) {
       state.stations = stations
@@ -84,15 +75,12 @@ export default new Vuex.Store({
       state.loading = loadingStatus
     },
     ADD_SELECTED_PROGRAMS(state, selectedPrograms) {
-      // //console.table(selectedPrograms, ['title'])
       state.selectedPrograms = selectedPrograms
     },
     AJAX_FIND_TEXT(state, foundPrograms) {
-      //console.log('foundPrograms = ', foundPrograms)
       state.todaysPrograms = foundPrograms
     },
     ADD_SAVED_PROGRAMS(state, savedPrograms) {
-      //console.log('savedPrograms = ', savedPrograms)
       state.todaysPrograms = savedPrograms
     },
     RESET_STATE(state) {
@@ -104,8 +92,6 @@ export default new Vuex.Store({
   },
   actions: {
     addTodaysPrograms(context) {
-      //console.log('addTodaysPrograms')
-      //const nullObj = { day: null, startHour:, endHour, categories, stations }
       ajaxGetSelectedPrograms(context)
     },
     getSelectedPrograms(context, searchData) {
@@ -115,6 +101,9 @@ export default new Vuex.Store({
       context.commit('SET_STATIONS', stations)
     },
     setCategories(context, categories) {
+      console.log('categories = ', categories)
+      console.log('typeof categories = ', typeof categories)
+      console.log(Array.isArray(categories))
       context.commit('SET_CATEGORIES', categories)
     },
     setDay(context, day) {

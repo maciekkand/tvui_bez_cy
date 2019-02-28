@@ -215,4 +215,7 @@ https://api.mlab.com/api/1/databases/tvui/collections/tvui1?s={id:1}&apiKey=XRr-
 
 mongoimport --db local --collection tv1 --type json --file tv1.json -h 127.0.0.1:27017 --jsonArray
 
+
+UWAGA !!
+  Jeśli upload się wywala, pdszukaj nr rekordu którym wymienia, i wytnij komunikat o błędzie ('Error ...)
 */
