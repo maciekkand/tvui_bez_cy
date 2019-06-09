@@ -10,8 +10,10 @@ const days = () => {
   })
 
   for (let index = 0; index < 7; index++) {
-    //const startOfDay = new Date().setUTCHours(index * 24, 0, 0, 0)
-    const startOfDay = new Date('Mar 20 2019').setUTCHours(index * 24, 0, 0, 0)
+    const startOfDay = new Date('Jun 11 2019').setUTCHours(index * 24, 0, 0, 0)
+    console.log('%c startOfDay = ' + startOfDay, 'color: white')
+
+
     const dayName = weekDayNames[new Date(startOfDay).getDay()]
     const dayOfMonth = new Date(startOfDay).getDate()
     const monthName = monthNames[new Date(startOfDay).getMonth()]
@@ -24,6 +26,8 @@ const days = () => {
 
     daysForSelectBox.push(dayObj)
   }
+
+  // console.log('%c daysForSelectBox = ' + JSON.stringify(daysForSelectBox), 'color: white')
 
   return daysForSelectBox
 }
