@@ -1,13 +1,11 @@
 {
-  "name": "tvui",
+  "name": "tvui_bez_cy",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint > _lint.js",
-    "cy": "vue-cli-service test:e2e",
-    "cydev": "vue-cli-service serve",
     "deploy": "npm run build && cd dist && now",
     "devbuild": "npm run build && serve -s dist",
     "test": "jest --watchAll",
@@ -28,13 +26,10 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.4.0",
-    "@vue/cli-plugin-e2e-cypress": "^3.4.0",
     "@vue/cli-plugin-eslint": "^3.4.0",
     "@vue/cli-service": "^3.4.0",
     "@vue/eslint-config-airbnb": "^4.0.0",
     "babel-eslint": "^10.0.1",
-    "cypress": "3.1.4",
-    "cypress-vue-unit-test": "1.11.0",
     "eslint": "^5.13.0",
     "eslint-config-prettier": "4.0.0",
     "eslint-plugin-prettier": "3.0.1",

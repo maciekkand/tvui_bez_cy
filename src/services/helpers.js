@@ -10,7 +10,7 @@ const days = () => {
   })
 
   for (let index = 0; index < 7; index++) {
-    const startOfDay = new Date('Jun 11 2019').setUTCHours(index * 24, 0, 0, 0)
+    const startOfDay = new Date('Sep 16 2019').setUTCHours(index * 24, 0, 0, 0)
     console.log('%c startOfDay = ' + startOfDay, 'color: white')
 
 
